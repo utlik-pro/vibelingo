@@ -21,6 +21,13 @@ interface TelegramWebApp {
   isVerticalSwipesEnabled: boolean;
   isFullscreen?: boolean;
   version?: string;
+  BackButton: {
+    show: () => void;
+    hide: () => void;
+    onClick: (cb: () => void) => void;
+    offClick: (cb: () => void) => void;
+    isVisible: boolean;
+  };
 }
 
 declare global {

@@ -48,6 +48,36 @@ export default function App() {
   const [battleActive, setBattleActive] = useState(false);
   const [showCertificates, setShowCertificates] = useState(false);
 
+  // Telegram BackButton management
+  const tgBackButton = window.Telegram?.WebApp?.BackButton;
+
+  const handleBack = useCallback(() => {
+    if (showPayment) { setShowPayment(false); return; }
+    if (showShare) { setShowShare(false); return; }
+    if (showCertificates) { setShowCertificates(false); return; }
+    if (showComplete) { setShowComplete(false); setScreen("learn"); return; }
+    if (battleActive) { setBattleActive(false); return; }
+    if (screen === "lesson" && currentLesson) { setScreen("learn"); setCurrentLesson(null); return; }
+    if (screen !== "home") { setScreen("home"); return; }
+  }, [showPayment, showShare, showCertificates, showComplete, battleActive, screen, currentLesson]);
+
+  useEffect(() => {
+    if (!tgBackButton) return;
+
+    const needsBack = screen !== "home" || showPayment || showShare || showCertificates || showComplete || battleActive;
+
+    if (needsBack && !showOnboarding) {
+      tgBackButton.show();
+      tgBackButton.onClick(handleBack);
+    } else {
+      tgBackButton.hide();
+    }
+
+    return () => {
+      tgBackButton.offClick(handleBack);
+    };
+  }, [screen, showPayment, showShare, showCertificates, showComplete, battleActive, showOnboarding, handleBack, tgBackButton]);
+
   // Load progress from database on mount
   useEffect(() => {
     let cancelled = false;
