@@ -102,13 +102,62 @@ export function BattlePlayScreen({ onClose, onXPEarned }: BattlePlayScreenProps)
 
     setTimeout(() => {
       setShowEvaluating(false);
-      const hasText = userText.trim().length > 0;
-      const winChance = hasText ? 0.6 : 0.3;
-      const didWin = Math.random() < winChance;
-      const earned = didWin ? challenge.xpReward : Math.floor(challenge.xpReward / 2);
+      const text = userText.trim();
+
+      // Score the prompt quality (0-100)
+      let score = 0;
+
+      // Empty = automatic lose
+      if (text.length === 0) {
+        score = 0;
+      } else {
+        // Length: short prompts are weak (need at least 30 chars for decent)
+        if (text.length < 10) score += 5;
+        else if (text.length < 30) score += 15;
+        else if (text.length < 80) score += 30;
+        else if (text.length < 150) score += 40;
+        else score += 50;
+
+        // Word count: more detail = better
+        const words = text.split(/\s+/).filter(Boolean).length;
+        if (words >= 5) score += 10;
+        if (words >= 15) score += 10;
+        if (words >= 30) score += 10;
+
+        // Keywords that show prompt quality
+        const qualityKeywords = [
+          "color", "цвет", "font", "шрифт", "layout", "design", "дизайн",
+          "section", "секция", "button", "кнопка", "header", "hero",
+          "responsive", "адаптив", "mobile", "мобил", "dark", "тёмн", "темн",
+          "animation", "анимац", "gradient", "градиент", "shadow", "тень",
+          "margin", "padding", "flex", "grid", "tailwind", "react",
+          "component", "компонент", "style", "стиль", "minimal", "минимал",
+          "modern", "современ", "clean", "чист",
+        ];
+        const lowerText = text.toLowerCase();
+        const matchedKeywords = qualityKeywords.filter((kw) => lowerText.includes(kw));
+        score += Math.min(matchedKeywords.length * 5, 30);
+
+        // Penalty for gibberish (same char repeated, keyboard mashing)
+        const uniqueChars = new Set(text.toLowerCase().replace(/\s/g, "")).size;
+        if (uniqueChars < 5) score = Math.max(score - 30, 5);
+      }
+
+      // Compare against opponent skill (0-100)
+      const opponentScore = (opponent?.skill ?? 50) + (Math.random() * 20 - 10);
+      const didWin = score > opponentScore;
+
+      // XP: full if win, 25% if lose with effort, 0 if empty
+      let earned = 0;
+      if (didWin) {
+        earned = challenge.xpReward;
+      } else if (text.length > 0) {
+        earned = Math.floor(challenge.xpReward * 0.25);
+      }
+
       setResult(didWin ? "win" : "lose");
       setXpEarned(earned);
-      onXPEarned(earned);
+      if (earned > 0) onXPEarned(earned);
     }, 2000);
   }, [userText, challenge.xpReward, onXPEarned]);
 
