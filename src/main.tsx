@@ -6,6 +6,18 @@ import { I18nProvider } from './lib/i18n.tsx'
 import { AuthProvider } from './lib/auth.tsx'
 import { ThemeProvider } from './lib/theme.tsx'
 
+// Telegram Mini App: expand to full screen
+const tgWebApp = window.Telegram?.WebApp;
+if (tgWebApp) {
+  tgWebApp.expand();
+  tgWebApp.enableClosingConfirmation?.();
+  tgWebApp.isVerticalSwipesEnabled = false;
+  // Set header color to match theme
+  tgWebApp.setHeaderColor?.('#F8F7FC');
+  tgWebApp.setBackgroundColor?.('#F8F7FC');
+  tgWebApp.ready();
+}
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ThemeProvider>

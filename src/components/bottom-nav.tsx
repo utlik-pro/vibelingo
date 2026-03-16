@@ -20,7 +20,7 @@ export function BottomNav({
   const { t } = useI18n();
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 flex justify-around py-3 pb-5 bg-card/95 backdrop-blur-xl shadow-[0_-2px_12px_rgba(108,92,231,0.06)] z-50">
+    <div className="fixed bottom-0 left-0 right-0 flex justify-around py-3 bg-card/95 backdrop-blur-xl shadow-[0_-2px_12px_rgba(108,92,231,0.06)] z-50" style={{ paddingBottom: 'max(12px, env(safe-area-inset-bottom))' }}>
       {tabConfig.map((tab) => {
         const isActive = screen === tab.id;
         const Icon = tab.icon;

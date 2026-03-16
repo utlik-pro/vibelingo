@@ -12,6 +12,12 @@ interface TelegramWebApp {
       photo_url?: string;
     };
   };
+  expand: () => void;
+  ready: () => void;
+  enableClosingConfirmation?: () => void;
+  setHeaderColor?: (color: string) => void;
+  setBackgroundColor?: (color: string) => void;
+  isVerticalSwipesEnabled: boolean;
 }
 
 declare global {
