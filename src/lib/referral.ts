@@ -5,7 +5,7 @@ export function generateReferralCode(userId: string): string {
 
 // Get referral link
 export function getReferralLink(code: string): string {
-  return `https://t.me/vibelingo_bot?start=${code}`;
+  return `https://t.me/vibelingo_learn_bot?start=${code}`;
 }
 
 // Track referral in localStorage (simple version)

@@ -153,6 +153,7 @@ const translations: Record<string, Record<string, string>> = {
     "share.streakDays": "{n} days",
     "share.learnFree": "Learn vibecoding for free",
     "share.close": "Close",
+    "share.shareNow": "Share",
 
     // Common
     "common.xp": "XP",
@@ -377,6 +378,7 @@ const translations: Record<string, Record<string, string>> = {
     "share.streakDays": "{n} дней",
     "share.learnFree": "Учись вайбкодингу бесплатно",
     "share.close": "Закрыть",
+    "share.shareNow": "Поделиться",
 
     // Common
     "common.xp": "XP",
