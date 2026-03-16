@@ -13,6 +13,15 @@ if (tgWebApp) {
   tgWebApp.expand();
   tgWebApp.enableClosingConfirmation?.();
   tgWebApp.isVerticalSwipesEnabled = false;
+  // Also call method version if available
+  try { (tgWebApp as any).disableVerticalSwipes?.(); } catch {}
+  // Prevent pull-to-close via touch events
+  document.addEventListener('touchmove', (e) => {
+    if (e.touches.length === 1) {
+      const touch = e.touches[0];
+      if (touch.clientY < 50) e.preventDefault();
+    }
+  }, { passive: false });
   tgWebApp.setHeaderColor?.('secondary_bg_color');
   tgWebApp.setBackgroundColor?.('secondary_bg_color');
 
