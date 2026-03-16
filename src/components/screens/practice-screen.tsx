@@ -52,14 +52,14 @@ function ChallengeDetail({
 
   if (submitted) {
     return (
-      <div className="px-5 py-4 bg-background min-h-full flex flex-col items-center justify-center text-center tg-safe-top">
+      <div className="px-5 py-4 bg-background min-h-full flex flex-col items-center justify-center text-center">
         <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mb-4 animate-[fadeIn_0.4s_ease]">
           <CheckCircle className="w-10 h-10 text-green-500" />
         </div>
         <h2 className="text-[22px] font-extrabold text-foreground mb-2 animate-[fadeIn_0.4s_ease_0.1s_both]">
           {t("practice.submitted")}
         </h2>
-        <p className="text-[15px] text-gray-500 mb-6 animate-[fadeIn_0.4s_ease_0.2s_both]">
+        <p className="text-[15px] text-muted-foreground mb-6 animate-[fadeIn_0.4s_ease_0.2s_both]">
           {t("practice.xpEarned", { xp: String(challenge.xpReward) })}
         </p>
         <Button
@@ -73,14 +73,14 @@ function ChallengeDetail({
   }
 
   return (
-    <div className="px-5 py-4 bg-background min-h-full tg-safe-top">
+    <div className="px-5 py-4 bg-background min-h-full">
       {/* Header */}
       <div className="flex items-center gap-3 mb-5 animate-[fadeIn_0.3s_ease]">
         <button
           onClick={onBack}
-          className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center border-none cursor-pointer"
+          className="w-10 h-10 rounded-full bg-muted flex items-center justify-center border-none cursor-pointer"
         >
-          <ArrowLeft className="w-5 h-5 text-gray-600" />
+          <ArrowLeft className="w-5 h-5 text-foreground/80" />
         </button>
         <div className="flex-1 min-w-0">
           <h2 className="text-[17px] font-extrabold text-foreground truncate">{title}</h2>
@@ -88,7 +88,7 @@ function ChallengeDetail({
       </div>
 
       {/* Challenge info */}
-      <div className="p-4 rounded-2xl bg-gray-50 border border-gray-100 mb-5 animate-[slideIn_0.4s_ease_both]">
+      <div className="p-4 rounded-2xl bg-muted/50 border border-border mb-5 animate-[slideIn_0.4s_ease_both]">
         <div className="flex items-center gap-2 mb-3">
           <DifficultyBadge difficulty={challenge.difficulty} />
           {tool && (
@@ -100,7 +100,7 @@ function ChallengeDetail({
             +{challenge.xpReward} XP
           </span>
         </div>
-        <p className="text-[14px] text-gray-600 leading-relaxed">{description}</p>
+        <p className="text-[14px] text-foreground/80 leading-relaxed">{description}</p>
       </div>
 
       {/* Hints section */}
@@ -140,7 +140,7 @@ function ChallengeDetail({
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           placeholder={t("battle.promptPlaceholder")}
-          className="w-full h-36 p-4 rounded-2xl border-2 border-gray-100 bg-white text-[14px] text-foreground placeholder:text-gray-300 focus:border-purple-300 focus:outline-none resize-none transition-colors"
+          className="w-full h-36 p-4 rounded-2xl border-2 border-border bg-card text-[14px] text-foreground placeholder:text-muted-foreground focus:border-purple-300 focus:outline-none resize-none transition-colors"
         />
       </div>
 
@@ -209,7 +209,7 @@ export function PracticeScreen({ onXPEarned }: PracticeScreenProps) {
   }
 
   return (
-    <div className="px-5 py-4 bg-background min-h-full tg-safe-top">
+    <div className="px-5 py-4 bg-background min-h-full">
       {/* Header */}
       <div className="mb-5 animate-[fadeIn_0.3s_ease]">
         <h1 className="text-[22px] font-extrabold text-foreground mb-1">{t("practice.title")}</h1>
@@ -227,7 +227,7 @@ export function PracticeScreen({ onXPEarned }: PracticeScreenProps) {
             <button
               key={challenge.id}
               onClick={() => setSelectedChallenge(challenge)}
-              className="w-full p-4 rounded-2xl bg-white border-2 text-left transition-all cursor-pointer animate-[slideIn_0.4s_ease_both] hover:shadow-[0_4px_16px_rgba(147,51,234,0.1)]"
+              className="w-full p-4 rounded-2xl bg-card border-2 text-left transition-all cursor-pointer animate-[slideIn_0.4s_ease_both] hover:shadow-[0_4px_16px_rgba(147,51,234,0.1)]"
               style={{
                 animationDelay: `${i * 60}ms`,
                 borderColor: isCompleted ? "#D8B4FE" : "#F3F4F6",

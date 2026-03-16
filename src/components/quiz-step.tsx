@@ -15,7 +15,7 @@ export function QuizStep({
 }) {
   return (
     <div>
-      <p className="text-[17px] font-semibold text-gray-900 leading-relaxed mb-5">
+      <p className="text-[17px] font-semibold text-foreground leading-relaxed mb-5">
         {step.question}
       </p>
       <div className="flex flex-col gap-3">
@@ -29,10 +29,10 @@ export function QuizStep({
               onClick={() => !answered && onAnswer(i)}
               className={cn(
                 "flex items-center gap-3 px-4 py-4 rounded-2xl border-2 text-sm font-medium text-left transition-all duration-200",
-                !answered && "bg-white border-gray-100 text-gray-900 hover:border-purple-200 hover:shadow-[0_2px_12px_rgba(147,51,234,0.08)] cursor-pointer",
+                !answered && "bg-card border-border text-foreground hover:border-purple-200 hover:shadow-[0_2px_12px_rgba(147,51,234,0.08)] cursor-pointer",
                 answered && isCorrect && "bg-green-50 border-green-300 text-green-700",
                 answered && isSelected && !isCorrect && "bg-red-50 border-red-300 text-red-700",
-                answered && !isCorrect && !isSelected && "bg-white border-gray-100 text-gray-400",
+                answered && !isCorrect && !isSelected && "bg-card border-border text-muted-foreground",
                 answered && "cursor-default"
               )}
             >
@@ -42,7 +42,7 @@ export function QuizStep({
                   !answered && "bg-purple-100 text-purple-600",
                   answered && isCorrect && "bg-green-500 text-white",
                   answered && isSelected && !isCorrect && "bg-red-500 text-white",
-                  answered && !isCorrect && !isSelected && "bg-gray-100 text-gray-400"
+                  answered && !isCorrect && !isSelected && "bg-muted text-muted-foreground"
                 )}
               >
                 {answered && isCorrect ? (

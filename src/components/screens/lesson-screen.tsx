@@ -50,7 +50,7 @@ export function LessonScreen({
       <div className="px-4 py-3 flex items-center gap-3">
         <button
           onClick={onClose}
-          className="text-gray-400 cursor-pointer p-1.5 hover:text-gray-600 transition-colors bg-transparent border-none rounded-full hover:bg-muted"
+          className="text-muted-foreground cursor-pointer p-1.5 hover:text-foreground transition-colors bg-transparent border-none rounded-full hover:bg-muted"
         >
           <X className="w-5 h-5" />
         </button>
@@ -64,7 +64,7 @@ export function LessonScreen({
         {/* Hearts */}
         <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-red-50">
           <Heart className="w-4 h-4 text-red-500 fill-red-500" />
-          <span className={`text-sm font-bold ${hearts <= 1 ? "text-red-500" : "text-gray-700"}`}>
+          <span className={`text-sm font-bold ${hearts <= 1 ? "text-red-500" : "text-foreground"}`}>
             {hearts}
           </span>
         </div>
@@ -77,7 +77,7 @@ export function LessonScreen({
             <h2 className="text-[24px] font-extrabold text-foreground mb-4 text-center leading-tight">
               {localizedStep.title}
             </h2>
-            <p className="text-[16px] text-gray-500 leading-[1.7] text-center max-w-[340px]">
+            <p className="text-[16px] text-muted-foreground leading-[1.7] text-center max-w-[340px]">
               {localizedStep.content}
             </p>
           </div>

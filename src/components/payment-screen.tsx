@@ -111,7 +111,7 @@ export function PaymentScreen({ onClose }: { onClose: () => void }) {
       <div className="px-5 pt-4 pb-6">
         <button
           onClick={onClose}
-          className="text-muted-foreground mb-4 cursor-pointer bg-transparent border-none p-1.5 rounded-full hover:bg-gray-100 transition-colors"
+          className="text-muted-foreground mb-4 cursor-pointer bg-transparent border-none p-1.5 rounded-full hover:bg-muted transition-colors"
         >
           <XIcon className="w-6 h-6" />
         </button>
@@ -139,7 +139,7 @@ export function PaymentScreen({ onClose }: { onClose: () => void }) {
               "p-5 rounded-2xl cursor-pointer transition-all duration-200 animate-[slideIn_0.4s_ease_both] relative bg-card",
               selectedPlan === plan.id
                 ? "border-2 border-purple-500 shadow-[0_4px_20px_rgba(147,51,234,0.12)]"
-                : "border-2 border-gray-100 hover:border-purple-200"
+                : "border-2 border-border hover:border-purple-200"
             )}
             style={{ animationDelay: `${i * 100}ms` }}
             onClick={() => setSelectedPlan(plan.id)}
@@ -156,7 +156,7 @@ export function PaymentScreen({ onClose }: { onClose: () => void }) {
                   "w-10 h-10 rounded-xl flex items-center justify-center shrink-0",
                   selectedPlan === plan.id
                     ? "bg-purple-500 text-white"
-                    : "bg-gray-100 text-muted-foreground"
+                    : "bg-muted text-muted-foreground"
                 )}
               >
                 {plan.icon}
@@ -177,12 +177,12 @@ export function PaymentScreen({ onClose }: { onClose: () => void }) {
                   {plan.features.map((f, j) => (
                     <div key={j} className="flex items-center gap-2 text-xs">
                       <Check className="w-3.5 h-3.5 text-green-500 shrink-0" />
-                      <span className="text-gray-700">{f}</span>
+                      <span className="text-foreground">{f}</span>
                     </div>
                   ))}
                   {plan.missing.map((f, j) => (
                     <div key={j} className="flex items-center gap-2 text-xs">
-                      <XIcon className="w-3.5 h-3.5 text-gray-300 shrink-0" />
+                      <XIcon className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
                       <span className="text-muted-foreground line-through">{f}</span>
                     </div>
                   ))}
@@ -195,7 +195,7 @@ export function PaymentScreen({ onClose }: { onClose: () => void }) {
                   "w-5 h-5 rounded-full border-2 shrink-0 mt-1 flex items-center justify-center",
                   selectedPlan === plan.id
                     ? "border-purple-500"
-                    : "border-gray-200"
+                    : "border-border"
                 )}
               >
                 {selectedPlan === plan.id && (

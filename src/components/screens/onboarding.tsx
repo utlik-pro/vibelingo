@@ -87,7 +87,7 @@ export function OnboardingScreen({ onStart }: { onStart: () => void }) {
             <h1 className="text-[32px] font-extrabold text-foreground mb-3 leading-tight">
               {t("onboarding.welcome.title")}
             </h1>
-            <p className="text-[16px] text-gray-500 max-w-[300px] mx-auto leading-relaxed">
+            <p className="text-[16px] text-muted-foreground max-w-[300px] mx-auto leading-relaxed">
               {t("onboarding.welcome.subtitle")}
             </p>
           </div>
@@ -107,19 +107,19 @@ export function OnboardingScreen({ onStart }: { onStart: () => void }) {
                       className={`flex items-center gap-4 px-5 py-4 rounded-2xl border-2 transition-all duration-200 text-left bg-card cursor-pointer ${
                         isSelected
                           ? "border-purple-500 shadow-[0_4px_20px_rgba(147,51,234,0.15)]"
-                          : "border-gray-100 hover:border-gray-200 shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
+                          : "border-border hover:border-border shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
                       }`}
                     >
                       <div
                         className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${
-                          isSelected ? "bg-purple-50" : "bg-gray-50"
+                          isSelected ? "bg-purple-50" : "bg-muted/50"
                         }`}
                       >
                         {opt.icon}
                       </div>
                       <span
                         className={`text-[16px] font-semibold ${
-                          isSelected ? "text-purple-600" : "text-gray-800"
+                          isSelected ? "text-purple-600" : "text-foreground"
                         }`}
                       >
                         {t(opt.labelKey)}

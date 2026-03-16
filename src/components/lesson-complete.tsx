@@ -93,7 +93,7 @@ export function LessonComplete({
       <Button
         variant="outline"
         onClick={onClose}
-        className="w-full max-w-[280px] h-12 rounded-2xl text-sm font-semibold border-2 border-gray-100 text-gray-700 hover:bg-gray-50"
+        className="w-full max-w-[280px] h-12 rounded-2xl text-sm font-semibold border-2 border-border text-foreground hover:bg-muted"
       >
         {t("lessonComplete.continueLearning")}
       </Button>

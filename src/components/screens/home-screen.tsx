@@ -35,7 +35,7 @@ export function HomeScreen({
     : 1;
 
   return (
-    <div className="px-5 py-4 bg-background min-h-full tg-safe-top">
+    <div className="px-5 py-4 bg-background min-h-full">
       {/* Top bar */}
       <div className="flex justify-between items-center mb-6">
         <div>
@@ -52,7 +52,7 @@ export function HomeScreen({
         <ProgressRing progress={dailyGoal.done / dailyGoal.target} size={56} stroke={5} />
         <div className="flex-1">
           <div className="text-[16px] font-bold text-foreground">{t("home.dailyGoal")}</div>
-          <div className="text-[13px] text-gray-500">
+          <div className="text-[13px] text-muted-foreground">
             {t("home.lessonsToday", { done: dailyGoal.done, target: dailyGoal.target })}
           </div>
         </div>
@@ -133,7 +133,7 @@ export function HomeScreen({
             return (
               <div
                 key={b.id}
-                className={`p-3 rounded-2xl text-center min-w-[80px] shrink-0 border-2 bg-white ${
+                className={`p-3 rounded-2xl text-center min-w-[80px] shrink-0 border-2 bg-card ${
                   earned
                     ? "border-purple-200 shadow-[0_2px_12px_rgba(147,51,234,0.1)]"
                     : "border-border opacity-40"

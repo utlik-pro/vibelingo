@@ -56,7 +56,7 @@ export function ProfileScreen({
   };
 
   return (
-    <div className="px-5 py-4 bg-background min-h-full tg-safe-top">
+    <div className="px-5 py-4 bg-background min-h-full">
       {/* Language & Theme switcher */}
       <div className="flex justify-end gap-2 mb-2 animate-[fadeIn_0.3s_ease]">
         <button
@@ -232,7 +232,7 @@ export function ProfileScreen({
           {t("profile.referral")}
         </div>
         <div className="flex items-center gap-2 mb-3">
-          <div className="flex-1 px-3 py-2 rounded-xl bg-gray-50 border border-gray-100">
+          <div className="flex-1 px-3 py-2 rounded-xl bg-muted/50 border border-border">
             <div className="text-[10px] text-muted-foreground mb-0.5">{t("profile.referralCode")}</div>
             <div className="text-[15px] font-bold text-purple-600 font-mono">{referralCode}</div>
           </div>
@@ -255,7 +255,7 @@ export function ProfileScreen({
           </Button>
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-[13px] text-gray-500">
+          <span className="text-[13px] text-muted-foreground">
             {t("profile.friendsInvited", { count: String(referralCount) })}
           </span>
           <span className="text-[11px] text-purple-500 font-semibold">
@@ -274,11 +274,11 @@ export function ProfileScreen({
           <span className="text-[13px] font-bold text-muted-foreground tracking-wider uppercase">
             {t("profile.certificates")}
           </span>
-          <p className="text-[13px] text-gray-500 mt-0.5">
+          <p className="text-[13px] text-muted-foreground mt-0.5">
             {t("profile.certificatesDesc")}
           </p>
         </div>
-        <ChevronRight className="w-5 h-5 text-gray-300 flex-shrink-0" />
+        <ChevronRight className="w-5 h-5 text-muted-foreground flex-shrink-0" />
       </button>
 
       {/* Share button */}

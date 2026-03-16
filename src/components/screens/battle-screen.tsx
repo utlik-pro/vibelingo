@@ -23,7 +23,7 @@ export function BattleScreen({ onStartBattle }: BattleScreenProps) {
   };
 
   return (
-    <div className="px-5 py-4 bg-background min-h-full tg-safe-top">
+    <div className="px-5 py-4 bg-background min-h-full">
       <h2 className="text-[22px] font-extrabold text-foreground mb-1.5">{t("battle.title")}</h2>
       <p className="text-xs text-muted-foreground mb-5">{t("battle.subtitle")}</p>
 
@@ -36,7 +36,7 @@ export function BattleScreen({ onStartBattle }: BattleScreenProps) {
             </div>
           </div>
           <h3 className="text-lg font-bold text-foreground mb-1">{t("battle.quickBattle")}</h3>
-          <p className="text-[13px] text-gray-500">
+          <p className="text-[13px] text-muted-foreground">
             {t("battle.quickBattleDesc")}
           </p>
         </div>
@@ -71,14 +71,14 @@ export function BattleScreen({ onStartBattle }: BattleScreenProps) {
         {linkCopied ? (
           <Check className="w-5 h-5 text-green-500" />
         ) : (
-          <Copy className="w-5 h-5 text-gray-300" />
+          <Copy className="w-5 h-5 text-muted-foreground" />
         )}
       </div>
 
       {/* Weekly challenge */}
       <div
         onClick={onStartBattle}
-        className="p-5 rounded-2xl bg-white border-2 border-amber-100 shadow-[0_2px_12px_rgba(245,158,11,0.08)] animate-[slideIn_0.4s_ease_0.2s_both] cursor-pointer hover:border-amber-200 transition-colors"
+        className="p-5 rounded-2xl bg-card border-2 border-amber-100 shadow-[0_2px_12px_rgba(245,158,11,0.08)] animate-[slideIn_0.4s_ease_0.2s_both] cursor-pointer hover:border-amber-200 transition-colors"
       >
         <div className="flex items-center gap-2 mb-2.5">
           <Trophy className="w-4 h-4 text-amber-500" />
@@ -89,7 +89,7 @@ export function BattleScreen({ onStartBattle }: BattleScreenProps) {
         <div className="text-[15px] font-semibold text-foreground mb-1">
           {t("battle.landingIn3Min")}
         </div>
-        <div className="text-xs text-gray-500 mb-3 leading-relaxed">
+        <div className="text-xs text-muted-foreground mb-3 leading-relaxed">
           {t("battle.landingDesc")}
         </div>
         <div className="flex justify-between items-center">

@@ -143,13 +143,13 @@ export function BattlePlayScreen({ onClose, onXPEarned }: BattlePlayScreenProps)
           </div>
           <div className="flex items-center gap-2">
             <Loader2 className="w-5 h-5 text-purple-500 animate-spin" />
-            <span className="text-lg font-semibold text-gray-700">{t("battle.searching")}</span>
+            <span className="text-lg font-semibold text-foreground">{t("battle.searching")}</span>
           </div>
           <p className="text-sm text-muted-foreground text-center">{t("battle.searchingDesc")}</p>
         </div>
         <button
           onClick={onClose}
-          className="mt-12 text-sm text-muted-foreground hover:text-gray-600 transition-colors bg-transparent border-none cursor-pointer"
+          className="mt-12 text-sm text-muted-foreground hover:text-foreground transition-colors bg-transparent border-none cursor-pointer"
         >
           {t("battle.cancel")}
         </button>
@@ -169,10 +169,10 @@ export function BattlePlayScreen({ onClose, onXPEarned }: BattlePlayScreenProps)
             <div className="w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center text-xl font-bold text-purple-600">
               {t("battle.you").charAt(0).toUpperCase()}
             </div>
-            <span className="text-sm font-semibold text-gray-700">{t("battle.you")}</span>
+            <span className="text-sm font-semibold text-foreground">{t("battle.you")}</span>
           </div>
 
-          <span className="text-2xl font-extrabold text-gray-300">{t("battle.vs")}</span>
+          <span className="text-2xl font-extrabold text-muted-foreground">{t("battle.vs")}</span>
 
           {/* Opponent */}
           <div className="flex flex-col items-center gap-2">
@@ -182,7 +182,7 @@ export function BattlePlayScreen({ onClose, onXPEarned }: BattlePlayScreenProps)
             >
               {opponent.avatar}
             </div>
-            <span className="text-sm font-semibold text-gray-700">{opponent.name}</span>
+            <span className="text-sm font-semibold text-foreground">{opponent.name}</span>
           </div>
         </div>
 
@@ -202,7 +202,7 @@ export function BattlePlayScreen({ onClose, onXPEarned }: BattlePlayScreenProps)
         <div className="flex items-center justify-between mb-4">
           <button
             onClick={onClose}
-            className="p-2 rounded-xl hover:bg-gray-50 transition-colors bg-transparent border-none cursor-pointer"
+            className="p-2 rounded-xl hover:bg-muted transition-colors bg-transparent border-none cursor-pointer"
           >
             <ArrowLeft className="w-5 h-5 text-muted-foreground" />
           </button>
@@ -216,8 +216,8 @@ export function BattlePlayScreen({ onClose, onXPEarned }: BattlePlayScreenProps)
 
         {/* Challenge info */}
         <div className="rounded-2xl bg-purple-50 p-4 mb-4">
-          <h3 className="text-[15px] font-bold text-gray-900 mb-1">{challengeTitle}</h3>
-          <p className="text-xs text-gray-500 leading-relaxed">{challengeDescription}</p>
+          <h3 className="text-[15px] font-bold text-foreground mb-1">{challengeTitle}</h3>
+          <p className="text-xs text-muted-foreground leading-relaxed">{challengeDescription}</p>
         </div>
 
         {/* Opponent progress */}
@@ -233,7 +233,7 @@ export function BattlePlayScreen({ onClose, onXPEarned }: BattlePlayScreenProps)
               <span className="text-xs text-muted-foreground">{opponent.name}</span>
               <span className="text-xs text-muted-foreground">{Math.round(opponentProgress)}%</span>
             </div>
-            <div className="h-2 rounded-full bg-gray-100 overflow-hidden">
+            <div className="h-2 rounded-full bg-muted overflow-hidden">
               <div
                 className="h-full rounded-full bg-gradient-to-r from-purple-400 to-purple-500 transition-all duration-700"
                 style={{ width: `${Math.min(opponentProgress, 100)}%` }}
@@ -244,9 +244,9 @@ export function BattlePlayScreen({ onClose, onXPEarned }: BattlePlayScreenProps)
 
         {/* User text area */}
         <div className="flex-1 flex flex-col mb-4">
-          <label className="text-xs font-semibold text-gray-500 mb-2">{t("battle.writePrompt")}</label>
+          <label className="text-xs font-semibold text-muted-foreground mb-2">{t("battle.writePrompt")}</label>
           <textarea
-            className="flex-1 min-h-[160px] p-4 rounded-2xl border border-gray-200 bg-white text-sm text-gray-800 resize-none focus:outline-none focus:border-purple-300 focus:ring-2 focus:ring-purple-100 transition-all placeholder:text-gray-300"
+            className="flex-1 min-h-[160px] p-4 rounded-2xl border border-border bg-card text-sm text-foreground resize-none focus:outline-none focus:border-purple-300 focus:ring-2 focus:ring-purple-100 transition-all placeholder:text-muted-foreground"
             placeholder={t("battle.promptPlaceholder")}
             value={userText}
             onChange={(e) => setUserText(e.target.value)}
@@ -271,7 +271,7 @@ export function BattlePlayScreen({ onClose, onXPEarned }: BattlePlayScreenProps)
       return (
         <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6 tg-safe-top">
           <Loader2 className="w-10 h-10 text-purple-500 animate-spin mb-4" />
-          <span className="text-lg font-semibold text-gray-700">{t("battle.evaluating")}</span>
+          <span className="text-lg font-semibold text-foreground">{t("battle.evaluating")}</span>
         </div>
       );
     }
@@ -297,7 +297,7 @@ export function BattlePlayScreen({ onClose, onXPEarned }: BattlePlayScreenProps)
 
         {/* XP earned */}
         <div className="rounded-2xl bg-purple-50 px-8 py-5 text-center mb-6">
-          <span className="text-sm text-gray-500">{t("battle.xpEarned")}</span>
+          <span className="text-sm text-muted-foreground">{t("battle.xpEarned")}</span>
           <div className="text-3xl font-extrabold text-purple-600 mt-1">+{xpEarned} XP</div>
         </div>
 
@@ -310,7 +310,7 @@ export function BattlePlayScreen({ onClose, onXPEarned }: BattlePlayScreenProps)
           >
             {opponent.avatar}
           </div>
-          <span className="text-sm font-semibold text-gray-700">{opponent.name}</span>
+          <span className="text-sm font-semibold text-foreground">{opponent.name}</span>
         </div>
 
         {/* Buttons */}
@@ -323,7 +323,7 @@ export function BattlePlayScreen({ onClose, onXPEarned }: BattlePlayScreenProps)
           </Button>
           <button
             onClick={onClose}
-            className="w-full h-12 rounded-2xl text-[15px] font-semibold text-gray-500 hover:bg-gray-50 transition-colors bg-transparent border border-gray-200 cursor-pointer"
+            className="w-full h-12 rounded-2xl text-[15px] font-semibold text-muted-foreground hover:bg-muted transition-colors bg-transparent border border-border cursor-pointer"
           >
             {t("battle.back")}
           </button>

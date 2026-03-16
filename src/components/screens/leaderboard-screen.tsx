@@ -15,9 +15,9 @@ export function LeaderboardScreen({ userXP, streak }: LeaderboardScreenProps) {
   const medalColors = ["#FFD700", "#C0C0C0", "#CD7F32"];
 
   return (
-    <div className="px-5 py-4 bg-white min-h-full tg-safe-top">
-      <h2 className="text-[22px] font-extrabold text-gray-900 mb-1.5">{t("leaderboard.title")}</h2>
-      <p className="text-xs text-gray-400 mb-5 flex items-center gap-1">
+    <div className="px-5 py-4 bg-background min-h-full">
+      <h2 className="text-[22px] font-extrabold text-foreground mb-1.5">{t("leaderboard.title")}</h2>
+      <p className="text-xs text-muted-foreground mb-5 flex items-center gap-1">
         <span>{t("leaderboard.subtitle")}</span>
         <span>
           {(() => {
@@ -36,14 +36,14 @@ export function LeaderboardScreen({ userXP, streak }: LeaderboardScreenProps) {
       </p>
 
       {/* Your position */}
-      <div className="flex items-center gap-3 p-4 rounded-2xl bg-white border-l-4 border-purple-500 shadow-[0_2px_16px_rgba(147,51,234,0.1)] mb-5 animate-[slideIn_0.3s_ease]">
+      <div className="flex items-center gap-3 p-4 rounded-2xl bg-card border-l-4 border-purple-500 shadow-[0_2px_16px_rgba(147,51,234,0.1)] mb-5 animate-[slideIn_0.3s_ease]">
         <div className="w-6 text-sm font-extrabold text-purple-500 text-center">8</div>
         <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center">
           <User className="w-5 h-5 text-white" />
         </div>
         <div className="flex-1">
-          <div className="text-sm font-bold text-gray-900">{t("leaderboard.you")}</div>
-          <div className="text-[11px] text-gray-400 flex items-center gap-1">{userXP} XP <Flame className="w-3 h-3 text-orange-400" />{streak}</div>
+          <div className="text-sm font-bold text-foreground">{t("leaderboard.you")}</div>
+          <div className="text-[11px] text-muted-foreground flex items-center gap-1">{userXP} XP <Flame className="w-3 h-3 text-orange-400" />{streak}</div>
         </div>
         <XPCounter xp={userXP} />
       </div>
@@ -53,8 +53,8 @@ export function LeaderboardScreen({ userXP, streak }: LeaderboardScreenProps) {
         {LEADERBOARD_DATA.map((user, i) => (
           <div
             key={i}
-            className={`flex items-center gap-3 px-4 py-3.5 rounded-2xl transition-all animate-[slideIn_0.3s_ease_both] bg-white ${
-              i < 3 ? "border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.04)]" : ""
+            className={`flex items-center gap-3 px-4 py-3.5 rounded-2xl transition-all animate-[slideIn_0.3s_ease_both] bg-card ${
+              i < 3 ? "border border-border shadow-[0_2px_8px_rgba(0,0,0,0.04)]" : ""
             }`}
             style={{ animationDelay: `${i * 60}ms` }}
           >
@@ -68,7 +68,7 @@ export function LeaderboardScreen({ userXP, streak }: LeaderboardScreenProps) {
                   {i + 1}
                 </div>
               ) : (
-                <span className="text-sm font-semibold text-gray-400">{i + 1}</span>
+                <span className="text-sm font-semibold text-muted-foreground">{i + 1}</span>
               )}
             </div>
 
@@ -83,8 +83,8 @@ export function LeaderboardScreen({ userXP, streak }: LeaderboardScreenProps) {
             </div>
 
             <div className="flex-1">
-              <div className="text-sm font-semibold text-gray-900">{user.name}</div>
-              <div className="text-[11px] text-gray-400 flex items-center gap-0.5">
+              <div className="text-sm font-semibold text-foreground">{user.name}</div>
+              <div className="text-[11px] text-muted-foreground flex items-center gap-0.5">
                 <Flame className="w-3 h-3 text-orange-400" />{user.streak}
               </div>
             </div>

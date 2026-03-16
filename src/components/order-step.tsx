@@ -31,10 +31,10 @@ export function OrderStep({
 
   return (
     <div>
-      <p className="text-[17px] font-semibold text-gray-900 leading-relaxed mb-1.5">
+      <p className="text-[17px] font-semibold text-foreground leading-relaxed mb-1.5">
         {step.question}
       </p>
-      <p className="text-xs text-gray-400 mb-4">
+      <p className="text-xs text-muted-foreground mb-4">
         {t("order.hint")}
       </p>
       <div className="flex flex-col gap-2.5">
@@ -45,15 +45,15 @@ export function OrderStep({
               key={itemIdx}
               className={cn(
                 "flex items-center gap-3 px-4 py-3.5 rounded-2xl border-2 transition-all duration-200",
-                !answered && "bg-white border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.04)]",
+                !answered && "bg-card border-border shadow-[0_2px_8px_rgba(0,0,0,0.04)]",
                 answered && isCorrectPos && "bg-green-50 border-green-300",
                 answered && !isCorrectPos && "bg-red-50 border-red-300"
               )}
             >
-              <span className="font-bold text-gray-400 text-[13px] w-5">
+              <span className="font-bold text-muted-foreground text-[13px] w-5">
                 {pos + 1}
               </span>
-              <span className="flex-1 text-sm text-gray-900">
+              <span className="flex-1 text-sm text-foreground">
                 {step.items?.[itemIdx]}
               </span>
               {!answered && (
@@ -64,7 +64,7 @@ export function OrderStep({
                       "p-1 rounded-lg bg-transparent border-none",
                       pos > 0
                         ? "text-purple-500 hover:bg-purple-50 cursor-pointer"
-                        : "text-gray-300 cursor-default"
+                        : "text-muted-foreground cursor-default"
                     )}
                   >
                     <ChevronUp className="w-4 h-4" />
@@ -75,7 +75,7 @@ export function OrderStep({
                       "p-1 rounded-lg bg-transparent border-none",
                       pos < order.length - 1
                         ? "text-purple-500 hover:bg-purple-50 cursor-pointer"
-                        : "text-gray-300 cursor-default"
+                        : "text-muted-foreground cursor-default"
                     )}
                   >
                     <ChevronDown className="w-4 h-4" />
