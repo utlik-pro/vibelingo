@@ -28,6 +28,11 @@ interface TelegramWebApp {
     offClick: (cb: () => void) => void;
     isVisible: boolean;
   };
+  HapticFeedback?: {
+    impactOccurred: (style: string) => void;
+    notificationOccurred: (type: string) => void;
+    selectionChanged: () => void;
+  };
 }
 
 declare global {

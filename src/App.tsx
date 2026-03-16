@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, lazy, Suspense } from "react";
 import "./index.css";
 import type { Lesson } from "@/data/lessons";
 import { LEAGUES } from "@/data/lessons";
@@ -7,27 +7,36 @@ import { OnboardingScreen } from "@/components/screens/onboarding";
 import { HomeScreen } from "@/components/screens/home-screen";
 import { LearnScreen } from "@/components/screens/learn-screen";
 import { LessonScreen } from "@/components/screens/lesson-screen";
-import { LeaderboardScreen } from "@/components/screens/leaderboard-screen";
 import { BattleScreen } from "@/components/screens/battle-screen";
-import { BattlePlayScreen } from "@/components/screens/battle-play-screen";
 import { ProfileScreen } from "@/components/screens/profile-screen";
-import { CertificateScreen } from "@/components/screens/certificate-screen";
-import { PracticeScreen } from "@/components/screens/practice-screen";
 import { LessonComplete } from "@/components/lesson-complete";
 import { ShareCard } from "@/components/share-card";
-import { PaymentScreen } from "@/components/payment-screen";
 import { BottomNav } from "@/components/bottom-nav";
 import { useAuth } from "@/lib/auth";
 import { useI18n } from "@/lib/i18n";
 import { loadUserProgress, saveUserProgress } from "@/lib/db";
 import { playCorrectSound, playWrongSound, playLevelUpSound } from "@/lib/sounds";
 import { Confetti } from "@/components/confetti";
+import { hapticNotification } from "@/lib/haptics";
+import { HomeScreenSkeleton } from "@/components/skeleton";
+import { DailyReward } from "@/components/daily-reward";
+import { AchievementPopup } from "@/components/achievement-popup";
+import { getLastRewardDate, setLastRewardDate, getRewardStreak, setRewardStreak } from "@/lib/storage";
+import { BADGES } from "@/data/lessons";
+
+// Lazy-loaded screens
+const BattlePlayScreen = lazy(() => import("@/components/screens/battle-play-screen").then(m => ({ default: m.BattlePlayScreen })));
+const CertificateScreen = lazy(() => import("@/components/screens/certificate-screen").then(m => ({ default: m.CertificateScreen })));
+const PracticeScreen = lazy(() => import("@/components/screens/practice-screen").then(m => ({ default: m.PracticeScreen })));
+const PaymentScreen = lazy(() => import("@/components/payment-screen").then(m => ({ default: m.PaymentScreen })));
+const LeaderboardScreen = lazy(() => import("@/components/screens/leaderboard-screen").then(m => ({ default: m.LeaderboardScreen })));
 
 export default function App() {
   const { user } = useAuth();
   const { locale } = useI18n();
   const initializedRef = useRef(false);
 
+  const [isLoading, setIsLoading] = useState(true);
   const [screen, setScreen] = useState("home");
   const [userXP, setUserXP] = useState(0);
   const [streak, setStreak] = useState(0);
@@ -47,6 +56,10 @@ export default function App() {
   const [showOnboarding, setShowOnboarding] = useState(true);
   const [battleActive, setBattleActive] = useState(false);
   const [showCertificates, setShowCertificates] = useState(false);
+  const [showDailyReward, setShowDailyReward] = useState(false);
+  const [rewardDay, setRewardDay] = useState(1);
+  const [achievementBadge, setAchievementBadge] = useState<{ name: string; icon: string } | null>(null);
+  const [showAchievement, setShowAchievement] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // Scroll to top when screen changes
@@ -99,6 +112,19 @@ export default function App() {
         setShowOnboarding(false);
       }
       initializedRef.current = true;
+      setIsLoading(false);
+
+      // Check daily reward
+      const lastReward = getLastRewardDate(user.id);
+      const today = new Date().toDateString();
+      if (lastReward !== today) {
+        const currentStreak = getRewardStreak(user.id);
+        // Check if yesterday was claimed to continue streak
+        const yesterday = new Date(Date.now() - 86400000).toDateString();
+        const newStreak = lastReward === yesterday ? currentStreak + 1 : 1;
+        setRewardDay(newStreak);
+        setShowDailyReward(true);
+      }
     });
     return () => { cancelled = true; };
   }, [user.id]);
@@ -171,8 +197,10 @@ export default function App() {
     if (isCorrect) {
       setCorrectAnswers((c) => c + 1);
       playCorrectSound();
+      hapticNotification('success');
     } else {
       playWrongSound();
+      hapticNotification('error');
     }
 
     if (!isCorrect && !user.isPro) {
@@ -205,11 +233,48 @@ export default function App() {
       setDailyGoal((g) => ({ ...g, done: Math.min(g.done + 1, g.target) }));
       setShowComplete(true);
       playLevelUpSound();
+      hapticNotification('success');
+
+      // Check for new badges
+      const newBadges = [...earnedBadges];
+      let newBadgeEarned: { name: string; icon: string } | null = null;
+
+      // first_landing: completed lesson 1
+      if (currentLesson.id === 1 && !newBadges.includes("first_landing")) {
+        newBadges.push("first_landing");
+        const badge = BADGES.find((b) => b.id === "first_landing");
+        if (badge) newBadgeEarned = { name: badge.name, icon: badge.icon };
+      }
+
+      // streak_7: streak >= 7
+      if (streak >= 7 && !newBadges.includes("streak_7")) {
+        newBadges.push("streak_7");
+        const badge = BADGES.find((b) => b.id === "streak_7");
+        if (badge) newBadgeEarned = { name: badge.name, icon: badge.icon };
+      }
+
+      if (newBadges.length > earnedBadges.length) {
+        setEarnedBadges(newBadges);
+        if (newBadgeEarned) {
+          setTimeout(() => {
+            setAchievementBadge(newBadgeEarned);
+            setShowAchievement(true);
+          }, 1500);
+        }
+      }
     }
   };
 
   const interactiveSteps = currentLesson?.steps.filter((s) => s.type !== "info") || [];
   const totalInteractive = interactiveSteps.length;
+
+  const handleClaimReward = (xp: number) => {
+    setUserXP((x) => x + xp);
+    setLastRewardDate(user.id);
+    setRewardStreak(user.id, rewardDay);
+    setShowDailyReward(false);
+    hapticNotification('success');
+  };
 
   // Google Fonts
   const fontLink = (
@@ -218,6 +283,17 @@ export default function App() {
       rel="stylesheet"
     />
   );
+
+  if (isLoading) {
+    return (
+      <>
+        {fontLink}
+        <div className="min-h-screen bg-background font-sans tg-safe-top">
+          <HomeScreenSkeleton />
+        </div>
+      </>
+    );
+  }
 
   if (showOnboarding) {
     return (
@@ -273,10 +349,12 @@ export default function App() {
     return (
       <>
         {fontLink}
-        <CertificateScreen
-          completedLessons={completedLessons}
-          onClose={() => setShowCertificates(false)}
-        />
+        <Suspense fallback={<HomeScreenSkeleton />}>
+          <CertificateScreen
+            completedLessons={completedLessons}
+            onClose={() => setShowCertificates(false)}
+          />
+        </Suspense>
       </>
     );
   }
@@ -285,14 +363,16 @@ export default function App() {
     return (
       <>
         {fontLink}
-        <BattlePlayScreen
-          onClose={() => setBattleActive(false)}
-          onXPEarned={(xp) => {
-            setUserXP((x) => x + xp);
-            setShowXPDelta(true);
-            setTimeout(() => setShowXPDelta(false), 2000);
-          }}
-        />
+        <Suspense fallback={<HomeScreenSkeleton />}>
+          <BattlePlayScreen
+            onClose={() => setBattleActive(false)}
+            onXPEarned={(xp) => {
+              setUserXP((x) => x + xp);
+              setShowXPDelta(true);
+              setTimeout(() => setShowXPDelta(false), 2000);
+            }}
+          />
+        </Suspense>
       </>
     );
   }
@@ -311,9 +391,13 @@ export default function App() {
         />
       )}
 
-      {showPayment && <PaymentScreen onClose={() => setShowPayment(false)} />}
+      {showPayment && (
+        <Suspense fallback={<HomeScreenSkeleton />}>
+          <PaymentScreen onClose={() => setShowPayment(false)} />
+        </Suspense>
+      )}
 
-      <div ref={scrollRef} className="flex-1 overflow-y-auto pb-[72px]">
+      <div ref={scrollRef} key={screen} style={{ animation: 'screenFadeIn 0.25s ease' }} className="flex-1 overflow-y-auto pb-[72px]">
         {screen === "home" && (
           <HomeScreen
             userXP={userXP}
@@ -333,16 +417,20 @@ export default function App() {
           />
         )}
         {screen === "leaderboard" && (
-          <LeaderboardScreen userXP={userXP} streak={streak} />
+          <Suspense fallback={<HomeScreenSkeleton />}>
+            <LeaderboardScreen userXP={userXP} streak={streak} />
+          </Suspense>
         )}
         {screen === "practice" && (
-          <PracticeScreen
-            onXPEarned={(xp) => {
-              setUserXP((x) => x + xp);
-              setShowXPDelta(true);
-              setTimeout(() => setShowXPDelta(false), 2000);
-            }}
-          />
+          <Suspense fallback={<HomeScreenSkeleton />}>
+            <PracticeScreen
+              onXPEarned={(xp) => {
+                setUserXP((x) => x + xp);
+                setShowXPDelta(true);
+                setTimeout(() => setShowXPDelta(false), 2000);
+              }}
+            />
+          </Suspense>
         )}
         {screen === "battle" && <BattleScreen onStartBattle={() => setBattleActive(true)} />}
         {screen === "profile" && (
@@ -359,6 +447,20 @@ export default function App() {
       </div>
 
       <BottomNav screen={screen} onNavigate={setScreen} />
+
+      {showDailyReward && (
+        <DailyReward
+          day={rewardDay}
+          onClaim={handleClaimReward}
+          onClose={() => setShowDailyReward(false)}
+        />
+      )}
+
+      <AchievementPopup
+        badge={achievementBadge || { name: "", icon: "" }}
+        show={showAchievement}
+        onClose={() => setShowAchievement(false)}
+      />
     </div>
   );
 }

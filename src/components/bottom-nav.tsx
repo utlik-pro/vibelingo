@@ -1,6 +1,7 @@
 import { Home, BookOpen, Swords, User, PenLine } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useI18n } from "@/lib/i18n";
+import { hapticSelection } from "@/lib/haptics";
 
 const tabConfig = [
   { id: "home", icon: Home, labelKey: "nav.home" },
@@ -27,7 +28,7 @@ export function BottomNav({
         return (
           <button
             key={tab.id}
-            onClick={() => onNavigate(tab.id)}
+            onClick={() => { hapticSelection(); onNavigate(tab.id); }}
             className={cn(
               "flex flex-col items-center gap-1 px-4 py-1.5 transition-all duration-200 bg-transparent border-none cursor-pointer",
               isActive ? "opacity-100" : "opacity-50"

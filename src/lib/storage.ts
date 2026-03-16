@@ -21,6 +21,19 @@ export function saveProgress(userId: string, data: UserProgress): void {
   }
 }
 
+export function getLastRewardDate(userId: string): string | null {
+  return localStorage.getItem(`vibelingo_last_reward_${userId}`);
+}
+export function setLastRewardDate(userId: string) {
+  localStorage.setItem(`vibelingo_last_reward_${userId}`, new Date().toDateString());
+}
+export function getRewardStreak(userId: string): number {
+  return parseInt(localStorage.getItem(`vibelingo_reward_streak_${userId}`) || '0');
+}
+export function setRewardStreak(userId: string, streak: number) {
+  localStorage.setItem(`vibelingo_reward_streak_${userId}`, String(streak));
+}
+
 export function loadProgress(userId: string): UserProgress {
   try {
     const raw = localStorage.getItem(STORAGE_PREFIX + userId);

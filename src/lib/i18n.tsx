@@ -225,6 +225,15 @@ const translations: Record<string, Record<string, string>> = {
     "practice.submitted": "Challenge Complete!",
     "practice.xpEarned": "+{xp} XP earned",
     "nav.practice": "Practice",
+
+    // Daily Reward
+    "dailyReward.title": "Daily Reward",
+    "dailyReward.day": "Day {n}",
+    "dailyReward.claim": "Claim",
+    "dailyReward.xpBonus": "XP Bonus",
+
+    // Achievement
+    "achievement.unlocked": "Achievement Unlocked",
   },
   ru: {
     // Onboarding
@@ -450,6 +459,15 @@ const translations: Record<string, Record<string, string>> = {
     "practice.submitted": "Задание выполнено!",
     "practice.xpEarned": "+{xp} XP заработано",
     "nav.practice": "Практика",
+
+    // Daily Reward
+    "dailyReward.title": "Ежедневная награда",
+    "dailyReward.day": "День {n}",
+    "dailyReward.claim": "Забрать",
+    "dailyReward.xpBonus": "Бонус XP",
+
+    // Achievement
+    "achievement.unlocked": "Достижение разблокировано",
   },
 };
 
