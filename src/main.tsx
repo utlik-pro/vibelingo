@@ -6,16 +6,26 @@ import { I18nProvider } from './lib/i18n.tsx'
 import { AuthProvider } from './lib/auth.tsx'
 import { ThemeProvider } from './lib/theme.tsx'
 
-// Telegram Mini App: expand to full screen
+// Telegram Mini App: full screen mode
 const tgWebApp = window.Telegram?.WebApp;
 if (tgWebApp) {
   tgWebApp.ready();
   tgWebApp.expand();
   tgWebApp.enableClosingConfirmation?.();
   tgWebApp.isVerticalSwipesEnabled = false;
-  // Match Telegram header to app background
   tgWebApp.setHeaderColor?.('secondary_bg_color');
   tgWebApp.setBackgroundColor?.('secondary_bg_color');
+
+  // Request true fullscreen after ready
+  setTimeout(() => {
+    try {
+      if (typeof tgWebApp.requestFullscreen === 'function') {
+        tgWebApp.requestFullscreen();
+      }
+    } catch (e) {
+      console.log('Fullscreen not available:', e);
+    }
+  }, 100);
 }
 
 createRoot(document.getElementById('root')!).render(
