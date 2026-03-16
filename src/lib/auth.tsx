@@ -14,10 +14,13 @@ interface TelegramWebApp {
   };
   expand: () => void;
   ready: () => void;
+  requestFullscreen?: () => void;
   enableClosingConfirmation?: () => void;
   setHeaderColor?: (color: string) => void;
   setBackgroundColor?: (color: string) => void;
   isVerticalSwipesEnabled: boolean;
+  isFullscreen?: boolean;
+  version?: string;
 }
 
 declare global {

@@ -9,13 +9,18 @@ import { ThemeProvider } from './lib/theme.tsx'
 // Telegram Mini App: expand to full screen
 const tgWebApp = window.Telegram?.WebApp;
 if (tgWebApp) {
+  tgWebApp.ready();
   tgWebApp.expand();
   tgWebApp.enableClosingConfirmation?.();
   tgWebApp.isVerticalSwipesEnabled = false;
-  // Set header color to match theme
   tgWebApp.setHeaderColor?.('#F8F7FC');
   tgWebApp.setBackgroundColor?.('#F8F7FC');
-  tgWebApp.ready();
+  // Request true fullscreen (hides Telegram header) - available in WebApp v8.0+
+  try {
+    tgWebApp.requestFullscreen?.();
+  } catch {
+    // Fullscreen not supported in this version
+  }
 }
 
 createRoot(document.getElementById('root')!).render(
