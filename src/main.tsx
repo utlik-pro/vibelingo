@@ -4,13 +4,16 @@ import './index.css'
 import App from './App.tsx'
 import { I18nProvider } from './lib/i18n.tsx'
 import { AuthProvider } from './lib/auth.tsx'
+import { ThemeProvider } from './lib/theme.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <I18nProvider>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </I18nProvider>
+    <ThemeProvider>
+      <I18nProvider>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </I18nProvider>
+    </ThemeProvider>
   </StrictMode>,
 )

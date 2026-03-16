@@ -35,11 +35,11 @@ export function HomeScreen({
     : 1;
 
   return (
-    <div className="px-5 py-4 bg-white min-h-full">
+    <div className="px-5 py-4 bg-background min-h-full">
       {/* Top bar */}
       <div className="flex justify-between items-center mb-6">
         <div>
-          <div className="text-[22px] font-extrabold text-gray-900">VibeLingo</div>
+          <div className="text-[22px] font-extrabold text-foreground">VibeLingo</div>
         </div>
         <div className="flex gap-2 items-center">
           <StreakBadge streak={streak} />
@@ -48,10 +48,10 @@ export function HomeScreen({
       </div>
 
       {/* Daily goal */}
-      <div className="flex items-center gap-4 p-5 rounded-2xl bg-white border-2 border-purple-100 shadow-[0_4px_20px_rgba(147,51,234,0.08)] mb-4 animate-[slideIn_0.4s_ease]">
+      <div className="flex items-center gap-4 p-5 rounded-2xl bg-card border-2 border-purple-100 shadow-[0_4px_20px_rgba(147,51,234,0.08)] mb-4 animate-[slideIn_0.4s_ease]">
         <ProgressRing progress={dailyGoal.done / dailyGoal.target} size={56} stroke={5} />
         <div className="flex-1">
-          <div className="text-[16px] font-bold text-gray-900">{t("home.dailyGoal")}</div>
+          <div className="text-[16px] font-bold text-foreground">{t("home.dailyGoal")}</div>
           <div className="text-[13px] text-gray-500">
             {t("home.lessonsToday", { done: dailyGoal.done, target: dailyGoal.target })}
           </div>
@@ -64,7 +64,7 @@ export function HomeScreen({
       </div>
 
       {/* League progress */}
-      <div className="p-5 rounded-2xl bg-white border border-gray-100 shadow-[0_2px_12px_rgba(0,0,0,0.04)] mb-4 animate-[slideIn_0.4s_ease_0.1s_both]">
+      <div className="p-5 rounded-2xl bg-card border border-border shadow-[0_2px_12px_rgba(0,0,0,0.04)] mb-4 animate-[slideIn_0.4s_ease_0.1s_both]">
         <div className="flex justify-between items-center mb-3">
           <div className="flex items-center gap-2">
             {(() => {
@@ -86,12 +86,12 @@ export function HomeScreen({
             </span>
           </div>
           {nextLeague && (
-            <span className="text-xs text-gray-400">
+            <span className="text-xs text-muted-foreground">
               {t("home.xpTo", { xp: nextLeague.xpNeeded - userXP, name: nextLeague.name })}
             </span>
           )}
         </div>
-        <div className="h-2 rounded-full bg-gray-100 overflow-hidden">
+        <div className="h-2 rounded-full bg-muted overflow-hidden">
           <div
             className="h-full rounded-full transition-all duration-800 ease-out"
             style={{
@@ -114,17 +114,17 @@ export function HomeScreen({
         </button>
         <button
           onClick={() => onNavigate("battle")}
-          className="p-5 rounded-2xl bg-white border-2 border-gray-100 text-gray-900 text-left cursor-pointer shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:border-purple-200 transition-colors"
+          className="p-5 rounded-2xl bg-card border-2 border-border text-foreground text-left cursor-pointer shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:border-purple-200 transition-colors"
         >
           <div className="mb-2"><Swords className="w-6 h-6 text-purple-500" /></div>
           <div className="text-[15px] font-bold">{t("home.battle")}</div>
-          <div className="text-[12px] text-gray-400">{t("home.oneOnOne")}</div>
+          <div className="text-[12px] text-muted-foreground">{t("home.oneOnOne")}</div>
         </button>
       </div>
 
       {/* Badges */}
       <div className="animate-[slideIn_0.4s_ease_0.3s_both]">
-        <div className="text-[13px] font-bold text-gray-400 tracking-wider uppercase mb-3">
+        <div className="text-[13px] font-bold text-muted-foreground tracking-wider uppercase mb-3">
           {t("home.badges")}
         </div>
         <div className="flex gap-2.5 overflow-x-auto pb-2">
@@ -136,7 +136,7 @@ export function HomeScreen({
                 className={`p-3 rounded-2xl text-center min-w-[80px] shrink-0 border-2 bg-white ${
                   earned
                     ? "border-purple-200 shadow-[0_2px_12px_rgba(147,51,234,0.1)]"
-                    : "border-gray-100 opacity-40"
+                    : "border-border opacity-40"
                 }`}
               >
                 <div className="mb-1.5 flex justify-center">
@@ -154,7 +154,7 @@ export function HomeScreen({
                     return badgeIconMap[b.icon] || null;
                   })()}
                 </div>
-                <div className={`text-[10px] font-semibold ${earned ? "text-gray-900" : "text-gray-400"}`}>
+                <div className={`text-[10px] font-semibold ${earned ? "text-foreground" : "text-muted-foreground"}`}>
                   {t(`badge.${b.id}`)}
                 </div>
               </div>

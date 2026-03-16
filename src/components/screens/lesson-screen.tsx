@@ -45,17 +45,17 @@ export function LessonScreen({
   const isCorrect = answered && selectedAnswer === step.correct;
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
       <div className="px-4 py-3 flex items-center gap-3">
         <button
           onClick={onClose}
-          className="text-gray-400 cursor-pointer p-1.5 hover:text-gray-600 transition-colors bg-transparent border-none rounded-full hover:bg-gray-100"
+          className="text-gray-400 cursor-pointer p-1.5 hover:text-gray-600 transition-colors bg-transparent border-none rounded-full hover:bg-muted"
         >
           <X className="w-5 h-5" />
         </button>
         {/* Progress bar */}
-        <div className="flex-1 h-[6px] rounded-full bg-gray-100 overflow-hidden">
+        <div className="flex-1 h-[6px] rounded-full bg-muted overflow-hidden">
           <div
             className="h-full rounded-full bg-gradient-to-r from-purple-500 to-purple-600 transition-all duration-400 ease-out"
             style={{ width: `${progressPct * 100}%` }}
@@ -74,7 +74,7 @@ export function LessonScreen({
       <div className="flex-1 px-5 py-4 overflow-y-auto">
         {step.type === "info" ? (
           <div className="animate-[fadeIn_0.4s_ease] flex flex-col items-center justify-center min-h-[300px]">
-            <h2 className="text-[24px] font-extrabold text-gray-900 mb-4 text-center leading-tight">
+            <h2 className="text-[24px] font-extrabold text-foreground mb-4 text-center leading-tight">
               {localizedStep.title}
             </h2>
             <p className="text-[16px] text-gray-500 leading-[1.7] text-center max-w-[340px]">

@@ -106,12 +106,12 @@ export function PaymentScreen({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="fixed inset-0 z-[200] flex flex-col bg-white overflow-y-auto">
+    <div className="fixed inset-0 z-[200] flex flex-col bg-background overflow-y-auto">
       {/* Header */}
       <div className="px-5 pt-4 pb-6">
         <button
           onClick={onClose}
-          className="text-gray-400 mb-4 cursor-pointer bg-transparent border-none p-1.5 rounded-full hover:bg-gray-100 transition-colors"
+          className="text-muted-foreground mb-4 cursor-pointer bg-transparent border-none p-1.5 rounded-full hover:bg-gray-100 transition-colors"
         >
           <XIcon className="w-6 h-6" />
         </button>
@@ -121,10 +121,10 @@ export function PaymentScreen({ onClose }: { onClose: () => void }) {
               <Crown className="w-8 h-8 text-amber-500" />
             </div>
           </div>
-          <h2 className="text-2xl font-extrabold text-gray-900 mb-2">
+          <h2 className="text-2xl font-extrabold text-foreground mb-2">
             {t("payment.unlockPro")}
           </h2>
-          <p className="text-sm text-gray-400 max-w-[280px] mx-auto leading-relaxed">
+          <p className="text-sm text-muted-foreground max-w-[280px] mx-auto leading-relaxed">
             {t("payment.proDesc")}
           </p>
         </div>
@@ -136,7 +136,7 @@ export function PaymentScreen({ onClose }: { onClose: () => void }) {
           <div
             key={plan.id}
             className={cn(
-              "p-5 rounded-2xl cursor-pointer transition-all duration-200 animate-[slideIn_0.4s_ease_both] relative bg-white",
+              "p-5 rounded-2xl cursor-pointer transition-all duration-200 animate-[slideIn_0.4s_ease_both] relative bg-card",
               selectedPlan === plan.id
                 ? "border-2 border-purple-500 shadow-[0_4px_20px_rgba(147,51,234,0.12)]"
                 : "border-2 border-gray-100 hover:border-purple-200"
@@ -156,21 +156,21 @@ export function PaymentScreen({ onClose }: { onClose: () => void }) {
                   "w-10 h-10 rounded-xl flex items-center justify-center shrink-0",
                   selectedPlan === plan.id
                     ? "bg-purple-500 text-white"
-                    : "bg-gray-100 text-gray-400"
+                    : "bg-gray-100 text-muted-foreground"
                 )}
               >
                 {plan.icon}
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-baseline gap-2 mb-1">
-                  <span className="text-[15px] font-bold text-gray-900">
+                  <span className="text-[15px] font-bold text-foreground">
                     {plan.name}
                   </span>
-                  <span className="text-lg font-extrabold text-gray-900">
+                  <span className="text-lg font-extrabold text-foreground">
                     {plan.price}
                   </span>
                   {plan.period && (
-                    <span className="text-xs text-gray-400">{plan.period}</span>
+                    <span className="text-xs text-muted-foreground">{plan.period}</span>
                   )}
                 </div>
                 <div className="flex flex-col gap-1.5 mt-2">
@@ -183,7 +183,7 @@ export function PaymentScreen({ onClose }: { onClose: () => void }) {
                   {plan.missing.map((f, j) => (
                     <div key={j} className="flex items-center gap-2 text-xs">
                       <XIcon className="w-3.5 h-3.5 text-gray-300 shrink-0" />
-                      <span className="text-gray-400 line-through">{f}</span>
+                      <span className="text-muted-foreground line-through">{f}</span>
                     </div>
                   ))}
                 </div>
@@ -225,7 +225,7 @@ export function PaymentScreen({ onClose }: { onClose: () => void }) {
         {error && (
           <p className="text-xs text-red-500 text-center mt-2">{error}</p>
         )}
-        <p className="text-[11px] text-gray-400 text-center mt-3">
+        <p className="text-[11px] text-muted-foreground text-center mt-3">
           {t("payment.cancelAnytime")}
         </p>
       </div>

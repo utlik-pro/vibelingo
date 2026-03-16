@@ -66,10 +66,10 @@ export function OnboardingScreen({ onStart }: { onStart: () => void }) {
   const canProceed = stepId === "welcome" || !!selections[stepId];
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col">
       {/* Progress bar */}
       <div className="px-5 pt-4">
-        <div className="h-[6px] rounded-full bg-gray-100 overflow-hidden">
+        <div className="h-[6px] rounded-full bg-muted overflow-hidden">
           <div
             className="h-full rounded-full bg-gradient-to-r from-purple-500 to-purple-600 transition-all duration-500 ease-out"
             style={{ width: `${progressPct}%` }}
@@ -84,7 +84,7 @@ export function OnboardingScreen({ onStart }: { onStart: () => void }) {
             <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center mx-auto mb-6 shadow-[0_12px_40px_rgba(147,51,234,0.3)]">
               <Zap className="w-10 h-10 text-white" />
             </div>
-            <h1 className="text-[32px] font-extrabold text-gray-900 mb-3 leading-tight">
+            <h1 className="text-[32px] font-extrabold text-foreground mb-3 leading-tight">
               {t("onboarding.welcome.title")}
             </h1>
             <p className="text-[16px] text-gray-500 max-w-[300px] mx-auto leading-relaxed">
@@ -93,7 +93,7 @@ export function OnboardingScreen({ onStart }: { onStart: () => void }) {
           </div>
         ) : (
           <div className="w-full max-w-[360px] animate-[fadeIn_0.3s_ease]">
-            <h2 className="text-[26px] font-extrabold text-gray-900 text-center mb-6">
+            <h2 className="text-[26px] font-extrabold text-foreground text-center mb-6">
               {"titleKey" in currentStep ? t(currentStep.titleKey) : ""}
             </h2>
             <div className="flex flex-col gap-3">
@@ -104,7 +104,7 @@ export function OnboardingScreen({ onStart }: { onStart: () => void }) {
                     <button
                       key={opt.labelKey}
                       onClick={() => handleSelect(currentStep.id, opt.labelKey)}
-                      className={`flex items-center gap-4 px-5 py-4 rounded-2xl border-2 transition-all duration-200 text-left bg-white cursor-pointer ${
+                      className={`flex items-center gap-4 px-5 py-4 rounded-2xl border-2 transition-all duration-200 text-left bg-card cursor-pointer ${
                         isSelected
                           ? "border-purple-500 shadow-[0_4px_20px_rgba(147,51,234,0.15)]"
                           : "border-gray-100 hover:border-gray-200 shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
@@ -140,7 +140,7 @@ export function OnboardingScreen({ onStart }: { onStart: () => void }) {
           className={`w-full py-4 rounded-2xl text-[17px] font-bold cursor-pointer border-none transition-all duration-200 ${
             canProceed
               ? "bg-gradient-to-r from-purple-500 to-purple-600 text-white shadow-[0_8px_24px_rgba(147,51,234,0.3)]"
-              : "bg-gray-100 text-gray-400 cursor-not-allowed"
+              : "bg-muted text-muted-foreground cursor-not-allowed"
           }`}
         >
           {step === totalSteps - 1 ? t("onboarding.startLearning") : t("onboarding.next")}

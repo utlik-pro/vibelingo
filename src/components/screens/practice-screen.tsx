@@ -52,11 +52,11 @@ function ChallengeDetail({
 
   if (submitted) {
     return (
-      <div className="px-5 py-4 bg-white min-h-full flex flex-col items-center justify-center text-center">
+      <div className="px-5 py-4 bg-background min-h-full flex flex-col items-center justify-center text-center">
         <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mb-4 animate-[fadeIn_0.4s_ease]">
           <CheckCircle className="w-10 h-10 text-green-500" />
         </div>
-        <h2 className="text-[22px] font-extrabold text-gray-900 mb-2 animate-[fadeIn_0.4s_ease_0.1s_both]">
+        <h2 className="text-[22px] font-extrabold text-foreground mb-2 animate-[fadeIn_0.4s_ease_0.1s_both]">
           {t("practice.submitted")}
         </h2>
         <p className="text-[15px] text-gray-500 mb-6 animate-[fadeIn_0.4s_ease_0.2s_both]">
@@ -73,7 +73,7 @@ function ChallengeDetail({
   }
 
   return (
-    <div className="px-5 py-4 bg-white min-h-full">
+    <div className="px-5 py-4 bg-background min-h-full">
       {/* Header */}
       <div className="flex items-center gap-3 mb-5 animate-[fadeIn_0.3s_ease]">
         <button
@@ -83,7 +83,7 @@ function ChallengeDetail({
           <ArrowLeft className="w-5 h-5 text-gray-600" />
         </button>
         <div className="flex-1 min-w-0">
-          <h2 className="text-[17px] font-extrabold text-gray-900 truncate">{title}</h2>
+          <h2 className="text-[17px] font-extrabold text-foreground truncate">{title}</h2>
         </div>
       </div>
 
@@ -133,14 +133,14 @@ function ChallengeDetail({
 
       {/* Prompt textarea */}
       <div className="mb-4 animate-[slideIn_0.4s_ease_0.2s_both]">
-        <label className="text-[13px] font-bold text-gray-400 tracking-wider uppercase mb-2 block">
+        <label className="text-[13px] font-bold text-muted-foreground tracking-wider uppercase mb-2 block">
           {t("practice.writePrompt")}
         </label>
         <textarea
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           placeholder={t("battle.promptPlaceholder")}
-          className="w-full h-36 p-4 rounded-2xl border-2 border-gray-100 bg-white text-[14px] text-gray-900 placeholder:text-gray-300 focus:border-purple-300 focus:outline-none resize-none transition-colors"
+          className="w-full h-36 p-4 rounded-2xl border-2 border-gray-100 bg-white text-[14px] text-foreground placeholder:text-gray-300 focus:border-purple-300 focus:outline-none resize-none transition-colors"
         />
       </div>
 
@@ -209,11 +209,11 @@ export function PracticeScreen({ onXPEarned }: PracticeScreenProps) {
   }
 
   return (
-    <div className="px-5 py-4 bg-white min-h-full">
+    <div className="px-5 py-4 bg-background min-h-full">
       {/* Header */}
       <div className="mb-5 animate-[fadeIn_0.3s_ease]">
-        <h1 className="text-[22px] font-extrabold text-gray-900 mb-1">{t("practice.title")}</h1>
-        <p className="text-[13px] text-gray-400">{t("practice.subtitle")}</p>
+        <h1 className="text-[22px] font-extrabold text-foreground mb-1">{t("practice.title")}</h1>
+        <p className="text-[13px] text-muted-foreground">{t("practice.subtitle")}</p>
       </div>
 
       {/* Challenge cards */}
@@ -246,7 +246,7 @@ export function PracticeScreen({ onXPEarned }: PracticeScreenProps) {
                       <CheckCircle className="w-4 h-4 text-green-500" />
                     )}
                   </div>
-                  <h3 className="text-[14px] font-bold text-gray-900 mb-1 truncate">{title}</h3>
+                  <h3 className="text-[14px] font-bold text-foreground mb-1 truncate">{title}</h3>
                 </div>
                 <span className="text-[13px] font-bold text-purple-500 whitespace-nowrap">
                   +{challenge.xpReward} XP

@@ -27,12 +27,12 @@ export function LessonComplete({
   const stats = [
     { label: t("lessonComplete.xpEarned"), value: `+${xpEarned}`, color: "text-purple-500" },
     { label: t("lessonComplete.accuracy"), value: `${pct}%`, color: pct >= 80 ? "text-green-500" : "text-amber-500" },
-    { label: t("lessonComplete.correct"), value: `${correctCount}/${totalCount}`, color: "text-gray-900" },
+    { label: t("lessonComplete.correct"), value: `${correctCount}/${totalCount}`, color: "text-foreground" },
     { label: t("lessonComplete.tool"), value: TOOLS[lesson.tool].name, color: "" },
   ];
 
   return (
-    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white p-6 animate-[fadeIn_0.5s_ease]">
+    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background p-6 animate-[fadeIn_0.5s_ease]">
       {/* Big icon */}
       <div className="mb-5 animate-[popIn_0.6s_ease]">
         <div className="w-20 h-20 rounded-full bg-purple-50 flex items-center justify-center">
@@ -46,10 +46,10 @@ export function LessonComplete({
         </div>
       </div>
 
-      <h2 className="text-2xl font-extrabold text-gray-900 mb-2 text-center">
+      <h2 className="text-2xl font-extrabold text-foreground mb-2 text-center">
         {stars === 3 ? t("lessonComplete.excellent") : stars === 2 ? t("lessonComplete.goodJob") : t("lessonComplete.canDoBetter")}
       </h2>
-      <p className="text-sm text-gray-400 mb-6">{getTitle(lesson)}</p>
+      <p className="text-sm text-muted-foreground mb-6">{getTitle(lesson)}</p>
 
       {/* Stars */}
       <div className="flex gap-2.5 mb-6">
@@ -71,13 +71,13 @@ export function LessonComplete({
       {/* Stats */}
       <div className="grid grid-cols-2 gap-3 w-full max-w-[280px] mb-8">
         {stats.map((stat, i) => (
-          <div key={i} className="p-4 text-center rounded-2xl bg-white border border-gray-100 shadow-[0_2px_12px_rgba(147,51,234,0.06)]">
+          <div key={i} className="p-4 text-center rounded-2xl bg-card border border-border shadow-[0_2px_12px_rgba(147,51,234,0.06)]">
             <div className={`text-xl font-extrabold ${stat.color}`}
               style={stat.label === t("lessonComplete.tool") ? { color: TOOLS[lesson.tool].color } : undefined}
             >
               {stat.value}
             </div>
-            <div className="text-[11px] text-gray-400 mt-0.5">{stat.label}</div>
+            <div className="text-[11px] text-muted-foreground mt-0.5">{stat.label}</div>
           </div>
         ))}
       </div>

@@ -35,6 +35,34 @@
   --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
 }
 
+.dark {
+  --color-background: #0D0D12;
+  --color-foreground: #EAEAF0;
+  --color-card: #1A1A26;
+  --color-card-foreground: #EAEAF0;
+  --color-popover: #1A1A26;
+  --color-popover-foreground: #EAEAF0;
+  --color-primary: #7C4DFF;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #1E1E2E;
+  --color-secondary-foreground: #EAEAF0;
+  --color-muted: #16161E;
+  --color-muted-foreground: #8888A0;
+  --color-accent: #7C4DFF;
+  --color-accent-foreground: #ffffff;
+  --color-destructive: #FF5252;
+  --color-destructive-foreground: #ffffff;
+  --color-border: #2A2A3A;
+  --color-input: #2A2A3A;
+  --color-ring: #7C4DFF;
+  --color-success: #00C853;
+  --color-warning: #FFD600;
+  --color-accent-light: #9C7CFF;
+  --color-text-muted: #8888A0;
+  --color-surface: #1E1E2E;
+  --color-surface-hover: #252536;
+}
+
 @layer base {
   * {
     @apply border-border;

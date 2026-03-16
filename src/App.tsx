@@ -20,6 +20,8 @@ import { BottomNav } from "@/components/bottom-nav";
 import { useAuth } from "@/lib/auth";
 import { useI18n } from "@/lib/i18n";
 import { loadUserProgress, saveUserProgress } from "@/lib/db";
+import { playCorrectSound, playWrongSound, playLevelUpSound } from "@/lib/sounds";
+import { Confetti } from "@/components/confetti";
 
 export default function App() {
   const { user } = useAuth();
@@ -132,7 +134,12 @@ export default function App() {
 
     if (isCorrect) {
       setCorrectAnswers((c) => c + 1);
-    } else if (!user.isPro) {
+      playCorrectSound();
+    } else {
+      playWrongSound();
+    }
+
+    if (!isCorrect && !user.isPro) {
       // PRO users have unlimited hearts
       const newHearts = hearts - 1;
       setHearts(newHearts);
@@ -161,6 +168,7 @@ export default function App() {
       }
       setDailyGoal((g) => ({ ...g, done: Math.min(g.done + 1, g.target) }));
       setShowComplete(true);
+      playLevelUpSound();
     }
   };
 
@@ -189,6 +197,7 @@ export default function App() {
       return (
         <>
           {fontLink}
+          <Confetti show={showComplete} />
           <LessonComplete
             lesson={currentLesson}
             xpEarned={currentLesson.xp}

@@ -23,9 +23,9 @@ export function LearnScreen({ hearts, completedLessons, onStartLesson }: LearnSc
   const modules = ["Основы", "Инструменты", "Дизайн", "Продвинутый", "Монетизация"];
 
   return (
-    <div className="px-5 py-4 bg-white min-h-full">
+    <div className="px-5 py-4 bg-background min-h-full">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-[22px] font-extrabold text-gray-900">{t("learn.title")}</h2>
+        <h2 className="text-[22px] font-extrabold text-foreground">{t("learn.title")}</h2>
         <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-50">
           <Heart className="w-4 h-4 text-red-500 fill-red-500" />
           <span className={`text-sm font-bold ${hearts <= 1 ? "text-red-500" : "text-gray-700"}`}>
@@ -99,7 +99,7 @@ export function LearnScreen({ hearts, completedLessons, onStartLesson }: LearnSc
                         ) : isAvailable ? (
                           <Play className="w-6 h-6 text-white ml-0.5" />
                         ) : (
-                          <Lock className="w-5 h-5 text-gray-400" />
+                          <Lock className="w-5 h-5 text-muted-foreground" />
                         )}
                       </button>
 
@@ -107,12 +107,12 @@ export function LearnScreen({ hearts, completedLessons, onStartLesson }: LearnSc
                       <div className="min-w-[140px]">
                         <div
                           className={`text-[14px] font-semibold ${
-                            isLocked ? "text-gray-400" : "text-gray-900"
+                            isLocked ? "text-muted-foreground" : "text-foreground"
                           }`}
                         >
                           {getTitle(lesson)}
                         </div>
-                        <div className={`text-[12px] ${isLocked ? "text-gray-300" : "text-gray-400"}`}>
+                        <div className={`text-[12px] ${isLocked ? "text-gray-300" : "text-muted-foreground"}`}>
                           +{lesson.xp} XP
                         </div>
                       </div>
