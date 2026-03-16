@@ -11,9 +11,16 @@ const tgWebApp = window.Telegram?.WebApp;
 if (tgWebApp) {
   tgWebApp.ready();
   tgWebApp.expand();
+  tgWebApp.enableClosingConfirmation?.();
   tgWebApp.isVerticalSwipesEnabled = false;
   tgWebApp.setHeaderColor?.('#F8F7FC');
   tgWebApp.setBackgroundColor?.('#F8F7FC');
+  // True fullscreen — hides Telegram header (WebApp v8.0+)
+  try {
+    tgWebApp.requestFullscreen?.();
+  } catch {
+    // Not supported in older Telegram versions
+  }
 }
 
 createRoot(document.getElementById('root')!).render(
