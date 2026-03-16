@@ -262,7 +262,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col font-sans">
+    <div className="min-h-screen bg-background flex flex-col font-sans tg-safe-top">
       {fontLink}
 
       {showShare && (
