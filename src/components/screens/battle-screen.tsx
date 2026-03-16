@@ -24,8 +24,10 @@ export function BattleScreen({ onStartBattle }: BattleScreenProps) {
 
   return (
     <div className="px-5 py-4 bg-background min-h-full">
+      <div className="sticky top-0 z-10 bg-background pb-3">
       <h2 className="text-[22px] font-extrabold text-foreground mb-1.5">{t("battle.title")}</h2>
-      <p className="text-xs text-muted-foreground mb-5">{t("battle.subtitle")}</p>
+      <p className="text-xs text-muted-foreground">{t("battle.subtitle")}</p>
+      </div>
 
       {/* Battle card */}
       <div className="rounded-2xl overflow-hidden bg-card border border-border shadow-[0_4px_20px_rgba(0,0,0,0.06)] mb-4 animate-[slideIn_0.4s_ease]">

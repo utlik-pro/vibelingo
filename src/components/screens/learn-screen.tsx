@@ -24,6 +24,7 @@ export function LearnScreen({ hearts, completedLessons, onStartLesson }: LearnSc
 
   return (
     <div className="px-5 py-4 bg-background min-h-full">
+      <div className="sticky top-0 z-10 bg-background pb-3">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-[22px] font-extrabold text-foreground">{t("learn.title")}</h2>
         <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-50">
@@ -32,6 +33,7 @@ export function LearnScreen({ hearts, completedLessons, onStartLesson }: LearnSc
             {hearts}/5
           </span>
         </div>
+      </div>
       </div>
 
       {modules.map((mod) => {

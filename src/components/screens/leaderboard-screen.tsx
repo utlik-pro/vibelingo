@@ -16,8 +16,9 @@ export function LeaderboardScreen({ userXP, streak }: LeaderboardScreenProps) {
 
   return (
     <div className="px-5 py-4 bg-background min-h-full">
+      <div className="sticky top-0 z-10 bg-background pb-3">
       <h2 className="text-[22px] font-extrabold text-foreground mb-1.5">{t("leaderboard.title")}</h2>
-      <p className="text-xs text-muted-foreground mb-5 flex items-center gap-1">
+      <p className="text-xs text-muted-foreground flex items-center gap-1">
         <span>{t("leaderboard.subtitle")}</span>
         <span>
           {(() => {
@@ -34,6 +35,7 @@ export function LeaderboardScreen({ userXP, streak }: LeaderboardScreenProps) {
         </span>
         <span>{currentLeague.name} {t("home.league")}</span>
       </p>
+      </div>
 
       {/* Your position */}
       <div className="flex items-center gap-3 p-4 rounded-2xl bg-card border-l-4 border-purple-500 shadow-[0_2px_16px_rgba(147,51,234,0.1)] mb-5 animate-[slideIn_0.3s_ease]">

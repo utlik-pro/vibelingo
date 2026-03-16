@@ -47,6 +47,12 @@ export default function App() {
   const [showOnboarding, setShowOnboarding] = useState(true);
   const [battleActive, setBattleActive] = useState(false);
   const [showCertificates, setShowCertificates] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Scroll to top when screen changes
+  useEffect(() => {
+    scrollRef.current?.scrollTo(0, 0);
+  }, [screen]);
 
   // Telegram BackButton management
   const tgBackButton = window.Telegram?.WebApp?.BackButton;
@@ -307,7 +313,7 @@ export default function App() {
 
       {showPayment && <PaymentScreen onClose={() => setShowPayment(false)} />}
 
-      <div className="flex-1 overflow-y-auto pb-[72px]">
+      <div ref={scrollRef} className="flex-1 overflow-y-auto pb-[72px]">
         {screen === "home" && (
           <HomeScreen
             userXP={userXP}

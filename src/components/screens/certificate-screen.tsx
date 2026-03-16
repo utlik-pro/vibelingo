@@ -49,7 +49,7 @@ export function CertificateScreen({ completedLessons, onClose: _onClose }: Certi
   return (
     <div className="px-5 py-4 bg-background min-h-full tg-safe-top">
       {/* Header */}
-      <div className="mb-6 animate-[fadeIn_0.3s_ease]">
+      <div className="sticky top-0 z-10 bg-background pb-3 animate-[fadeIn_0.3s_ease]">
         <h1 className="text-[24px] font-extrabold text-foreground mb-1">{t("certificates.title")}</h1>
         <p className="text-sm text-muted-foreground">
           {totalCompleted}/{modules.length} {t("certificates.earned").toLowerCase()}

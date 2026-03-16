@@ -211,7 +211,7 @@ export function PracticeScreen({ onXPEarned }: PracticeScreenProps) {
   return (
     <div className="px-5 py-4 bg-background min-h-full">
       {/* Header */}
-      <div className="mb-5 animate-[fadeIn_0.3s_ease]">
+      <div className="sticky top-0 z-10 bg-background pb-3 animate-[fadeIn_0.3s_ease]">
         <h1 className="text-[22px] font-extrabold text-foreground mb-1">{t("practice.title")}</h1>
         <p className="text-[13px] text-muted-foreground">{t("practice.subtitle")}</p>
       </div>

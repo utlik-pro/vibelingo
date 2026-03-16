@@ -58,6 +58,7 @@ export function ProfileScreen({
   return (
     <div className="px-5 py-4 bg-background min-h-full">
       {/* Language & Theme switcher */}
+      <div className="sticky top-0 z-10 bg-background pb-2">
       <div className="flex justify-end gap-2 mb-2 animate-[fadeIn_0.3s_ease]">
         <button
           onClick={toggleTheme}
@@ -72,6 +73,7 @@ export function ProfileScreen({
           <Languages className="w-4 h-4" />
           {locale === "en" ? "RU" : "EN"}
         </button>
+      </div>
       </div>
 
       {/* Profile header */}

@@ -37,13 +37,15 @@ export function HomeScreen({
   return (
     <div className="px-5 py-4 bg-background min-h-full">
       {/* Top bar */}
-      <div className="flex justify-between items-center mb-6">
-        <div>
-          <div className="text-[22px] font-extrabold text-foreground">VibeLingo</div>
-        </div>
-        <div className="flex gap-2 items-center">
-          <StreakBadge streak={streak} />
-          <XPCounter xp={userXP} showDelta={showXPDelta} />
+      <div className="sticky top-0 z-10 bg-background pb-3">
+        <div className="flex justify-between items-center">
+          <div>
+            <div className="text-[22px] font-extrabold text-foreground">VibeLingo</div>
+          </div>
+          <div className="flex gap-2 items-center">
+            <StreakBadge streak={streak} />
+            <XPCounter xp={userXP} showDelta={showXPDelta} />
+          </div>
         </div>
       </div>
 
