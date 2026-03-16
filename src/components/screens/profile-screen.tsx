@@ -1,0 +1,275 @@
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { BADGES, LEAGUES } from "@/data/lessons";
+import {
+  Crown, User, Zap, Flame, BookOpen, Share2, Award,
+  Circle, Star, Globe, Sparkles,
+  Home, PenTool, Users, Swords, Palette, Rocket,
+  Languages, Copy, Check, ChevronRight,
+} from "lucide-react";
+import { useI18n } from "@/lib/i18n";
+import { useAuth } from "@/lib/auth";
+import { generateReferralCode, getReferralLink, getReferralCount } from "@/lib/referral";
+
+interface ProfileScreenProps {
+  userXP: number;
+  streak: number;
+  completedLessons: number[];
+  earnedBadges: string[];
+  onShare: () => void;
+  onUpgrade: () => void;
+  onViewCertificates: () => void;
+}
+
+export function ProfileScreen({
+  userXP,
+  streak,
+  completedLessons,
+  earnedBadges,
+  onShare,
+  onUpgrade,
+  onViewCertificates,
+}: ProfileScreenProps) {
+  const { t, locale, setLocale } = useI18n();
+  const { user } = useAuth();
+  const [linkCopied, setLinkCopied] = useState(false);
+  const referralCode = generateReferralCode(user.id);
+  const referralLink = getReferralLink(referralCode);
+  const referralCount = getReferralCount(user.id);
+
+  const copyReferralLink = () => {
+    navigator.clipboard.writeText(referralLink).then(() => {
+      setLinkCopied(true);
+      setTimeout(() => setLinkCopied(false), 2000);
+    }).catch(() => {
+      // fallback
+      setLinkCopied(true);
+      setTimeout(() => setLinkCopied(false), 2000);
+    });
+  };
+  const currentLeague = LEAGUES.reduce((prev, l) => (userXP >= l.xpNeeded ? l : prev), LEAGUES[0]);
+
+  const skills = [
+    { skill: t("profile.skill.prompting"), value: 65, color: "#8B5CF6" },
+    { skill: t("profile.skill.design"), value: 30, color: "#F97316" },
+    { skill: t("profile.skill.architecture"), value: 15, color: "#0EA5E9" },
+    { skill: t("profile.skill.deploy"), value: 40, color: "#22C55E" },
+    { skill: t("profile.skill.speed"), value: 55, color: "#F59E0B" },
+  ];
+
+  const toggleLocale = () => {
+    setLocale(locale === "en" ? "ru" : "en");
+  };
+
+  return (
+    <div className="px-5 py-4 bg-white min-h-full">
+      {/* Language switcher */}
+      <div className="flex justify-end mb-2 animate-[fadeIn_0.3s_ease]">
+        <button
+          onClick={toggleLocale}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border-2 border-gray-100 bg-white text-sm font-semibold text-gray-600 hover:border-purple-200 hover:text-purple-600 transition-all cursor-pointer"
+        >
+          <Languages className="w-4 h-4" />
+          {locale === "en" ? "RU" : "EN"}
+        </button>
+      </div>
+
+      {/* Profile header */}
+      <div className="text-center mb-6 animate-[fadeIn_0.4s_ease]">
+        <div className="w-20 h-20 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center mx-auto mb-3 shadow-[0_8px_32px_rgba(147,51,234,0.3)]">
+          {user.photoUrl ? (
+            <img src={user.photoUrl} alt={user.name} className="w-20 h-20 rounded-full object-cover" />
+          ) : (
+            <User className="w-10 h-10 text-white" />
+          )}
+        </div>
+        <div className="flex items-center justify-center gap-2 mb-1">
+          <h2 className="text-[22px] font-extrabold text-gray-900">{user.name}</h2>
+          {user.isPro && (
+            <span className="px-2 py-0.5 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-white text-[10px] font-bold uppercase tracking-wider">
+              PRO
+            </span>
+          )}
+        </div>
+        <div className="flex justify-center items-center gap-2">
+          {(() => {
+            const leagueIconMap: Record<string, React.ReactNode> = {
+              Circle: <Circle className="w-4 h-4" style={{ color: currentLeague.color }} />,
+              Star: <Star className="w-4 h-4" style={{ color: currentLeague.color }} />,
+              Globe: <Globe className="w-4 h-4" style={{ color: currentLeague.color }} />,
+              Flame: <Flame className="w-4 h-4" style={{ color: currentLeague.color }} />,
+              Sparkles: <Sparkles className="w-4 h-4" style={{ color: currentLeague.color }} />,
+              Crown: <Crown className="w-4 h-4" style={{ color: currentLeague.color }} />,
+            };
+            return leagueIconMap[currentLeague.icon] || null;
+          })()}
+          <span className="text-[13px] font-semibold" style={{ color: currentLeague.color }}>
+            {currentLeague.name} {t("home.league")}
+          </span>
+        </div>
+      </div>
+
+      {/* PRO button — hide if already PRO */}
+      {!user.isPro ? (
+        <Button
+          onClick={onUpgrade}
+          variant="outline"
+          className="w-full mb-6 h-12 rounded-2xl border-2 border-purple-200 bg-purple-50 text-purple-600 hover:bg-purple-100 font-bold gap-2"
+        >
+          <Crown className="w-4 h-4 text-amber-500" />
+          {t("profile.upgradeToPro")}
+        </Button>
+      ) : (
+        <div className="w-full mb-6 h-12 rounded-2xl bg-gradient-to-r from-amber-50 to-amber-100 border-2 border-amber-200 flex items-center justify-center gap-2">
+          <Crown className="w-5 h-5 text-amber-500" />
+          <span className="text-amber-700 font-bold text-sm">{t("profile.proActive")}</span>
+        </div>
+      )}
+
+      {/* Stats grid */}
+      <div className="grid grid-cols-3 gap-3 mb-6">
+        {[
+          { value: userXP, label: "XP", icon: <Zap className="w-5 h-5 text-purple-500" /> },
+          { value: streak, label: t("common.streak"), icon: <Flame className="w-5 h-5 text-orange-400" /> },
+          { value: completedLessons.length, label: t("profile.lessons"), icon: <BookOpen className="w-5 h-5 text-blue-400" /> },
+        ].map((s, i) => (
+          <div
+            key={i}
+            className="p-4 text-center rounded-2xl bg-white border border-gray-100 shadow-[0_2px_12px_rgba(147,51,234,0.06)] animate-[slideIn_0.4s_ease_both]"
+            style={{ animationDelay: `${i * 80}ms` }}
+          >
+            <div className="mb-1.5 flex justify-center">{s.icon}</div>
+            <div className="text-[22px] font-extrabold text-gray-900">{s.value}</div>
+            <div className="text-[11px] text-gray-400">{s.label}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Skill bars */}
+      <div className="mb-6 p-5 rounded-2xl bg-white border border-gray-100 shadow-[0_2px_12px_rgba(0,0,0,0.04)] animate-[slideIn_0.4s_ease_0.2s_both]">
+        <div className="text-[13px] font-bold text-gray-400 tracking-wider uppercase mb-4">
+          {t("profile.skillScore")}
+        </div>
+        {skills.map((s, i) => (
+          <div key={i} className="mb-3 last:mb-0">
+            <div className="flex justify-between mb-1.5">
+              <span className="text-[13px] text-gray-700 font-medium">{s.skill}</span>
+              <span className="text-xs text-gray-400">{s.value}%</span>
+            </div>
+            <div className="h-2 rounded-full bg-gray-100 overflow-hidden">
+              <div
+                className="h-full rounded-full transition-all duration-1000 ease-out"
+                style={{ background: s.color, width: `${s.value}%` }}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Badges */}
+      <div className="animate-[slideIn_0.4s_ease_0.3s_both]">
+        <div className="text-[13px] font-bold text-gray-400 tracking-wider uppercase mb-3">
+          {t("profile.badges")} ({earnedBadges.length}/{BADGES.length})
+        </div>
+        <div className="grid grid-cols-4 gap-2.5">
+          {BADGES.map((b) => {
+            const earned = earnedBadges.includes(b.id);
+            return (
+              <div
+                key={b.id}
+                className={`p-3 rounded-2xl text-center bg-white border-2 ${
+                  earned
+                    ? "border-purple-200 shadow-[0_2px_12px_rgba(147,51,234,0.1)]"
+                    : "border-gray-100 opacity-35"
+                }`}
+              >
+                <div className="mb-1.5 flex justify-center">
+                  {(() => {
+                    const badgeIconMap: Record<string, React.ReactNode> = {
+                      Home: <Home className="w-6 h-6 text-purple-500" />,
+                      Flame: <Flame className="w-6 h-6 text-orange-400" />,
+                      Zap: <Zap className="w-6 h-6 text-yellow-500" />,
+                      PenTool: <PenTool className="w-6 h-6 text-blue-500" />,
+                      Users: <Users className="w-6 h-6 text-green-500" />,
+                      Swords: <Swords className="w-6 h-6 text-red-500" />,
+                      Palette: <Palette className="w-6 h-6 text-pink-500" />,
+                      Rocket: <Rocket className="w-6 h-6 text-indigo-500" />,
+                    };
+                    return badgeIconMap[b.icon] || null;
+                  })()}
+                </div>
+                <div className={`text-[9px] font-semibold leading-tight ${earned ? "text-gray-900" : "text-gray-400"}`}>
+                  {t(`badge.${b.id}`)}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Referral section */}
+      <div className="mt-6 p-5 rounded-2xl bg-white border border-gray-100 shadow-[0_2px_12px_rgba(0,0,0,0.04)] animate-[slideIn_0.4s_ease_0.33s_both]">
+        <div className="text-[13px] font-bold text-gray-400 tracking-wider uppercase mb-3">
+          {t("profile.referral")}
+        </div>
+        <div className="flex items-center gap-2 mb-3">
+          <div className="flex-1 px-3 py-2 rounded-xl bg-gray-50 border border-gray-100">
+            <div className="text-[10px] text-gray-400 mb-0.5">{t("profile.referralCode")}</div>
+            <div className="text-[15px] font-bold text-purple-600 font-mono">{referralCode}</div>
+          </div>
+          <Button
+            onClick={copyReferralLink}
+            variant="outline"
+            className="h-11 px-4 rounded-xl border-2 border-purple-200 text-purple-600 hover:bg-purple-50 font-semibold text-[13px] gap-1.5"
+          >
+            {linkCopied ? (
+              <>
+                <Check className="w-4 h-4" />
+                {t("profile.linkCopied")}
+              </>
+            ) : (
+              <>
+                <Copy className="w-4 h-4" />
+                {t("profile.copyLink")}
+              </>
+            )}
+          </Button>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-[13px] text-gray-500">
+            {t("profile.friendsInvited", { count: String(referralCount) })}
+          </span>
+          <span className="text-[11px] text-purple-500 font-semibold">
+            {t("profile.referralBonus")}
+          </span>
+        </div>
+      </div>
+
+      {/* Certificates section */}
+      <button
+        onClick={onViewCertificates}
+        className="mt-4 w-full p-5 rounded-2xl bg-white border border-gray-100 shadow-[0_2px_12px_rgba(0,0,0,0.04)] animate-[slideIn_0.4s_ease_0.35s_both] flex items-center gap-3 text-left cursor-pointer"
+      >
+        <Award className="w-5 h-5 text-purple-500 flex-shrink-0" />
+        <div className="flex-1">
+          <span className="text-[13px] font-bold text-gray-400 tracking-wider uppercase">
+            {t("profile.certificates")}
+          </span>
+          <p className="text-[13px] text-gray-500 mt-0.5">
+            {t("profile.certificatesDesc")}
+          </p>
+        </div>
+        <ChevronRight className="w-5 h-5 text-gray-300 flex-shrink-0" />
+      </button>
+
+      {/* Share button */}
+      <Button
+        onClick={onShare}
+        className="w-full mt-6 h-12 rounded-2xl bg-gradient-to-r from-purple-500 to-purple-600 text-[15px] font-bold shadow-[0_8px_24px_rgba(147,51,234,0.25)] border-none animate-[slideIn_0.4s_ease_0.4s_both] gap-2"
+      >
+        <Share2 className="w-4 h-4" />
+        {t("profile.shareProgress")}
+      </Button>
+    </div>
+  );
+}

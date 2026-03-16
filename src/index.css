@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-background: #F8F7FC;
+  --color-foreground: #1A1A2E;
+  --color-card: #ffffff;
+  --color-card-foreground: #1A1A2E;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #1A1A2E;
+  --color-primary: #6C5CE7;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #F3F2F8;
+  --color-secondary-foreground: #1A1A2E;
+  --color-muted: #F3F2F8;
+  --color-muted-foreground: #6B7280;
+  --color-accent: #6C5CE7;
+  --color-accent-foreground: #ffffff;
+  --color-destructive: #FF5252;
+  --color-destructive-foreground: #ffffff;
+  --color-border: #E8E6F0;
+  --color-input: #E8E6F0;
+  --color-ring: #6C5CE7;
+  --color-success: #00C853;
+  --color-warning: #FFD600;
+  --color-accent-light: #7C4DFF;
+  --color-text-muted: #6B7280;
+  --color-surface: #F3F2F8;
+  --color-surface-hover: #ECEAF5;
+  --radius: 0.75rem;
+
+  --font-sans: 'DM Sans', 'SF Pro Display', -apple-system, sans-serif;
+  --font-display: 'Outfit', 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+  ::-webkit-scrollbar {
+    width: 0;
+  }
+}
+
+@layer utilities {
+  .shadow-card {
+    box-shadow: 0 2px 12px rgba(108, 92, 231, 0.08);
+  }
+  .shadow-card-hover {
+    box-shadow: 0 4px 20px rgba(108, 92, 231, 0.12);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes fadeUp {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-20px); }
+}
+@keyframes pulse-soft {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

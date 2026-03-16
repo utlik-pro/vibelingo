@@ -1,0 +1,133 @@
+export interface BattleChallenge {
+  id: number;
+  title: string;
+  titleRu: string;
+  description: string;
+  descriptionRu: string;
+  tool: string;
+  timeLimit: number;
+  xpReward: number;
+}
+
+export const BATTLE_CHALLENGES: BattleChallenge[] = [
+  {
+    id: 1,
+    title: "Landing page for a coffee shop",
+    titleRu: "Лендинг для кофейни",
+    description: "Create a modern landing page for a cozy coffee shop with a hero section, menu highlights, and a contact form.",
+    descriptionRu: "Создай современный лендинг для уютной кофейни с героем, меню и контактной формой.",
+    tool: "lovable",
+    timeLimit: 180,
+    xpReward: 50,
+  },
+  {
+    id: 2,
+    title: "Portfolio site with dark theme",
+    titleRu: "Портфолио с тёмной темой",
+    description: "Build a sleek portfolio website with a dark theme, project gallery, and an about section.",
+    descriptionRu: "Создай стильное портфолио с тёмной темой, галереей проектов и секцией «О себе».",
+    tool: "cursor",
+    timeLimit: 180,
+    xpReward: 50,
+  },
+  {
+    id: 3,
+    title: "SaaS pricing page",
+    titleRu: "Страница тарифов SaaS",
+    description: "Design a pricing page with three tiers (Free, Pro, Enterprise), feature comparison, and a FAQ section.",
+    descriptionRu: "Создай страницу тарифов с тремя планами (Free, Pro, Enterprise), сравнением и FAQ.",
+    tool: "v0",
+    timeLimit: 240,
+    xpReward: 60,
+  },
+  {
+    id: 4,
+    title: "Mobile app onboarding screen",
+    titleRu: "Экран онбординга мобильного приложения",
+    description: "Create a mobile-first onboarding flow with 3 steps, illustrations placeholder, and a CTA button.",
+    descriptionRu: "Создай мобильный онбординг из 3 шагов с иллюстрациями и CTA-кнопкой.",
+    tool: "lovable",
+    timeLimit: 180,
+    xpReward: 50,
+  },
+  {
+    id: 5,
+    title: "E-commerce product card",
+    titleRu: "Карточка товара интернет-магазина",
+    description: "Build a product card with image, price, rating, add-to-cart button, and size selector.",
+    descriptionRu: "Создай карточку товара с фото, ценой, рейтингом, кнопкой «в корзину» и выбором размера.",
+    tool: "bolt",
+    timeLimit: 120,
+    xpReward: 40,
+  },
+  {
+    id: 6,
+    title: "Dashboard with charts",
+    titleRu: "Дашборд с графиками",
+    description: "Create an analytics dashboard with a sidebar, KPI cards, line chart, and a recent activity table.",
+    descriptionRu: "Создай аналитический дашборд с сайдбаром, KPI-карточками, графиком и таблицей активности.",
+    tool: "cursor",
+    timeLimit: 240,
+    xpReward: 60,
+  },
+  {
+    id: 7,
+    title: "Blog homepage",
+    titleRu: "Главная страница блога",
+    description: "Design a blog homepage with featured post, article grid, categories sidebar, and newsletter signup.",
+    descriptionRu: "Создай главную блога с главным постом, сеткой статей, категориями и подпиской на рассылку.",
+    tool: "lovable",
+    timeLimit: 180,
+    xpReward: 50,
+  },
+  {
+    id: 8,
+    title: "Restaurant menu page",
+    titleRu: "Страница меню ресторана",
+    description: "Build a restaurant menu page with categories, dish cards with prices, and a reservation CTA.",
+    descriptionRu: "Создай страницу меню ресторана с категориями, карточками блюд и кнопкой бронирования.",
+    tool: "bolt",
+    timeLimit: 180,
+    xpReward: 50,
+  },
+  {
+    id: 9,
+    title: "Fitness app workout screen",
+    titleRu: "Экран тренировки фитнес-приложения",
+    description: "Create a workout screen with exercise list, timer, sets/reps counter, and progress indicator.",
+    descriptionRu: "Создай экран тренировки со списком упражнений, таймером, счётчиком подходов и прогрессом.",
+    tool: "claude",
+    timeLimit: 180,
+    xpReward: 50,
+  },
+  {
+    id: 10,
+    title: "Social media profile page",
+    titleRu: "Страница профиля соцсети",
+    description: "Design a social media profile with cover photo, avatar, stats (posts, followers), and a post grid.",
+    descriptionRu: "Создай профиль соцсети с обложкой, аватаром, статистикой и сеткой постов.",
+    tool: "v0",
+    timeLimit: 180,
+    xpReward: 50,
+  },
+  {
+    id: 11,
+    title: "Weather app interface",
+    titleRu: "Интерфейс приложения погоды",
+    description: "Build a weather app UI with current conditions, 5-day forecast, and location search.",
+    descriptionRu: "Создай интерфейс приложения погоды с текущими условиями, прогнозом на 5 дней и поиском.",
+    tool: "lovable",
+    timeLimit: 180,
+    xpReward: 50,
+  },
+  {
+    id: 12,
+    title: "Task manager with Kanban board",
+    titleRu: "Таск-менеджер с Kanban-доской",
+    description: "Create a Kanban board with three columns (To Do, In Progress, Done) and draggable task cards.",
+    descriptionRu: "Создай Kanban-доску с тремя колонками и перетаскиваемыми карточками задач.",
+    tool: "cursor",
+    timeLimit: 240,
+    xpReward: 60,
+  },
+];
