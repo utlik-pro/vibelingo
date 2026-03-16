@@ -136,7 +136,7 @@ export function BattlePlayScreen({ onClose, onXPEarned }: BattlePlayScreenProps)
   // Stage 1: Searching
   if (stage === "searching") {
     return (
-      <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6">
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6 tg-safe-top">
         <div className="flex flex-col items-center gap-6">
           <div className="w-20 h-20 rounded-full bg-purple-50 flex items-center justify-center animate-pulse">
             <Swords className="w-10 h-10 text-purple-500" />
@@ -160,7 +160,7 @@ export function BattlePlayScreen({ onClose, onXPEarned }: BattlePlayScreenProps)
   // Stage 2: VS screen
   if (stage === "vs" && opponent) {
     return (
-      <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6">
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6 tg-safe-top">
         <p className="text-sm font-semibold text-purple-500 mb-8">{challengeTitle}</p>
 
         <div className="flex items-center gap-6 mb-10">
@@ -197,7 +197,7 @@ export function BattlePlayScreen({ onClose, onXPEarned }: BattlePlayScreenProps)
   if (stage === "battle" && opponent) {
     const urgency = timeLeft <= 30;
     return (
-      <div className="min-h-screen bg-background flex flex-col px-5 py-4">
+      <div className="min-h-screen bg-background flex flex-col px-5 py-4 tg-safe-top">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <button
@@ -269,7 +269,7 @@ export function BattlePlayScreen({ onClose, onXPEarned }: BattlePlayScreenProps)
   if (stage === "results" && opponent) {
     if (showEvaluating) {
       return (
-        <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6">
+        <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6 tg-safe-top">
           <Loader2 className="w-10 h-10 text-purple-500 animate-spin mb-4" />
           <span className="text-lg font-semibold text-gray-700">{t("battle.evaluating")}</span>
         </div>
@@ -279,7 +279,7 @@ export function BattlePlayScreen({ onClose, onXPEarned }: BattlePlayScreenProps)
     const isWin = result === "win";
 
     return (
-      <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6">
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6 tg-safe-top">
         <div className="flex flex-col items-center gap-4 mb-8">
           <div
             className={`w-20 h-20 rounded-full flex items-center justify-center ${isWin ? "bg-green-50" : "bg-red-50"}`}

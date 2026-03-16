@@ -106,7 +106,7 @@ export function PaymentScreen({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="fixed inset-0 z-[200] flex flex-col bg-background overflow-y-auto">
+    <div className="fixed inset-0 z-[200] flex flex-col bg-background overflow-y-auto tg-safe-top">
       {/* Header */}
       <div className="px-5 pt-4 pb-6">
         <button

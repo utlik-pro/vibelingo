@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { BADGES, LEAGUES } from "@/data/lessons";
+import { BADGES, LEAGUES, LESSONS_DATA } from "@/data/lessons";
 import {
   Crown, User, Zap, Flame, BookOpen, Share2, Award,
   Circle, Star, Globe, Sparkles,
@@ -51,20 +51,12 @@ export function ProfileScreen({
   };
   const currentLeague = LEAGUES.reduce((prev, l) => (userXP >= l.xpNeeded ? l : prev), LEAGUES[0]);
 
-  const skills = [
-    { skill: t("profile.skill.prompting"), value: 65, color: "#8B5CF6" },
-    { skill: t("profile.skill.design"), value: 30, color: "#F97316" },
-    { skill: t("profile.skill.architecture"), value: 15, color: "#0EA5E9" },
-    { skill: t("profile.skill.deploy"), value: 40, color: "#22C55E" },
-    { skill: t("profile.skill.speed"), value: 55, color: "#F59E0B" },
-  ];
-
   const toggleLocale = () => {
     setLocale(locale === "en" ? "ru" : "en");
   };
 
   return (
-    <div className="px-5 py-4 bg-background min-h-full">
+    <div className="px-5 py-4 bg-background min-h-full tg-safe-top">
       {/* Language & Theme switcher */}
       <div className="flex justify-end gap-2 mb-2 animate-[fadeIn_0.3s_ease]">
         <button
@@ -153,26 +145,45 @@ export function ProfileScreen({
         ))}
       </div>
 
-      {/* Skill bars */}
-      <div className="mb-6 p-5 rounded-2xl bg-card border border-border shadow-[0_2px_12px_rgba(0,0,0,0.04)] animate-[slideIn_0.4s_ease_0.2s_both]">
-        <div className="text-[13px] font-bold text-muted-foreground tracking-wider uppercase mb-4">
-          {t("profile.skillScore")}
-        </div>
-        {skills.map((s, i) => (
-          <div key={i} className="mb-3 last:mb-0">
-            <div className="flex justify-between mb-1.5">
-              <span className="text-[13px] text-gray-700 font-medium">{s.skill}</span>
-              <span className="text-xs text-muted-foreground">{s.value}%</span>
+      {/* Skill Score — computed from completed lessons per module */}
+      {(() => {
+        const moduleSkills = [
+          { module: "Основы", labelKey: "profile.skill.prompting", color: "#8B5CF6" },
+          { module: "Инструменты", labelKey: "profile.skill.tools", color: "#0EA5E9" },
+          { module: "Дизайн", labelKey: "profile.skill.design", color: "#F97316" },
+          { module: "Продвинутый", labelKey: "profile.skill.architecture", color: "#EF4444" },
+          { module: "Монетизация", labelKey: "profile.skill.monetization", color: "#22C55E" },
+        ];
+        const skills = moduleSkills.map((ms) => {
+          const moduleLessons = LESSONS_DATA.filter((l) => l.module === ms.module);
+          const done = moduleLessons.filter((l) => completedLessons.includes(l.id)).length;
+          const total = moduleLessons.length;
+          return { ...ms, value: total > 0 ? Math.round((done / total) * 100) : 0 };
+        });
+        const hasAnyProgress = skills.some((s) => s.value > 0);
+        if (!hasAnyProgress) return null;
+        return (
+          <div className="mb-6 p-4 rounded-2xl bg-card border border-border shadow-[0_2px_12px_rgba(147,51,234,0.06)] animate-[slideIn_0.4s_ease_0.2s_both]">
+            <div className="text-[13px] font-bold text-muted-foreground tracking-wider uppercase mb-3">
+              {t("profile.skillScore")}
             </div>
-            <div className="h-2 rounded-full bg-gray-100 overflow-hidden">
-              <div
-                className="h-full rounded-full transition-all duration-1000 ease-out"
-                style={{ background: s.color, width: `${s.value}%` }}
-              />
-            </div>
+            {skills.map((s, i) => (
+              <div key={i} className="mb-2.5 last:mb-0">
+                <div className="flex justify-between mb-1">
+                  <span className="text-[13px] text-foreground font-medium">{t(s.labelKey)}</span>
+                  <span className="text-xs text-muted-foreground">{s.value}%</span>
+                </div>
+                <div className="h-2 rounded-full bg-muted overflow-hidden">
+                  <div
+                    className="h-full rounded-full transition-all duration-1000 ease-out"
+                    style={{ background: s.color, width: `${s.value}%` }}
+                  />
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        );
+      })()}
 
       {/* Badges */}
       <div className="animate-[slideIn_0.4s_ease_0.3s_both]">

@@ -52,7 +52,7 @@ function ChallengeDetail({
 
   if (submitted) {
     return (
-      <div className="px-5 py-4 bg-background min-h-full flex flex-col items-center justify-center text-center">
+      <div className="px-5 py-4 bg-background min-h-full flex flex-col items-center justify-center text-center tg-safe-top">
         <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mb-4 animate-[fadeIn_0.4s_ease]">
           <CheckCircle className="w-10 h-10 text-green-500" />
         </div>
@@ -73,7 +73,7 @@ function ChallengeDetail({
   }
 
   return (
-    <div className="px-5 py-4 bg-background min-h-full">
+    <div className="px-5 py-4 bg-background min-h-full tg-safe-top">
       {/* Header */}
       <div className="flex items-center gap-3 mb-5 animate-[fadeIn_0.3s_ease]">
         <button
@@ -209,7 +209,7 @@ export function PracticeScreen({ onXPEarned }: PracticeScreenProps) {
   }
 
   return (
-    <div className="px-5 py-4 bg-background min-h-full">
+    <div className="px-5 py-4 bg-background min-h-full tg-safe-top">
       {/* Header */}
       <div className="mb-5 animate-[fadeIn_0.3s_ease]">
         <h1 className="text-[22px] font-extrabold text-foreground mb-1">{t("practice.title")}</h1>

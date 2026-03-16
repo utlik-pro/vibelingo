@@ -35,7 +35,7 @@ export function HomeScreen({
     : 1;
 
   return (
-    <div className="px-5 py-4 bg-background min-h-full">
+    <div className="px-5 py-4 bg-background min-h-full tg-safe-top">
       {/* Top bar */}
       <div className="flex justify-between items-center mb-6">
         <div>

@@ -23,7 +23,7 @@ export function BattleScreen({ onStartBattle }: BattleScreenProps) {
   };
 
   return (
-    <div className="px-5 py-4 bg-background min-h-full">
+    <div className="px-5 py-4 bg-background min-h-full tg-safe-top">
       <h2 className="text-[22px] font-extrabold text-foreground mb-1.5">{t("battle.title")}</h2>
       <p className="text-xs text-muted-foreground mb-5">{t("battle.subtitle")}</p>
 

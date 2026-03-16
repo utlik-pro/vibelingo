@@ -66,7 +66,7 @@ export function OnboardingScreen({ onStart }: { onStart: () => void }) {
   const canProceed = stepId === "welcome" || !!selections[stepId];
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col tg-safe-top">
       {/* Progress bar */}
       <div className="px-5 pt-4">
         <div className="h-[6px] rounded-full bg-muted overflow-hidden">

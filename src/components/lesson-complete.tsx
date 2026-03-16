@@ -32,7 +32,7 @@ export function LessonComplete({
   ];
 
   return (
-    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background p-6 animate-[fadeIn_0.5s_ease]">
+    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background p-6 animate-[fadeIn_0.5s_ease] tg-safe-top">
       {/* Big icon */}
       <div className="mb-5 animate-[popIn_0.6s_ease]">
         <div className="w-20 h-20 rounded-full bg-purple-50 flex items-center justify-center">

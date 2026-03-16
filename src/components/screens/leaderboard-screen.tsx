@@ -15,7 +15,7 @@ export function LeaderboardScreen({ userXP, streak }: LeaderboardScreenProps) {
   const medalColors = ["#FFD700", "#C0C0C0", "#CD7F32"];
 
   return (
-    <div className="px-5 py-4 bg-white min-h-full">
+    <div className="px-5 py-4 bg-white min-h-full tg-safe-top">
       <h2 className="text-[22px] font-extrabold text-gray-900 mb-1.5">{t("leaderboard.title")}</h2>
       <p className="text-xs text-gray-400 mb-5 flex items-center gap-1">
         <span>{t("leaderboard.subtitle")}</span>
