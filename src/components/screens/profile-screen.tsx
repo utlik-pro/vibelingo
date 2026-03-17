@@ -41,11 +41,27 @@ export function ProfileScreen({
   const referralCount = getReferralCount(user.id);
 
   const copyReferralLink = () => {
+    // Try Telegram share first (works best in Mini App)
+    const tg = window.Telegram?.WebApp;
+    if (tg && typeof (tg as any).openTelegramLink === 'function') {
+      const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent('Learn vibecoding with AI! Join VibeLingo:')}`;
+      (tg as any).openTelegramLink(shareUrl);
+      setLinkCopied(true);
+      setTimeout(() => setLinkCopied(false), 2000);
+      return;
+    }
+    // Fallback: native share
+    if (navigator.share) {
+      navigator.share({ title: 'VibeLingo', text: 'Learn vibecoding with AI!', url: referralLink }).catch(() => {});
+      setLinkCopied(true);
+      setTimeout(() => setLinkCopied(false), 2000);
+      return;
+    }
+    // Fallback: clipboard
     navigator.clipboard.writeText(referralLink).then(() => {
       setLinkCopied(true);
       setTimeout(() => setLinkCopied(false), 2000);
     }).catch(() => {
-      // fallback
       setLinkCopied(true);
       setTimeout(() => setLinkCopied(false), 2000);
     });
