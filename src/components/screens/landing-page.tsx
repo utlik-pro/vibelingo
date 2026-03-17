@@ -20,6 +20,7 @@ import {
   MousePointer,
   Bot,
   Palette,
+  Send,
   type LucideIcon,
 } from "lucide-react";
 
@@ -59,7 +60,7 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
 function PhoneMockup({ children, label }: { children: React.ReactNode; label: string }) {
   return (
     <div className="flex flex-col items-center gap-4">
-      <div className="relative mx-auto w-[220px] h-[400px] rounded-[32px] border-[6px] border-gray-800 dark:border-gray-600 bg-background shadow-2xl overflow-hidden">
+      <div className="relative mx-auto w-[220px] h-[420px] rounded-[32px] border-[6px] border-gray-800 dark:border-gray-600 bg-background shadow-2xl overflow-hidden">
         {/* Notch */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5 bg-gray-800 dark:bg-gray-600 rounded-b-2xl z-10" />
         {/* Screen content */}
@@ -72,34 +73,63 @@ function PhoneMockup({ children, label }: { children: React.ReactNode; label: st
   );
 }
 
-/* Mini lesson screen mockup */
+/* Accurate mini lesson screen — matches real LessonScreen + QuizStep */
 function LessonMockup() {
   return (
-    <div className="h-full bg-background p-3 flex flex-col gap-2">
-      <div className="flex items-center justify-between mb-1">
-        <div className="h-1.5 w-16 rounded-full bg-purple-500" />
-        <div className="text-[9px] font-bold text-purple-500">3/5</div>
+    <div className="h-full bg-background flex flex-col">
+      {/* Header: X + progress bar + hearts */}
+      <div className="px-3 py-2 flex items-center gap-2">
+        <div className="w-4 h-4 rounded-full flex items-center justify-center text-muted-foreground">
+          <XIcon className="w-3 h-3" />
+        </div>
+        <div className="flex-1 h-[4px] rounded-full bg-muted overflow-hidden">
+          <div className="h-full w-[60%] rounded-full bg-gradient-to-r from-purple-500 to-purple-600" />
+        </div>
+        <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-red-50">
+          <Heart className="w-2.5 h-2.5 text-red-500 fill-red-500" />
+          <span className="text-[8px] font-bold text-foreground">5</span>
+        </div>
       </div>
-      <div className="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-3">
-        <div className="text-[10px] font-bold text-foreground mb-2">What does Cursor AI do?</div>
+
+      {/* Quiz question */}
+      <div className="flex-1 px-3 py-2">
+        <p className="text-[10px] font-semibold text-foreground leading-snug mb-3">
+          What does Cursor AI understand?
+        </p>
         <div className="flex flex-col gap-1.5">
-          {["Edit photos", "AI code editor", "Make music", "Send emails"].map((opt, i) => (
+          {["Only current file", "Entire project context", "Nothing", "Only HTML"].map((opt, i) => (
             <div
               key={opt}
-              className={`text-[9px] px-2.5 py-1.5 rounded-lg border ${
+              className={`flex items-center gap-2 px-2 py-1.5 rounded-xl border-2 text-[8px] font-medium ${
                 i === 1
-                  ? "border-green-500 bg-green-50 dark:bg-green-900/20 text-green-700 font-bold"
-                  : "border-border text-muted-foreground"
+                  ? "bg-green-50 border-green-300 text-green-700"
+                  : i === 0
+                    ? "bg-red-50 border-red-300 text-red-700"
+                    : "bg-card border-border text-muted-foreground"
               }`}
             >
-              {opt}
+              <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[7px] font-bold shrink-0 ${
+                i === 1 ? "bg-green-500 text-white" : i === 0 ? "bg-red-500 text-white" : "bg-purple-100 text-purple-600"
+              }`}>
+                {i === 1 ? <Check className="w-2 h-2" /> : i === 0 ? <XIcon className="w-2 h-2" /> : String.fromCharCode(65 + i)}
+              </span>
+              <span>{opt}</span>
             </div>
           ))}
         </div>
+
+        {/* Explanation box */}
+        <div className="mt-2 p-2 rounded-xl bg-purple-50 border border-purple-100 flex gap-1.5 items-start">
+          <Sparkles className="w-2.5 h-2.5 text-purple-500 shrink-0 mt-0.5" />
+          <span className="text-[7px] text-purple-700 leading-snug">
+            Cursor understands your entire project context, making it powerful for refactoring.
+          </span>
+        </div>
       </div>
-      <div className="mt-auto flex items-center justify-between px-1">
-        <div className="text-[9px] text-muted-foreground">+15 XP</div>
-        <div className="h-5 w-14 rounded-lg bg-purple-500 flex items-center justify-center">
+
+      {/* Bottom button */}
+      <div className="px-3 pb-3">
+        <div className="h-6 rounded-xl bg-gradient-to-r from-purple-500 to-purple-600 flex items-center justify-center shadow-sm">
           <span className="text-[8px] text-white font-bold">Next</span>
         </div>
       </div>
@@ -107,26 +137,57 @@ function LessonMockup() {
   );
 }
 
-/* Mini practice screen mockup */
+/* Accurate mini practice screen — matches real PracticeScreen + ChallengeDetail */
 function PracticeMockup() {
   return (
-    <div className="h-full bg-background p-3 flex flex-col gap-2">
-      <div className="text-[10px] font-bold text-foreground">Practice Challenge</div>
-      <div className="bg-green-50 dark:bg-green-900/20 rounded-xl p-3">
-        <div className="text-[9px] text-foreground mb-2 font-semibold">Build a landing page for a coffee shop</div>
-        <div className="text-[8px] text-muted-foreground mb-2">Write a prompt for Lovable:</div>
-        <div className="bg-background rounded-lg border border-border p-2 min-h-[60px]">
-          <div className="text-[8px] text-foreground leading-relaxed">
-            Create a modern landing page for "Bean & Brew" coffee shop with a hero section...
+    <div className="h-full bg-background flex flex-col">
+      {/* Header with back button */}
+      <div className="flex items-center gap-2 px-3 py-2">
+        <div className="w-5 h-5 rounded-full bg-muted flex items-center justify-center">
+          <ChevronDown className="w-3 h-3 text-foreground/80 rotate-90" />
+        </div>
+        <span className="text-[10px] font-extrabold text-foreground truncate">Coffee Shop Landing</span>
+      </div>
+
+      <div className="flex-1 px-3 overflow-hidden">
+        {/* Challenge info card */}
+        <div className="p-2 rounded-xl bg-muted/50 border border-border mb-2">
+          <div className="flex items-center gap-1 mb-1.5 flex-wrap">
+            <span className="px-1.5 py-0.5 rounded-full bg-green-100 text-green-700 text-[7px] font-bold">Beginner</span>
+            <span className="px-1.5 py-0.5 rounded-full bg-purple-100 text-purple-700 text-[7px] font-bold">Lovable</span>
+            <span className="px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700 text-[7px] font-bold">+25 XP</span>
+          </div>
+          <p className="text-[7px] text-foreground/80 leading-snug">
+            Create a modern landing page for a coffee shop with hero, menu, and contact sections.
+          </p>
+        </div>
+
+        {/* Hints button */}
+        <div className="flex items-center gap-1.5 px-2 py-1.5 rounded-xl bg-amber-50 border border-amber-100 mb-2">
+          <Sparkles className="w-2.5 h-2.5 text-amber-500" />
+          <span className="text-[7px] font-semibold text-amber-700">Show Hints</span>
+        </div>
+
+        {/* Prompt textarea */}
+        <div className="mb-2">
+          <span className="text-[7px] font-bold text-muted-foreground uppercase tracking-wider mb-1 block">Your Prompt</span>
+          <div className="w-full h-[80px] p-2 rounded-xl border-2 border-purple-200 bg-card">
+            <span className="text-[7px] text-foreground leading-snug block">
+              Create a modern landing page for "Bean & Brew" coffee shop. Include a hero section with large background image, navigation bar with logo...
+            </span>
           </div>
         </div>
+
+        {/* Show example */}
+        <div className="flex items-center gap-1 px-2 py-1 rounded-lg bg-purple-50 border border-purple-100 w-fit mb-2">
+          <span className="text-[7px] font-semibold text-purple-600">Show Example</span>
+        </div>
       </div>
-      <div className="flex gap-1.5 mt-1">
-        <div className="text-[8px] px-2 py-1 rounded-md bg-muted text-muted-foreground">Hints</div>
-        <div className="text-[8px] px-2 py-1 rounded-md bg-muted text-muted-foreground">Example</div>
-      </div>
-      <div className="mt-auto">
-        <div className="h-5 w-full rounded-lg bg-green-500 flex items-center justify-center">
+
+      {/* Submit button */}
+      <div className="px-3 pb-3">
+        <div className="h-6 rounded-xl bg-gradient-to-r from-purple-500 to-purple-600 flex items-center justify-center gap-1 shadow-sm">
+          <Send className="w-2.5 h-2.5 text-white" />
           <span className="text-[8px] text-white font-bold">Submit</span>
         </div>
       </div>
@@ -134,30 +195,53 @@ function PracticeMockup() {
   );
 }
 
-/* Mini battle screen mockup */
+/* Accurate mini battle screen — matches real BattlePlayScreen (battle stage) */
 function BattleMockup() {
   return (
-    <div className="h-full bg-background p-3 flex flex-col gap-2">
-      <div className="text-[10px] font-bold text-foreground text-center">Prompt Battle</div>
-      <div className="flex items-center justify-between bg-orange-50 dark:bg-orange-900/20 rounded-xl p-3">
-        <div className="flex flex-col items-center gap-1">
-          <div className="w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center text-white text-[9px] font-bold">Y</div>
-          <div className="text-[8px] font-semibold text-foreground">You</div>
+    <div className="h-full bg-background flex flex-col">
+      {/* Header: back + timer */}
+      <div className="flex items-center justify-between px-3 py-2">
+        <div className="w-4 h-4">
+          <ChevronDown className="w-3 h-3 text-muted-foreground rotate-90" />
         </div>
-        <div className="text-[14px] font-extrabold text-orange-500">VS</div>
-        <div className="flex flex-col items-center gap-1">
-          <div className="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center text-white text-[9px] font-bold">A</div>
-          <div className="text-[8px] font-semibold text-foreground">Alex</div>
+        <span className="text-[14px] font-extrabold text-purple-500 tabular-nums">2:45</span>
+        <div className="w-4" />
+      </div>
+
+      <div className="flex-1 px-3 flex flex-col">
+        {/* Challenge info */}
+        <div className="rounded-xl bg-purple-50 p-2 mb-2">
+          <div className="text-[9px] font-bold text-foreground mb-0.5">Portfolio Website</div>
+          <p className="text-[7px] text-muted-foreground leading-snug">Design a modern portfolio site with dark mode and project showcase.</p>
+        </div>
+
+        {/* Opponent progress */}
+        <div className="flex items-center gap-2 mb-2">
+          <div className="w-5 h-5 rounded-full bg-pink-500 flex items-center justify-center text-white text-[7px] font-bold shrink-0">M</div>
+          <div className="flex-1">
+            <div className="flex justify-between mb-0.5">
+              <span className="text-[7px] text-muted-foreground">Maria</span>
+              <span className="text-[7px] text-muted-foreground">67%</span>
+            </div>
+            <div className="h-1.5 rounded-full bg-muted overflow-hidden">
+              <div className="h-full w-[67%] rounded-full bg-gradient-to-r from-purple-400 to-purple-500" />
+            </div>
+          </div>
+        </div>
+
+        {/* User text area */}
+        <span className="text-[7px] font-semibold text-muted-foreground mb-1">Your prompt</span>
+        <div className="flex-1 min-h-[80px] p-2 rounded-xl border border-border bg-card mb-2">
+          <span className="text-[7px] text-foreground leading-snug block">
+            Build a sleek portfolio website with a dark theme. Include a hero section with animated text, a grid of project cards with hover effects...
+          </span>
         </div>
       </div>
-      <div className="text-[9px] text-center text-muted-foreground">02:45</div>
-      <div className="bg-background rounded-lg border border-border p-2 flex-1 min-h-[60px]">
-        <div className="text-[8px] text-foreground leading-relaxed">
-          Design a portfolio site with dark mode, smooth animations...
-        </div>
-      </div>
-      <div className="flex gap-2">
-        <div className="h-5 flex-1 rounded-lg bg-orange-500 flex items-center justify-center">
+
+      {/* Submit button */}
+      <div className="px-3 pb-3">
+        <div className="h-6 rounded-xl bg-gradient-to-r from-purple-500 to-purple-600 flex items-center justify-center gap-1 shadow-sm">
+          <Send className="w-2.5 h-2.5 text-white" />
           <span className="text-[8px] text-white font-bold">Submit</span>
         </div>
       </div>
