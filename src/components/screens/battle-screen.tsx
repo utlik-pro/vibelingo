@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Target, Trophy, Swords, Check, Copy } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 
-const BOT_URL = "https://t.me/vibelingo_learn_bot";
+const BOT_URL = "https://t.me/vibelingo_learn_bot"; // share link
 
 interface BattleScreenProps {
   onStartBattle: () => void;
