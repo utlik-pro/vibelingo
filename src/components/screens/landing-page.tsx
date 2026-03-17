@@ -21,6 +21,9 @@ import {
   Bot,
   Palette,
   Send,
+  Play,
+  Lock,
+  Flame,
   type LucideIcon,
 } from "lucide-react";
 
@@ -249,6 +252,273 @@ function BattleMockup() {
   );
 }
 
+/* Accurate mini home screen — matches real HomeScreen */
+function HomeMockup() {
+  return (
+    <div className="h-full bg-background flex flex-col">
+      {/* Top bar */}
+      <div className="px-3 py-2 flex justify-between items-center">
+        <span className="text-[11px] font-extrabold text-foreground">VibeLingo</span>
+        <div className="flex gap-1.5 items-center">
+          <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-orange-50">
+            <Flame className="w-2.5 h-2.5 text-orange-400" />
+            <span className="text-[8px] font-bold text-foreground">7</span>
+          </div>
+          <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-purple-50">
+            <Sparkles className="w-2.5 h-2.5 text-purple-500" />
+            <span className="text-[8px] font-bold text-purple-500">340</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex-1 px-3 overflow-hidden">
+        {/* Daily goal card */}
+        <div className="flex items-center gap-2 p-2 rounded-xl bg-card border-2 border-purple-100 mb-2">
+          <div className="w-8 h-8 rounded-full border-[3px] border-purple-500 flex items-center justify-center">
+            <span className="text-[7px] font-extrabold text-purple-500">67%</span>
+          </div>
+          <div>
+            <div className="text-[8px] font-bold text-foreground">Daily Goal</div>
+            <div className="text-[7px] text-muted-foreground">2/3 lessons today</div>
+          </div>
+        </div>
+
+        {/* Level badge */}
+        <div className="flex items-center gap-2 p-2 rounded-xl bg-card border border-border mb-2">
+          <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center">
+            <span className="text-[9px] font-extrabold text-white">3</span>
+          </div>
+          <div className="flex-1">
+            <div className="text-[8px] font-bold text-foreground">Prompt Apprentice</div>
+            <div className="h-1 rounded-full bg-muted overflow-hidden mt-1">
+              <div className="h-full w-[45%] rounded-full bg-purple-500" />
+            </div>
+          </div>
+        </div>
+
+        {/* League */}
+        <div className="p-2 rounded-xl bg-card border border-border mb-2">
+          <div className="flex items-center gap-1 mb-1">
+            <Star className="w-3 h-3 text-yellow-500" />
+            <span className="text-[8px] font-bold text-yellow-600">Venus League</span>
+          </div>
+          <div className="h-1 rounded-full bg-muted overflow-hidden">
+            <div className="h-full w-[60%] rounded-full bg-gradient-to-r from-yellow-400 to-orange-400" />
+          </div>
+        </div>
+
+        {/* Quick actions */}
+        <div className="grid grid-cols-2 gap-1.5">
+          <div className="p-2 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 text-white">
+            <BookOpen className="w-3.5 h-3.5 mb-1" />
+            <div className="text-[8px] font-bold">Continue</div>
+            <div className="text-[6px] opacity-80">Lesson 8</div>
+          </div>
+          <div className="p-2 rounded-xl bg-card border border-border">
+            <Swords className="w-3.5 h-3.5 text-purple-500 mb-1" />
+            <div className="text-[8px] font-bold text-foreground">Battle</div>
+            <div className="text-[6px] text-muted-foreground">1 on 1</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom nav */}
+      <div className="px-2 py-1.5 flex justify-around border-t border-border">
+        {[
+          { icon: BookOpen, label: "Home", active: true },
+          { icon: GraduationCap, label: "Learn", active: false },
+          { icon: Swords, label: "Battle", active: false },
+          { icon: Trophy, label: "Rank", active: false },
+        ].map((item) => (
+          <div key={item.label} className="flex flex-col items-center gap-0.5">
+            <item.icon className={`w-3 h-3 ${item.active ? "text-purple-500" : "text-muted-foreground"}`} />
+            <span className={`text-[6px] ${item.active ? "text-purple-500 font-bold" : "text-muted-foreground"}`}>{item.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* Accurate mini learn path — matches real LearnScreen with zigzag path */
+function LearnPathMockup() {
+  const lessons = [
+    { title: "What is Vibecoding?", xp: 15, done: true },
+    { title: "Your First Prompt", xp: 15, done: true },
+    { title: "Prompt Structure", xp: 20, done: true },
+    { title: "Lovable Basics", xp: 20, done: false, current: true },
+    { title: "Building a Landing", xp: 25, done: false },
+    { title: "Design Without Slop", xp: 25, done: false, locked: true },
+  ];
+  return (
+    <div className="h-full bg-background flex flex-col">
+      {/* Header */}
+      <div className="px-3 py-2 flex justify-between items-center">
+        <span className="text-[11px] font-extrabold text-foreground">Lessons</span>
+        <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-red-50">
+          <Heart className="w-2.5 h-2.5 text-red-500 fill-red-500" />
+          <span className="text-[8px] font-bold text-foreground">5/5</span>
+        </div>
+      </div>
+
+      {/* Module label */}
+      <div className="flex items-center gap-1.5 px-3 mb-2">
+        <div className="h-[1px] flex-1 bg-gradient-to-r from-purple-200 to-transparent" />
+        <span className="text-[7px] font-bold text-purple-500 tracking-widest uppercase">Basics</span>
+        <div className="h-[1px] flex-1 bg-gradient-to-l from-purple-200 to-transparent" />
+      </div>
+
+      {/* Path */}
+      <div className="flex-1 flex flex-col items-center px-3 overflow-hidden">
+        {lessons.map((l, i) => {
+          const offset = i % 2 === 0 ? -20 : 20;
+          return (
+            <div key={i} className="flex flex-col items-center">
+              {i > 0 && (
+                <div className={`w-0 h-5 border-l-[2px] border-dashed ${l.locked ? "border-gray-200" : "border-purple-300"}`} />
+              )}
+              <div className="flex items-center gap-2" style={{ transform: `translateX(${offset}px)` }}>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
+                  l.done ? "bg-purple-500 shadow-sm" :
+                  l.current ? "bg-gradient-to-br from-purple-500 to-purple-600 shadow-md" :
+                  "bg-muted"
+                }`}>
+                  {l.done ? <Check className="w-3 h-3 text-white" /> :
+                   l.current ? <Play className="w-3 h-3 text-white ml-0.5" /> :
+                   <Lock className="w-2.5 h-2.5 text-muted-foreground" />}
+                </div>
+                <div>
+                  <div className={`text-[7px] font-semibold ${l.locked ? "text-muted-foreground" : "text-foreground"}`}>
+                    {l.title}
+                  </div>
+                  <div className="text-[6px] text-muted-foreground">+{l.xp} XP</div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/* Accurate mini leaderboard — matches real LeaderboardScreen */
+function LeaderboardMockup() {
+  const users = [
+    { name: "Anna", xp: 1240, avatar: "AN", color: "#FFD700" },
+    { name: "Max", xp: 980, avatar: "MX", color: "#C0C0C0" },
+    { name: "Sofia", xp: 870, avatar: "SO", color: "#CD7F32" },
+    { name: "Ivan", xp: 650, avatar: "IV", color: "" },
+    { name: "Elena", xp: 520, avatar: "EL", color: "" },
+  ];
+  return (
+    <div className="h-full bg-background flex flex-col">
+      <div className="px-3 py-2">
+        <span className="text-[11px] font-extrabold text-foreground">Leaderboard</span>
+        <div className="flex items-center gap-1 mt-0.5">
+          <span className="text-[7px] text-muted-foreground">Weekly</span>
+          <Star className="w-2.5 h-2.5 text-yellow-500" />
+          <span className="text-[7px] text-muted-foreground">Venus</span>
+        </div>
+      </div>
+
+      {/* Your position */}
+      <div className="mx-3 flex items-center gap-2 p-2 rounded-xl bg-card border-l-[3px] border-purple-500 shadow-sm mb-2">
+        <span className="text-[8px] font-extrabold text-purple-500 w-3 text-center">8</span>
+        <div className="w-5 h-5 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center">
+          <Users className="w-2.5 h-2.5 text-white" />
+        </div>
+        <span className="text-[8px] font-bold text-foreground flex-1">You</span>
+        <span className="text-[8px] font-bold text-purple-500">340</span>
+      </div>
+
+      {/* Rankings */}
+      <div className="flex-1 px-3 flex flex-col gap-1 overflow-hidden">
+        {users.map((u, i) => (
+          <div key={i} className="flex items-center gap-2 px-2 py-1.5 rounded-xl bg-card">
+            {i < 3 ? (
+              <div className="w-4 h-4 rounded-full flex items-center justify-center text-[7px] font-extrabold text-white" style={{ backgroundColor: u.color }}>
+                {i + 1}
+              </div>
+            ) : (
+              <span className="text-[7px] font-semibold text-muted-foreground w-4 text-center">{i + 1}</span>
+            )}
+            <div className="w-5 h-5 rounded-full flex items-center justify-center text-[6px] font-bold text-white" style={{ backgroundColor: `hsl(${i * 47 + 200}, 60%, 55%)` }}>
+              {u.avatar}
+            </div>
+            <div className="flex-1">
+              <span className="text-[8px] font-semibold text-foreground">{u.name}</span>
+            </div>
+            <span className="text-[8px] font-bold text-purple-500">{u.xp}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Zones */}
+      <div className="px-3 pb-2 pt-1 flex flex-col gap-1">
+        <div className="p-1.5 rounded-lg bg-green-50 border border-green-100">
+          <span className="text-[6px] text-green-600 font-semibold">Top 3 advance to next league</span>
+        </div>
+        <div className="p-1.5 rounded-lg bg-red-50 border border-red-100">
+          <span className="text-[6px] text-red-500 font-semibold">Bottom 3 get demoted</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* Accurate mini lesson complete — matches real LessonComplete */
+function LessonCompleteMockup() {
+  return (
+    <div className="h-full bg-background flex flex-col items-center justify-center p-3">
+      {/* Trophy */}
+      <div className="w-12 h-12 rounded-full bg-purple-50 flex items-center justify-center mb-2">
+        <Trophy className="w-6 h-6 text-yellow-400" />
+      </div>
+
+      <span className="text-[12px] font-extrabold text-foreground mb-1">Excellent!</span>
+      <span className="text-[7px] text-muted-foreground mb-2">What is Vibecoding?</span>
+
+      {/* Stars */}
+      <div className="flex gap-1 mb-3">
+        {[1, 2, 3].map((s) => (
+          <Star key={s} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+        ))}
+      </div>
+
+      {/* Stats grid */}
+      <div className="grid grid-cols-2 gap-1.5 w-full mb-3">
+        <div className="p-2 text-center rounded-xl bg-card border border-border">
+          <div className="text-[10px] font-extrabold text-purple-500">+15</div>
+          <div className="text-[6px] text-muted-foreground">XP Earned</div>
+        </div>
+        <div className="p-2 text-center rounded-xl bg-card border border-border">
+          <div className="text-[10px] font-extrabold text-green-500">100%</div>
+          <div className="text-[6px] text-muted-foreground">Accuracy</div>
+        </div>
+        <div className="p-2 text-center rounded-xl bg-card border border-border">
+          <div className="text-[10px] font-extrabold text-foreground">4/4</div>
+          <div className="text-[6px] text-muted-foreground">Correct</div>
+        </div>
+        <div className="p-2 text-center rounded-xl bg-card border border-border">
+          <div className="text-[10px] font-extrabold text-blue-500">Lovable</div>
+          <div className="text-[6px] text-muted-foreground">Tool</div>
+        </div>
+      </div>
+
+      {/* Buttons */}
+      <div className="w-full flex flex-col gap-1">
+        <div className="h-5 rounded-xl bg-gradient-to-r from-purple-500 to-purple-600 flex items-center justify-center">
+          <span className="text-[7px] text-white font-bold">Share Result</span>
+        </div>
+        <div className="h-5 rounded-xl border-2 border-border flex items-center justify-center">
+          <span className="text-[7px] text-foreground font-semibold">Continue Learning</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function LandingPage() {
   const { t } = useI18n();
 
@@ -379,6 +649,35 @@ export function LandingPage() {
                 {t("landing.howItWorks.step3.desc")}
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== APP SCREENS GALLERY ===== */}
+      <section className="px-6 py-16 md:py-24">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-14">
+            <span className="text-xs font-bold uppercase tracking-widest text-purple-500 mb-3 block">
+              Inside the App
+            </span>
+            <h2 className="font-display text-2xl md:text-4xl font-extrabold text-foreground">
+              Everything you need to master vibecoding
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+            <PhoneMockup label="Home">
+              <HomeMockup />
+            </PhoneMockup>
+            <PhoneMockup label="Learn Path">
+              <LearnPathMockup />
+            </PhoneMockup>
+            <PhoneMockup label="Leaderboard">
+              <LeaderboardMockup />
+            </PhoneMockup>
+            <PhoneMockup label="Results">
+              <LessonCompleteMockup />
+            </PhoneMockup>
           </div>
         </div>
       </section>
