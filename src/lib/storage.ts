@@ -34,6 +34,19 @@ export function setRewardStreak(userId: string, streak: number) {
   localStorage.setItem(`vibelingo_reward_streak_${userId}`, String(streak));
 }
 
+export function getStreakFreezeUsed(userId: string): string | null {
+  return localStorage.getItem(`vibelingo_streak_freeze_${userId}`);
+}
+export function useStreakFreeze(userId: string) {
+  localStorage.setItem(`vibelingo_streak_freeze_${userId}`, new Date().toISOString());
+}
+export function canUseStreakFreeze(userId: string): boolean {
+  const lastUsed = getStreakFreezeUsed(userId);
+  if (!lastUsed) return true;
+  const diff = Date.now() - new Date(lastUsed).getTime();
+  return diff > 7 * 24 * 60 * 60 * 1000; // 7 days
+}
+
 export function loadProgress(userId: string): UserProgress {
   try {
     const raw = localStorage.getItem(STORAGE_PREFIX + userId);

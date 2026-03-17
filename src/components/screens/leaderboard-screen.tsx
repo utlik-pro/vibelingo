@@ -1,7 +1,9 @@
+import { useState, useEffect } from "react";
 import { XPCounter } from "@/components/xp-counter";
 import { LEAGUES, LEADERBOARD_DATA } from "@/data/lessons";
 import { Flame, User, ArrowUp, ArrowDown, Circle, Star, Globe, Sparkles, Crown } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
+import { getLeaderboard } from "@/lib/db";
 
 interface LeaderboardScreenProps {
   userXP: number;
@@ -11,6 +13,27 @@ interface LeaderboardScreenProps {
 export function LeaderboardScreen({ userXP, streak }: LeaderboardScreenProps) {
   const { t } = useI18n();
   const currentLeague = LEAGUES.reduce((prev, l) => (userXP >= l.xpNeeded ? l : prev), LEAGUES[0]);
+  const [loading, setLoading] = useState(true);
+  const [leaderboardUsers, setLeaderboardUsers] = useState<Array<{ name: string; xp: number; streak: number; avatar: string }>>([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    getLeaderboard().then((data) => {
+      if (cancelled) return;
+      if (data.length > 0) {
+        setLeaderboardUsers(data.map(u => ({
+          name: u.name,
+          xp: u.xp,
+          streak: u.streak,
+          avatar: u.name.slice(0, 2).toUpperCase(),
+        })));
+      } else {
+        setLeaderboardUsers(LEADERBOARD_DATA);
+      }
+      setLoading(false);
+    });
+    return () => { cancelled = true; };
+  }, []);
 
   const medalColors = ["#FFD700", "#C0C0C0", "#CD7F32"];
 
@@ -51,8 +74,26 @@ export function LeaderboardScreen({ userXP, streak }: LeaderboardScreenProps) {
       </div>
 
       {/* Rankings */}
+      {loading ? (
+        <div className="flex flex-col gap-2">
+          {[...Array(5)].map((_, i) => (
+            <div
+              key={i}
+              className="flex items-center gap-3 px-4 py-3.5 rounded-2xl bg-card animate-pulse"
+            >
+              <div className="w-7 h-7 rounded-full bg-muted" />
+              <div className="w-9 h-9 rounded-full bg-muted" />
+              <div className="flex-1 space-y-2">
+                <div className="h-3 bg-muted rounded w-24" />
+                <div className="h-2 bg-muted rounded w-12" />
+              </div>
+              <div className="h-4 bg-muted rounded w-12" />
+            </div>
+          ))}
+        </div>
+      ) : (
       <div className="flex flex-col gap-2">
-        {LEADERBOARD_DATA.map((user, i) => (
+        {leaderboardUsers.map((user, i) => (
           <div
             key={i}
             className={`flex items-center gap-3 px-4 py-3.5 rounded-2xl transition-all animate-[slideIn_0.3s_ease_both] bg-card ${
@@ -94,6 +135,7 @@ export function LeaderboardScreen({ userXP, streak }: LeaderboardScreenProps) {
           </div>
         ))}
       </div>
+      )}
 
       {/* Promotion zones */}
       <div className="mt-5 p-4 rounded-2xl bg-green-50 border border-green-100">

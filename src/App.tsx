@@ -3,6 +3,7 @@ import "./index.css";
 import type { Lesson } from "@/data/lessons";
 import { LEAGUES } from "@/data/lessons";
 
+import { LandingPage } from "@/components/screens/landing-page";
 import { OnboardingScreen } from "@/components/screens/onboarding";
 import { HomeScreen } from "@/components/screens/home-screen";
 import { LearnScreen } from "@/components/screens/learn-screen";
@@ -34,6 +35,16 @@ const LeaderboardScreen = lazy(() => import("@/components/screens/leaderboard-sc
 export default function App() {
   const { user } = useAuth();
   const { locale } = useI18n();
+
+  // Show landing page in regular browser (not Telegram)
+  const isTelegram = !!window.Telegram?.WebApp?.initDataUnsafe?.user;
+  const isBrowser = !isTelegram && !window.Telegram?.WebApp;
+  const skipLanding = new URLSearchParams(window.location.search).get('app') === 'true';
+
+  if (isBrowser && !skipLanding && !localStorage.getItem('vibelingo_skip_landing')) {
+    return <LandingPage />;
+  }
+
   const initializedRef = useRef(false);
 
   const [isLoading, setIsLoading] = useState(true);

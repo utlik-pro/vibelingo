@@ -5,12 +5,13 @@ import {
   Crown, User, Zap, Flame, BookOpen, Share2, Award,
   Circle, Star, Globe, Sparkles,
   Home, PenTool, Users, Swords, Palette, Rocket,
-  Languages, Copy, Check, ChevronRight, Sun, Moon,
+  Languages, Copy, Check, ChevronRight, Sun, Moon, ShieldCheck,
 } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth";
 import { useTheme } from "@/lib/theme";
 import { generateReferralCode, getReferralLink, getReferralCount } from "@/lib/referral";
+import { canUseStreakFreeze } from "@/lib/storage";
 
 interface ProfileScreenProps {
   userXP: number;
@@ -146,6 +147,20 @@ export function ProfileScreen({
           </div>
         ))}
       </div>
+
+      {/* Streak Freeze — PRO only */}
+      {user.isPro && (
+        <div className="mb-6 p-4 rounded-2xl bg-card border border-border shadow-[0_2px_12px_rgba(147,51,234,0.06)] animate-[slideIn_0.4s_ease_0.15s_both] flex items-center gap-3">
+          <ShieldCheck className="w-8 h-8 text-purple-500 flex-shrink-0" />
+          <div className="flex-1">
+            <div className="text-[14px] font-bold text-foreground">{t("profile.streakFreeze")}</div>
+            <div className={`text-[12px] font-semibold ${canUseStreakFreeze(user.id) ? "text-green-500" : "text-orange-400"}`}>
+              {canUseStreakFreeze(user.id) ? t("profile.streakFreezeAvailable") : t("profile.streakFreezeUsed")}
+            </div>
+            <div className="text-[11px] text-muted-foreground mt-0.5">{t("profile.streakFreezeDesc")}</div>
+          </div>
+        </div>
+      )}
 
       {/* Skill Score — computed from completed lessons per module */}
       {(() => {

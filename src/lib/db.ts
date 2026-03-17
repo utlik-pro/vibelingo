@@ -180,4 +180,44 @@ export async function updateProStatus(
   }
 }
 
+// Get leaderboard data from Supabase
+export async function getLeaderboard(): Promise<Array<{
+  id: string;
+  name: string;
+  xp: number;
+  streak: number;
+}>> {
+  if (!isSupabaseConfigured()) {
+    return [];
+  }
+  try {
+    const { data, error } = await supabase!
+      .from('users')
+      .select('id, name, username')
+      .order('id')
+
+    if (error || !data) return [];
+
+    const { data: progressData } = await supabase!
+      .from('user_progress')
+      .select('user_id, xp, streak')
+      .order('xp', { ascending: false })
+      .limit(20);
+
+    if (!progressData) return [];
+
+    return progressData.map(p => {
+      const user = data.find(u => u.id === p.user_id);
+      return {
+        id: p.user_id,
+        name: user?.name || user?.username || 'User',
+        xp: p.xp || 0,
+        streak: p.streak || 0,
+      };
+    });
+  } catch {
+    return [];
+  }
+}
+
 export { DEFAULT_PROGRESS }
