@@ -66,6 +66,14 @@ bot.command("start", (ctx) => {
         [Markup.button.webApp("Open VibeLingo", WEBAPP_URL)],
       ])
     );
+  } else if (payload === "battle") {
+    // Someone joined via battle invite
+    ctx.reply(
+      "⚔️ Your friend challenged you to a Prompt Battle! Accept the challenge:",
+      Markup.inlineKeyboard([
+        [Markup.button.webApp("Start Battle", WEBAPP_URL + "?screen=battle")],
+      ])
+    );
   } else {
     ctx.reply(
       "Welcome to VibeLingo! Learn to build apps with AI in just 5 minutes a day.",

@@ -48,7 +48,8 @@ export default function App() {
   const initializedRef = useRef(false);
 
   const [isLoading, setIsLoading] = useState(true);
-  const [screen, setScreen] = useState("home");
+  const initialScreen = new URLSearchParams(window.location.search).get('screen') || "home";
+  const [screen, setScreen] = useState(initialScreen);
   const [userXP, setUserXP] = useState(0);
   const [streak, setStreak] = useState(0);
   const [hearts, setHearts] = useState(5);
