@@ -298,6 +298,47 @@ const translations: Record<string, Record<string, string>> = {
     "landing.footer.openTelegram": "Open in Telegram",
     "landing.footer.tryInBrowser": "or try in browser",
     "landing.footer.builtWith": "Built with VibeLingo",
+
+    // Landing — How It Works
+    "landing.howItWorks.title": "How It Works",
+    "landing.howItWorks.step1.title": "Learn",
+    "landing.howItWorks.step1.desc": "Short 5-minute lessons on AI tools with quiz-style exercises and XP rewards",
+    "landing.howItWorks.step2.title": "Practice",
+    "landing.howItWorks.step2.desc": "Write real prompts for real tasks. Build landing pages, apps, and automations",
+    "landing.howItWorks.step3.title": "Compete",
+    "landing.howItWorks.step3.desc": "Challenge other learners in prompt battles. Best prompt wins XP and climbs the leaderboard",
+
+    // Landing — Social proof
+    "landing.social.trusted": "Trusted by vibecoding learners",
+    "landing.social.review1": "I built my first app in 2 days after learning with VibeLingo. The prompt battles are addicting!",
+    "landing.social.review1.name": "Alex K.",
+    "landing.social.review2": "Finally an app that teaches AI tools, not just theory. Love the Duolingo-style lessons.",
+    "landing.social.review2.name": "Maria S.",
+    "landing.social.review3": "The practice challenges are genius. I went from zero to deploying a SaaS landing page.",
+    "landing.social.review3.name": "James L.",
+
+    // Landing — FAQ
+    "landing.faq.title": "Frequently Asked Questions",
+    "landing.faq.q1": "Is VibeLingo free?",
+    "landing.faq.a1": "Yes! The free plan includes 3 lessons per day, leaderboard access, and basic modules. Upgrade to PRO for unlimited access.",
+    "landing.faq.q2": "Do I need coding experience?",
+    "landing.faq.a2": "Not at all. VibeLingo teaches you to build apps using AI — no prior coding knowledge required.",
+    "landing.faq.q3": "What are prompt battles?",
+    "landing.faq.a3": "1v1 competitions where you write prompts to solve a challenge. The best solution wins XP and bragging rights.",
+    "landing.faq.q4": "How much time do I need?",
+    "landing.faq.a4": "Just 5 minutes a day. Lessons are designed to fit into your coffee break.",
+    "landing.faq.q5": "What tools will I learn?",
+    "landing.faq.a5": "Lovable, Cursor, Claude Code, Bolt.new, v0, and more. We cover the most popular AI development tools.",
+
+    // Landing — Final CTA
+    "landing.finalCta.title": "Start Building with AI Today",
+    "landing.finalCta.subtitle": "Join thousands of learners mastering vibecoding — free, fun, and 5 minutes a day",
+    "landing.finalCta.cta": "Start Free in Telegram",
+
+    // Landing — Stats bar
+    "landing.stats.learners": "Learners",
+    "landing.stats.lessonsCompleted": "Lessons Completed",
+    "landing.stats.rating": "App Rating",
   },
   ru: {
     // Onboarding
@@ -596,6 +637,47 @@ const translations: Record<string, Record<string, string>> = {
     "landing.footer.openTelegram": "Открыть в Telegram",
     "landing.footer.tryInBrowser": "или попробовать в браузере",
     "landing.footer.builtWith": "Сделано с VibeLingo",
+
+    // Landing — How It Works
+    "landing.howItWorks.title": "Как это работает",
+    "landing.howItWorks.step1.title": "Учись",
+    "landing.howItWorks.step1.desc": "Короткие 5-минутные уроки по AI-инструментам с квизами и наградами XP",
+    "landing.howItWorks.step2.title": "Практикуйся",
+    "landing.howItWorks.step2.desc": "Пиши реальные промпты для реальных задач. Создавай лендинги, приложения и автоматизации",
+    "landing.howItWorks.step3.title": "Соревнуйся",
+    "landing.howItWorks.step3.desc": "Бросай вызов другим ученикам в промпт-батлах. Лучший промпт получает XP и поднимается в рейтинге",
+
+    // Landing — Social proof
+    "landing.social.trusted": "Нам доверяют ученики вайбкодинга",
+    "landing.social.review1": "Я создал первое приложение за 2 дня после обучения в VibeLingo. Промпт-батлы затягивают!",
+    "landing.social.review1.name": "Алексей К.",
+    "landing.social.review2": "Наконец-то приложение, которое учит AI-инструментам, а не просто теории. Обожаю уроки в стиле Duolingo.",
+    "landing.social.review2.name": "Мария С.",
+    "landing.social.review3": "Практические задания — это гениально. Я прошёл путь от нуля до деплоя SaaS-лендинга.",
+    "landing.social.review3.name": "Дмитрий Л.",
+
+    // Landing — FAQ
+    "landing.faq.title": "Часто задаваемые вопросы",
+    "landing.faq.q1": "VibeLingo бесплатный?",
+    "landing.faq.a1": "Да! Бесплатный план включает 3 урока в день, доступ к лидерборду и базовые модули. Перейди на PRO для безлимитного доступа.",
+    "landing.faq.q2": "Нужен ли опыт программирования?",
+    "landing.faq.a2": "Вовсе нет. VibeLingo учит создавать приложения с помощью AI — никакого предварительного опыта не нужно.",
+    "landing.faq.q3": "Что такое промпт-батлы?",
+    "landing.faq.a3": "Соревнования 1 на 1, где ты пишешь промпты для решения задачи. Лучшее решение получает XP и славу.",
+    "landing.faq.q4": "Сколько времени нужно?",
+    "landing.faq.a4": "Всего 5 минут в день. Уроки созданы так, чтобы поместиться в перерыв на кофе.",
+    "landing.faq.q5": "Какие инструменты я изучу?",
+    "landing.faq.a5": "Lovable, Cursor, Claude Code, Bolt.new, v0 и другие. Мы покрываем самые популярные AI-инструменты разработки.",
+
+    // Landing — Final CTA
+    "landing.finalCta.title": "Начни создавать с AI уже сегодня",
+    "landing.finalCta.subtitle": "Присоединяйся к тысячам учеников, осваивающих вайбкодинг — бесплатно, весело и за 5 минут в день",
+    "landing.finalCta.cta": "Начать бесплатно в Telegram",
+
+    // Landing — Stats bar
+    "landing.stats.learners": "Учеников",
+    "landing.stats.lessonsCompleted": "Уроков пройдено",
+    "landing.stats.rating": "Рейтинг",
   },
 };
 
