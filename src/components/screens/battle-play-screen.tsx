@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Loader2, Swords, Trophy, XCircle, ArrowLeft, Send, Share2 } from "lucide-react";
+import { Loader2, Swords, Trophy, XCircle, Send, Share2 } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { BATTLE_CHALLENGES } from "@/data/battle-challenges";
 import { OPPONENTS, type Opponent } from "@/data/opponents";
@@ -265,19 +265,12 @@ export function BattlePlayScreen({ onClose, onXPEarned }: BattlePlayScreenProps)
     return (
       <div className="min-h-screen bg-background flex flex-col px-5 py-4 tg-safe-top">
         {/* Header */}
-        <div className="flex items-center justify-between mb-4">
-          <button
-            onClick={onClose}
-            className="p-2 rounded-xl hover:bg-muted transition-colors bg-transparent border-none cursor-pointer"
-          >
-            <ArrowLeft className="w-5 h-5 text-muted-foreground" />
-          </button>
+        <div className="flex items-center justify-center mb-4">
           <div
             className={`text-3xl font-extrabold tabular-nums ${urgency ? "text-red-500 animate-pulse" : "text-purple-500"}`}
           >
             {formatTime(timeLeft)}
           </div>
-          <div className="w-9" />
         </div>
 
         {/* Challenge info */}

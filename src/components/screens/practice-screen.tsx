@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowLeft, ChevronDown, ChevronUp, Eye, Send, CheckCircle, Lightbulb } from "lucide-react";
+import { ChevronDown, ChevronUp, Eye, Send, CheckCircle, Lightbulb } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/lib/i18n";
 import { PRACTICE_CHALLENGES, type PracticeChallenge } from "@/data/practice-challenges";
@@ -75,16 +75,8 @@ function ChallengeDetail({
   return (
     <div className="px-5 py-4 bg-background min-h-full">
       {/* Header */}
-      <div className="flex items-center gap-3 mb-5 animate-[fadeIn_0.3s_ease]">
-        <button
-          onClick={onBack}
-          className="w-10 h-10 rounded-full bg-muted flex items-center justify-center border-none cursor-pointer"
-        >
-          <ArrowLeft className="w-5 h-5 text-foreground/80" />
-        </button>
-        <div className="flex-1 min-w-0">
-          <h2 className="text-[17px] font-extrabold text-foreground truncate">{title}</h2>
-        </div>
+      <div className="mb-5 animate-[fadeIn_0.3s_ease]">
+        <h2 className="text-[17px] font-extrabold text-foreground truncate">{title}</h2>
       </div>
 
       {/* Challenge info */}
