@@ -4,19 +4,37 @@ import { Badge } from "@/components/ui/badge";
 import { Target, Trophy, Swords, Check, Copy } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 
+const BOT_URL = "https://t.me/vibelingo_learn_bot";
+
 interface BattleScreenProps {
   onStartBattle: () => void;
 }
 
 export function BattleScreen({ onStartBattle }: BattleScreenProps) {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const [linkCopied, setLinkCopied] = useState(false);
 
   const handleCopyLink = async () => {
+    const shareText = locale === "ru"
+      ? "Давай сыграем в промпт-батл в VibeLingo!"
+      : "Let's play a prompt battle in VibeLingo!";
+    const shareUrl = `${BOT_URL}?start=battle`;
+
+    // Try Telegram share first
+    const tg = window.Telegram?.WebApp;
+    if (tg && typeof (tg as any).openTelegramLink === "function") {
+      const tgShareUrl = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`;
+      (tg as any).openTelegramLink(tgShareUrl);
+      setLinkCopied(true);
+      setTimeout(() => setLinkCopied(false), 2000);
+      return;
+    }
+
+    // Fallback: copy link
     try {
-      await navigator.clipboard.writeText("https://vibelingo.app/battle/invite/abc123");
+      await navigator.clipboard.writeText(shareUrl);
     } catch {
-      // fallback: ignore
+      // ignore
     }
     setLinkCopied(true);
     setTimeout(() => setLinkCopied(false), 2000);
