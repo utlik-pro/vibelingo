@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { BADGES, LEAGUES, LESSONS_DATA } from "@/data/lessons";
 import {
@@ -10,7 +10,7 @@ import {
 import { useI18n } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth";
 import { useTheme } from "@/lib/theme";
-import { generateReferralCode, getReferralLink, getReferralCount } from "@/lib/referral";
+import { generateReferralCode, getReferralLink, getReferralCount, syncReferralCount } from "@/lib/referral";
 import { canUseStreakFreeze, getActivityDates } from "@/lib/storage";
 import { ActivityCalendar } from "@/components/activity-calendar";
 import { getLevelInfo } from "@/lib/levels";
@@ -42,7 +42,11 @@ export function ProfileScreen({
   const levelTitle = locale === "ru" ? levelInfo.titleRu : levelInfo.title;
   const referralCode = generateReferralCode(user.id);
   const referralLink = getReferralLink(referralCode);
-  const referralCount = getReferralCount(user.id);
+  const [referralCount, setReferralCount] = useState(() => getReferralCount(user.id));
+
+  useEffect(() => {
+    syncReferralCount(user.id).then(setReferralCount);
+  }, [user.id]);
 
   const copyReferralLink = () => {
     // Try Telegram share first (works best in Mini App)

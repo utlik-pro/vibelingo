@@ -242,6 +242,24 @@ app.get("/api/subscription/:customerId", async (req: Request, res: Response) => 
   }
 });
 
+// Referral count endpoint — reads from bot's referrals.json
+app.get("/api/referrals/:code", (req: Request, res: Response) => {
+  try {
+    const { code } = req.params;
+    const { readFileSync, existsSync } = require("fs");
+    const filePath = "./bot/referrals.json";
+    if (!existsSync(filePath)) {
+      res.json({ count: 0 });
+      return;
+    }
+    const data = JSON.parse(readFileSync(filePath, "utf-8"));
+    const count = data[code]?.length || 0;
+    res.json({ count });
+  } catch {
+    res.json({ count: 0 });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Stripe API server running on http://localhost:${port}`);
   console.log(`Stripe configured: ${!!process.env.STRIPE_SECRET_KEY}`);

@@ -8,14 +8,36 @@ export function getReferralLink(code: string): string {
   return `https://t.me/vibelingo_learn_bot?start=${code}`;
 }
 
-// Track referral in localStorage (simple version)
-export function addReferral(userId: string) {
-  const key = `vibelingo_referrals_${userId}`;
-  const count = parseInt(localStorage.getItem(key) || "0");
-  localStorage.setItem(key, String(count + 1));
-  return count + 1;
+// Fetch referral count from server (reads bot's referrals.json)
+export async function fetchReferralCount(code: string): Promise<number> {
+  try {
+    const baseUrl = import.meta.env.VITE_API_URL || "";
+    const res = await fetch(`${baseUrl}/api/referrals/${code}`);
+    if (res.ok) {
+      const data = await res.json();
+      return data.count || 0;
+    }
+  } catch {
+    // fallback to localStorage
+  }
+  return getLocalReferralCount(code);
 }
 
+// Local fallback
+function getLocalReferralCount(code: string): number {
+  return parseInt(localStorage.getItem(`vibelingo_referrals_${code}`) || "0");
+}
+
+// Legacy sync function (for initial render)
 export function getReferralCount(userId: string): number {
-  return parseInt(localStorage.getItem(`vibelingo_referrals_${userId}`) || "0");
+  const code = generateReferralCode(userId);
+  return parseInt(localStorage.getItem(`vibelingo_referrals_${code}`) || "0");
+}
+
+// Cache the server count into localStorage
+export async function syncReferralCount(userId: string): Promise<number> {
+  const code = generateReferralCode(userId);
+  const count = await fetchReferralCount(code);
+  localStorage.setItem(`vibelingo_referrals_${code}`, String(count));
+  return count;
 }
