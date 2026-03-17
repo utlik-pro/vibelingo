@@ -5,7 +5,6 @@ import {
   X as XIcon,
   BookOpen,
   Swords,
-  PenTool,
   Sparkles,
   Rocket,
   Zap,
