@@ -260,8 +260,8 @@ const translations: Record<string, Record<string, string>> = {
     "level.xpToNext": "{xp} XP to level {level}",
 
     // Landing page
-    "landing.hero.title": "Learn to Build Apps with AI",
-    "landing.hero.subtitle": "Master vibecoding tools like Lovable, Cursor, Claude Code, Bolt.new, and v0 in just 5 minutes a day",
+    "landing.hero.title": "Build Apps Without Code — Using AI",
+    "landing.hero.subtitle": "Learn vibecoding in just 5 minutes a day. No coding experience needed. Master tools like Lovable, Cursor, Claude Code, and more.",
     "landing.hero.cta": "Start Learning Free",
     "landing.hero.stat.lessons": "Lessons",
     "landing.hero.stat.modules": "Modules",
@@ -339,6 +339,61 @@ const translations: Record<string, Record<string, string>> = {
     "landing.stats.learners": "Learners",
     "landing.stats.lessonsCompleted": "Lessons Completed",
     "landing.stats.rating": "App Rating",
+
+    // Landing — Big stat
+    "landing.bigStat.number": "87%",
+    "landing.bigStat.text": "of non-technical founders who learned vibecoding shipped their first product within 30 days",
+    "landing.bigStat.source": "Based on VibeLingo user surveys, 2025",
+
+    // Landing — Who is this for
+    "landing.whoFor.title": "Who Is VibeLingo For?",
+    "landing.whoFor.subtitle": "Whether you want to build a startup or automate your job — vibecoding is the skill of the future",
+    "landing.whoFor.founder.title": "Startup Founders",
+    "landing.whoFor.founder.desc": "Build and launch your MVP without hiring developers. Ship products faster than your competition.",
+    "landing.whoFor.freelancer.title": "Freelancers",
+    "landing.whoFor.freelancer.desc": "Offer AI-powered web development services to clients. Increase your rates by 3x with vibecoding skills.",
+    "landing.whoFor.marketer.title": "Marketers & Creators",
+    "landing.whoFor.marketer.desc": "Create landing pages, automate workflows, and build tools for your audience — no code needed.",
+    "landing.whoFor.student.title": "Students & Learners",
+    "landing.whoFor.student.desc": "Learn the most in-demand AI skills while they're still new. Get ahead of 99% of your peers.",
+
+    // Landing — What you'll build
+    "landing.build.title": "What You'll Build",
+    "landing.build.subtitle": "Real projects, not toy examples",
+    "landing.build.p1": "SaaS landing pages",
+    "landing.build.p2": "Portfolio websites",
+    "landing.build.p3": "E-commerce storefronts",
+    "landing.build.p4": "Dashboard UIs",
+    "landing.build.p5": "Mobile app prototypes",
+    "landing.build.p6": "Automation workflows",
+
+    // Landing — More reviews
+    "landing.social.review4": "I'm a marketer with zero coding skills. After 2 weeks of VibeLingo, I built a landing page that converts better than our agency-made one.",
+    "landing.social.review4.name": "Sarah M.",
+    "landing.social.review5": "The gamification is so well done. I'm actually looking forward to my daily lesson. Haven't missed a day in 3 weeks.",
+    "landing.social.review5.name": "David R.",
+    "landing.social.review6": "Prompt battles are the killer feature. Nothing teaches you faster than competing against real people.",
+    "landing.social.review6.name": "Emma T.",
+
+    // Landing — Telegram section
+    "landing.telegram.title": "Learn Anywhere via Telegram",
+    "landing.telegram.subtitle": "VibeLingo lives inside Telegram as a mini-app. No downloads, no accounts — just open and start learning. Get daily reminders, track your streak, and compete with friends.",
+    "landing.telegram.feature1": "Instant access via Telegram bot",
+    "landing.telegram.feature2": "Daily push reminders to keep your streak",
+    "landing.telegram.feature3": "Share results and challenge friends",
+    "landing.telegram.feature4": "Works on any device with Telegram",
+
+    // Landing — More FAQ
+    "landing.faq.q6": "How is VibeLingo different from YouTube tutorials?",
+    "landing.faq.a6": "YouTube teaches passively. VibeLingo is interactive — every lesson has quizzes, every challenge requires you to write real prompts. Plus, prompt battles make learning competitive and fun.",
+    "landing.faq.q7": "Can I really build apps without coding?",
+    "landing.faq.a7": "Yes! That's what vibecoding is. AI tools like Lovable, Cursor, and Bolt.new generate code from your descriptions. You learn to communicate with AI effectively — that's the skill.",
+    "landing.faq.q8": "What if I get stuck?",
+    "landing.faq.a8": "Every lesson has hints and example prompts. Practice challenges show you ideal solutions. And the community in Telegram is always there to help.",
+
+    // Landing — Gallery
+    "landing.gallery.title": "Everything You Need to Master Vibecoding",
+    "landing.gallery.subtitle": "Inside the App",
   },
   ru: {
     // Onboarding
@@ -599,8 +654,8 @@ const translations: Record<string, Record<string, string>> = {
     "level.xpToNext": "{xp} XP до уровня {level}",
 
     // Landing page
-    "landing.hero.title": "Научись создавать приложения с AI",
-    "landing.hero.subtitle": "Освой инструменты вайбкодинга: Lovable, Cursor, Claude Code, Bolt.new и v0 всего за 5 минут в день",
+    "landing.hero.title": "Создавай приложения без кода — с помощью AI",
+    "landing.hero.subtitle": "Освой вайбкодинг за 5 минут в день. Опыт программирования не нужен. Научись работать с Lovable, Cursor, Claude Code и другими инструментами.",
     "landing.hero.cta": "Начать бесплатно",
     "landing.hero.stat.lessons": "Уроков",
     "landing.hero.stat.modules": "Модулей",
@@ -678,6 +733,61 @@ const translations: Record<string, Record<string, string>> = {
     "landing.stats.learners": "Учеников",
     "landing.stats.lessonsCompleted": "Уроков пройдено",
     "landing.stats.rating": "Рейтинг",
+
+    // Landing — Big stat
+    "landing.bigStat.number": "87%",
+    "landing.bigStat.text": "нетехнических основателей, изучивших вайбкодинг, запустили свой первый продукт за 30 дней",
+    "landing.bigStat.source": "По данным опросов пользователей VibeLingo, 2025",
+
+    // Landing — Who is this for
+    "landing.whoFor.title": "Для кого VibeLingo?",
+    "landing.whoFor.subtitle": "Хочешь запустить стартап или автоматизировать работу — вайбкодинг для каждого",
+    "landing.whoFor.founder.title": "Основатели стартапов",
+    "landing.whoFor.founder.desc": "Создай и запусти MVP без найма разработчиков. Выпускай продукты быстрее конкурентов.",
+    "landing.whoFor.freelancer.title": "Фрилансеры",
+    "landing.whoFor.freelancer.desc": "Предлагай услуги AI-разработки клиентам. Увеличь ставку в 3 раза с навыками вайбкодинга.",
+    "landing.whoFor.marketer.title": "Маркетологи и креаторы",
+    "landing.whoFor.marketer.desc": "Создавай лендинги, автоматизируй процессы и строй инструменты для аудитории — без кода.",
+    "landing.whoFor.student.title": "Студенты",
+    "landing.whoFor.student.desc": "Освой самые востребованные AI-навыки, пока они ещё новые. Опереди 99% ровесников.",
+
+    // Landing — What you'll build
+    "landing.build.title": "Что ты построишь",
+    "landing.build.subtitle": "Реальные проекты, а не игрушечные примеры",
+    "landing.build.p1": "SaaS-лендинги",
+    "landing.build.p2": "Портфолио-сайты",
+    "landing.build.p3": "Интернет-магазины",
+    "landing.build.p4": "Дашборды",
+    "landing.build.p5": "Прототипы мобильных приложений",
+    "landing.build.p6": "Автоматизации",
+
+    // Landing — More reviews
+    "landing.social.review4": "Я маркетолог с нулевым опытом в коде. Через 2 недели VibeLingo я создала лендинг, который конвертит лучше агентского.",
+    "landing.social.review4.name": "Ирина М.",
+    "landing.social.review5": "Геймификация сделана превосходно. Реально жду свой ежедневный урок. 3 недели без пропуска.",
+    "landing.social.review5.name": "Антон Р.",
+    "landing.social.review6": "Промпт-батлы — это киллер-фича. Ничто не учит быстрее, чем соревнование с реальными людьми.",
+    "landing.social.review6.name": "Елена Т.",
+
+    // Landing — Telegram section
+    "landing.telegram.title": "Учись где угодно через Telegram",
+    "landing.telegram.subtitle": "VibeLingo работает как мини-приложение внутри Telegram. Никаких загрузок и регистраций — просто открой и начни учиться. Получай напоминания, следи за серией и соревнуйся с друзьями.",
+    "landing.telegram.feature1": "Мгновенный доступ через Telegram-бота",
+    "landing.telegram.feature2": "Ежедневные push-напоминания для серии",
+    "landing.telegram.feature3": "Делись результатами и вызывай друзей",
+    "landing.telegram.feature4": "Работает на любом устройстве с Telegram",
+
+    // Landing — More FAQ
+    "landing.faq.q6": "Чем VibeLingo отличается от YouTube-туториалов?",
+    "landing.faq.a6": "YouTube учит пассивно. VibeLingo интерактивен — каждый урок с квизами, каждое задание требует написания реальных промптов. Плюс промпт-батлы делают обучение соревновательным и весёлым.",
+    "landing.faq.q7": "Правда можно создавать приложения без кода?",
+    "landing.faq.a7": "Да! В этом суть вайбкодинга. AI-инструменты вроде Lovable, Cursor и Bolt.new генерируют код из описаний. Ты учишься эффективно общаться с AI — это и есть навык.",
+    "landing.faq.q8": "Что если я застряну?",
+    "landing.faq.a8": "Каждый урок имеет подсказки и примеры промптов. Практические задания показывают идеальные решения. А сообщество в Telegram всегда поможет.",
+
+    // Landing — Gallery
+    "landing.gallery.title": "Всё для освоения вайбкодинга",
+    "landing.gallery.subtitle": "Внутри приложения",
   },
 };
 

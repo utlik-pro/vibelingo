@@ -653,15 +653,72 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* ===== APP SCREENS GALLERY ===== */}
+      {/* ===== BIG STAT ===== */}
+      <section className="px-6 py-16 md:py-20 bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-900/10 dark:to-indigo-900/10">
+        <div className="max-w-3xl mx-auto text-center">
+          <div className="text-7xl md:text-9xl font-extrabold text-purple-500 mb-4 leading-none">
+            {t("landing.bigStat.number")}
+          </div>
+          <p className="text-lg md:text-xl text-foreground font-semibold leading-relaxed mb-3 max-w-xl mx-auto">
+            {t("landing.bigStat.text")}
+          </p>
+          <p className="text-xs text-muted-foreground">
+            {t("landing.bigStat.source")}
+          </p>
+        </div>
+      </section>
+
+      {/* ===== WHO IS THIS FOR ===== */}
       <section className="px-6 py-16 md:py-24">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-14">
+            <h2 className="font-display text-2xl md:text-4xl font-extrabold text-foreground mb-4">
+              {t("landing.whoFor.title")}
+            </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              {t("landing.whoFor.subtitle")}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[
+              { icon: Rocket, color: "purple", titleKey: "landing.whoFor.founder.title", descKey: "landing.whoFor.founder.desc" },
+              { icon: Zap, color: "blue", titleKey: "landing.whoFor.freelancer.title", descKey: "landing.whoFor.freelancer.desc" },
+              { icon: Palette, color: "pink", titleKey: "landing.whoFor.marketer.title", descKey: "landing.whoFor.marketer.desc" },
+              { icon: GraduationCap, color: "green", titleKey: "landing.whoFor.student.title", descKey: "landing.whoFor.student.desc" },
+            ].map((item) => {
+              const colorMap: Record<string, string> = {
+                purple: "bg-purple-50 dark:bg-purple-900/20 text-purple-500",
+                blue: "bg-blue-50 dark:bg-blue-900/20 text-blue-500",
+                pink: "bg-pink-50 dark:bg-pink-900/20 text-pink-500",
+                green: "bg-green-50 dark:bg-green-900/20 text-green-500",
+              };
+              const [bgClass, , textClass] = (colorMap[item.color] || colorMap.purple).split(" ");
+              return (
+                <div key={item.titleKey} className="flex gap-4 p-6 rounded-2xl bg-card border border-border hover:shadow-lg transition-all">
+                  <div className={`w-12 h-12 rounded-xl ${bgClass} dark:${bgClass} flex items-center justify-center shrink-0`}>
+                    <item.icon className={`w-6 h-6 ${textClass}`} />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-bold text-foreground mb-1">{t(item.titleKey)}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{t(item.descKey)}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== APP SCREENS GALLERY ===== */}
+      <section className="px-6 py-16 md:py-24 bg-white dark:bg-card/50">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
             <span className="text-xs font-bold uppercase tracking-widest text-purple-500 mb-3 block">
-              Inside the App
+              {t("landing.gallery.subtitle")}
             </span>
             <h2 className="font-display text-2xl md:text-4xl font-extrabold text-foreground">
-              Everything you need to master vibecoding
+              {t("landing.gallery.title")}
             </h2>
           </div>
 
@@ -682,39 +739,23 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* ===== FEATURES (detailed cards) ===== */}
+      {/* ===== WHAT YOU'LL BUILD ===== */}
       <section className="px-6 py-16 md:py-20">
         <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-purple-100/50 dark:from-purple-900/20 dark:to-purple-900/10 border border-purple-200/50 dark:border-purple-800/30">
-              <BookOpen className="w-8 h-8 text-purple-500 mb-4" />
-              <h3 className="text-lg font-bold text-foreground mb-2">
-                {t("landing.features.lessons.title")}
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {t("landing.features.lessons.desc")}
-              </p>
-            </div>
+          <div className="text-center mb-12">
+            <h2 className="font-display text-2xl md:text-3xl font-extrabold text-foreground mb-3">
+              {t("landing.build.title")}
+            </h2>
+            <p className="text-muted-foreground">{t("landing.build.subtitle")}</p>
+          </div>
 
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-orange-50 to-orange-100/50 dark:from-orange-900/20 dark:to-orange-900/10 border border-orange-200/50 dark:border-orange-800/30">
-              <Swords className="w-8 h-8 text-orange-500 mb-4" />
-              <h3 className="text-lg font-bold text-foreground mb-2">
-                {t("landing.features.battles.title")}
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {t("landing.features.battles.desc")}
-              </p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-green-50 to-green-100/50 dark:from-green-900/20 dark:to-green-900/10 border border-green-200/50 dark:border-green-800/30">
-              <PenTool className="w-8 h-8 text-green-500 mb-4" />
-              <h3 className="text-lg font-bold text-foreground mb-2">
-                {t("landing.features.practice.title")}
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {t("landing.features.practice.desc")}
-              </p>
-            </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {(["landing.build.p1", "landing.build.p2", "landing.build.p3", "landing.build.p4", "landing.build.p5", "landing.build.p6"] as const).map((key) => (
+              <div key={key} className="flex items-center gap-3 p-4 rounded-2xl bg-card border border-border">
+                <Check className="w-5 h-5 text-green-500 shrink-0" />
+                <span className="text-sm font-medium text-foreground">{t(key)}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -763,6 +804,9 @@ export function LandingPage() {
               { text: t("landing.social.review1"), name: t("landing.social.review1.name"), stars: 5 },
               { text: t("landing.social.review2"), name: t("landing.social.review2.name"), stars: 5 },
               { text: t("landing.social.review3"), name: t("landing.social.review3.name"), stars: 5 },
+              { text: t("landing.social.review4"), name: t("landing.social.review4.name"), stars: 5 },
+              { text: t("landing.social.review5"), name: t("landing.social.review5.name"), stars: 5 },
+              { text: t("landing.social.review6"), name: t("landing.social.review6.name"), stars: 5 },
             ].map((review, i) => (
               <div
                 key={i}
@@ -869,13 +913,52 @@ export function LandingPage() {
           </h2>
 
           <div className="flex flex-col gap-3">
-            {[1, 2, 3, 4, 5].map((n) => (
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
               <FaqItem
                 key={n}
                 question={t(`landing.faq.q${n}`)}
                 answer={t(`landing.faq.a${n}`)}
               />
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== TELEGRAM SECTION ===== */}
+      <section className="px-6 py-16 md:py-24 bg-white dark:bg-card/50">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-widest text-purple-500 mb-3 block">Telegram Mini App</span>
+              <h2 className="font-display text-2xl md:text-3xl font-extrabold text-foreground mb-4">
+                {t("landing.telegram.title")}
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                {t("landing.telegram.subtitle")}
+              </p>
+              <div className="flex flex-col gap-3 mb-8">
+                {(["landing.telegram.feature1", "landing.telegram.feature2", "landing.telegram.feature3", "landing.telegram.feature4"] as const).map((key) => (
+                  <div key={key} className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-green-500 shrink-0" />
+                    <span className="text-sm text-foreground">{t(key)}</span>
+                  </div>
+                ))}
+              </div>
+              <a
+                href={BOT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-purple-500 to-purple-600 text-white font-bold shadow-[0_8px_24px_rgba(147,51,234,0.3)] hover:shadow-[0_12px_32px_rgba(147,51,234,0.4)] transition-all hover:-translate-y-0.5 no-underline"
+              >
+                <Rocket className="w-5 h-5" />
+                {t("landing.finalCta.cta")}
+              </a>
+            </div>
+            <div className="flex justify-center">
+              <PhoneMockup label="Telegram Mini App">
+                <HomeMockup />
+              </PhoneMockup>
+            </div>
           </div>
         </div>
       </section>
