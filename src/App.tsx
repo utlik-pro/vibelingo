@@ -36,12 +36,12 @@ export default function App() {
   const { user } = useAuth();
   const { locale } = useI18n();
 
-  // Show landing page in regular browser (not Telegram)
-  const isTelegram = !!window.Telegram?.WebApp?.initDataUnsafe?.user;
-  const isBrowser = !isTelegram && !window.Telegram?.WebApp;
+  // Show landing page in regular browser (not inside Telegram)
+  const tgUser = window.Telegram?.WebApp?.initDataUnsafe?.user;
+  const isTelegram = !!tgUser;
   const skipLanding = new URLSearchParams(window.location.search).get('app') === 'true';
 
-  if (isBrowser && !skipLanding && !localStorage.getItem('vibelingo_skip_landing')) {
+  if (!isTelegram && !skipLanding && !localStorage.getItem('vibelingo_skip_landing')) {
     return <LandingPage />;
   }
 

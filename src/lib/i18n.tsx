@@ -278,6 +278,7 @@ const translations: Record<string, Record<string, string>> = {
     "landing.pricing.pro.f5": "No ads",
     "landing.pricing.getCta": "Get Started",
     "landing.footer.openTelegram": "Open in Telegram",
+    "landing.footer.tryInBrowser": "or try in browser",
     "landing.footer.builtWith": "Built with VibeLingo",
   },
   ru: {
@@ -557,6 +558,7 @@ const translations: Record<string, Record<string, string>> = {
     "landing.pricing.pro.f5": "Без рекламы",
     "landing.pricing.getCta": "Начать",
     "landing.footer.openTelegram": "Открыть в Telegram",
+    "landing.footer.tryInBrowser": "или попробовать в браузере",
     "landing.footer.builtWith": "Сделано с VibeLingo",
   },
 };

@@ -218,11 +218,22 @@ export function LandingPage() {
           href={BOT_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-purple-500 to-purple-600 text-white font-bold text-lg shadow-[0_8px_24px_rgba(147,51,234,0.3)] hover:shadow-[0_12px_32px_rgba(147,51,234,0.4)] transition-all hover:-translate-y-0.5 no-underline mb-6"
+          className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-purple-500 to-purple-600 text-white font-bold text-lg shadow-[0_8px_24px_rgba(147,51,234,0.3)] hover:shadow-[0_12px_32px_rgba(147,51,234,0.4)] transition-all hover:-translate-y-0.5 no-underline mb-4"
         >
           {t("landing.footer.openTelegram")}
         </a>
-        <p className="text-sm text-muted-foreground mt-4">
+        <div className="mb-6">
+          <button
+            onClick={() => {
+              localStorage.setItem('vibelingo_skip_landing', 'true');
+              window.location.reload();
+            }}
+            className="text-sm text-purple-500 font-semibold hover:text-purple-700 transition-colors cursor-pointer bg-transparent border-none underline underline-offset-2"
+          >
+            {t("landing.footer.tryInBrowser")}
+          </button>
+        </div>
+        <p className="text-sm text-muted-foreground">
           {t("landing.footer.builtWith")}
         </p>
       </footer>
