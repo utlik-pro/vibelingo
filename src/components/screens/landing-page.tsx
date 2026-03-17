@@ -15,7 +15,6 @@ import {
   Users,
   Trophy,
   GraduationCap,
-  Target,
   MessageCircle,
   Heart,
   MousePointer,
