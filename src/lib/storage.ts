@@ -66,10 +66,19 @@ export function loadProgress(userId: string): UserProgress {
     const raw = localStorage.getItem(STORAGE_PREFIX + userId);
     if (raw) {
       const parsed = JSON.parse(raw) as Partial<UserProgress>;
-      return { ...DEFAULT_PROGRESS, ...parsed };
+      const progress = { ...DEFAULT_PROGRESS, ...parsed };
+      // Reset hearts to 5 each new day
+      const today = new Date().toDateString();
+      const lastOpen = localStorage.getItem(`vibelingo_last_open_${userId}`);
+      if (lastOpen !== today) {
+        progress.hearts = 5;
+        localStorage.setItem(`vibelingo_last_open_${userId}`, today);
+      }
+      return progress;
     }
   } catch {
     console.warn("Failed to load progress from localStorage");
   }
+  localStorage.setItem(`vibelingo_last_open_${userId}`, new Date().toDateString());
   return { ...DEFAULT_PROGRESS };
 }
