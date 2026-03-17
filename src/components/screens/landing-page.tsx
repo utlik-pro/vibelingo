@@ -17,16 +17,21 @@ import {
   GraduationCap,
   Target,
   MessageCircle,
+  Heart,
+  MousePointer,
+  Bot,
+  Palette,
+  type LucideIcon,
 } from "lucide-react";
 
 const BOT_URL = "https://t.me/vibelingo_learn_bot";
 
-const TOOLS = [
-  { name: "Lovable", desc: "landing.tools.lovable" as const, emoji: "\u2764\uFE0F" },
-  { name: "Cursor", desc: "landing.tools.cursor" as const, emoji: "\u{1F5B1}\uFE0F" },
-  { name: "Claude Code", desc: "landing.tools.claudeCode" as const, emoji: "\u{1F916}" },
-  { name: "Bolt.new", desc: "landing.tools.bolt" as const, emoji: "\u26A1" },
-  { name: "v0", desc: "landing.tools.v0" as const, emoji: "\u{1F3A8}" },
+const TOOLS: { name: string; desc: string; icon: LucideIcon; color: string }[] = [
+  { name: "Lovable", desc: "landing.tools.lovable", icon: Heart, color: "text-red-500" },
+  { name: "Cursor", desc: "landing.tools.cursor", icon: MousePointer, color: "text-blue-500" },
+  { name: "Claude Code", desc: "landing.tools.claudeCode", icon: Bot, color: "text-amber-600" },
+  { name: "Bolt.new", desc: "landing.tools.bolt", icon: Zap, color: "text-yellow-500" },
+  { name: "v0", desc: "landing.tools.v0", icon: Palette, color: "text-pink-500" },
 ];
 
 function FaqItem({ question, answer }: { question: string; answer: string }) {
@@ -47,6 +52,116 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
           {answer}
         </div>
       )}
+    </div>
+  );
+}
+
+/* Phone mockup with a mini UI inside */
+function PhoneMockup({ children, label }: { children: React.ReactNode; label: string }) {
+  return (
+    <div className="flex flex-col items-center gap-4">
+      <div className="relative mx-auto w-[220px] h-[400px] rounded-[32px] border-[6px] border-gray-800 dark:border-gray-600 bg-background shadow-2xl overflow-hidden">
+        {/* Notch */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5 bg-gray-800 dark:bg-gray-600 rounded-b-2xl z-10" />
+        {/* Screen content */}
+        <div className="h-full w-full overflow-hidden pt-6">
+          {children}
+        </div>
+      </div>
+      <span className="text-sm font-semibold text-foreground">{label}</span>
+    </div>
+  );
+}
+
+/* Mini lesson screen mockup */
+function LessonMockup() {
+  return (
+    <div className="h-full bg-background p-3 flex flex-col gap-2">
+      <div className="flex items-center justify-between mb-1">
+        <div className="h-1.5 w-16 rounded-full bg-purple-500" />
+        <div className="text-[9px] font-bold text-purple-500">3/5</div>
+      </div>
+      <div className="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-3">
+        <div className="text-[10px] font-bold text-foreground mb-2">What does Cursor AI do?</div>
+        <div className="flex flex-col gap-1.5">
+          {["Edit photos", "AI code editor", "Make music", "Send emails"].map((opt, i) => (
+            <div
+              key={opt}
+              className={`text-[9px] px-2.5 py-1.5 rounded-lg border ${
+                i === 1
+                  ? "border-green-500 bg-green-50 dark:bg-green-900/20 text-green-700 font-bold"
+                  : "border-border text-muted-foreground"
+              }`}
+            >
+              {opt}
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="mt-auto flex items-center justify-between px-1">
+        <div className="text-[9px] text-muted-foreground">+15 XP</div>
+        <div className="h-5 w-14 rounded-lg bg-purple-500 flex items-center justify-center">
+          <span className="text-[8px] text-white font-bold">Next</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* Mini practice screen mockup */
+function PracticeMockup() {
+  return (
+    <div className="h-full bg-background p-3 flex flex-col gap-2">
+      <div className="text-[10px] font-bold text-foreground">Practice Challenge</div>
+      <div className="bg-green-50 dark:bg-green-900/20 rounded-xl p-3">
+        <div className="text-[9px] text-foreground mb-2 font-semibold">Build a landing page for a coffee shop</div>
+        <div className="text-[8px] text-muted-foreground mb-2">Write a prompt for Lovable:</div>
+        <div className="bg-background rounded-lg border border-border p-2 min-h-[60px]">
+          <div className="text-[8px] text-foreground leading-relaxed">
+            Create a modern landing page for "Bean & Brew" coffee shop with a hero section...
+          </div>
+        </div>
+      </div>
+      <div className="flex gap-1.5 mt-1">
+        <div className="text-[8px] px-2 py-1 rounded-md bg-muted text-muted-foreground">Hints</div>
+        <div className="text-[8px] px-2 py-1 rounded-md bg-muted text-muted-foreground">Example</div>
+      </div>
+      <div className="mt-auto">
+        <div className="h-5 w-full rounded-lg bg-green-500 flex items-center justify-center">
+          <span className="text-[8px] text-white font-bold">Submit</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* Mini battle screen mockup */
+function BattleMockup() {
+  return (
+    <div className="h-full bg-background p-3 flex flex-col gap-2">
+      <div className="text-[10px] font-bold text-foreground text-center">Prompt Battle</div>
+      <div className="flex items-center justify-between bg-orange-50 dark:bg-orange-900/20 rounded-xl p-3">
+        <div className="flex flex-col items-center gap-1">
+          <div className="w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center text-white text-[9px] font-bold">Y</div>
+          <div className="text-[8px] font-semibold text-foreground">You</div>
+        </div>
+        <div className="text-[14px] font-extrabold text-orange-500">VS</div>
+        <div className="flex flex-col items-center gap-1">
+          <div className="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center text-white text-[9px] font-bold">A</div>
+          <div className="text-[8px] font-semibold text-foreground">Alex</div>
+        </div>
+      </div>
+      <div className="text-[9px] text-center text-muted-foreground">02:45</div>
+      <div className="bg-background rounded-lg border border-border p-2 flex-1 min-h-[60px]">
+        <div className="text-[8px] text-foreground leading-relaxed">
+          Design a portfolio site with dark mode, smooth animations...
+        </div>
+      </div>
+      <div className="flex gap-2">
+        <div className="h-5 flex-1 rounded-lg bg-orange-500 flex items-center justify-center">
+          <span className="text-[8px] text-white font-bold">Submit</span>
+        </div>
+      </div>
     </div>
   );
 }
@@ -81,7 +196,7 @@ export function LandingPage() {
 
       {/* ===== HERO ===== */}
       <section className="px-6 pt-20 pb-16 md:pt-28 md:pb-24 max-w-4xl mx-auto text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 text-sm font-semibold mb-8 animate-[fadeInDown_0.5s_ease]">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 text-sm font-semibold mb-8">
           <Sparkles className="w-4 h-4" />
           <span>Vibecoding made simple</span>
         </div>
@@ -124,10 +239,10 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* ===== HOW IT WORKS ===== */}
-      <section className="px-6 py-16 md:py-20 bg-white dark:bg-card/50">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
+      {/* ===== HOW IT WORKS — with phone mockups ===== */}
+      <section className="px-6 py-16 md:py-24 bg-white dark:bg-card/50">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
             <span className="text-xs font-bold uppercase tracking-widest text-purple-500 mb-3 block">
               {t("landing.howItWorks.title")}
             </span>
@@ -136,65 +251,56 @@ export function LandingPage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                icon: BookOpen,
-                color: "purple",
-                num: "01",
-                titleKey: "landing.howItWorks.step1.title" as const,
-                descKey: "landing.howItWorks.step1.desc" as const,
-              },
-              {
-                icon: Target,
-                color: "green",
-                num: "02",
-                titleKey: "landing.howItWorks.step2.title" as const,
-                descKey: "landing.howItWorks.step2.desc" as const,
-              },
-              {
-                icon: Swords,
-                color: "orange",
-                num: "03",
-                titleKey: "landing.howItWorks.step3.title" as const,
-                descKey: "landing.howItWorks.step3.desc" as const,
-              },
-            ].map((step) => (
-              <div
-                key={step.num}
-                className="relative p-6 rounded-2xl bg-background border border-border hover:shadow-lg transition-all hover:-translate-y-1 group"
-              >
-                <div className="absolute -top-3 -left-1 text-5xl font-extrabold text-purple-100 dark:text-purple-900/30 select-none">
-                  {step.num}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
+            {/* Step 1: Learn */}
+            <div className="flex flex-col items-center text-center">
+              <div className="relative mb-6">
+                <div className="absolute -top-4 -left-4 w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-white text-sm font-extrabold z-10 shadow-lg">
+                  1
                 </div>
-                <div
-                  className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${
-                    step.color === "purple"
-                      ? "bg-purple-50 dark:bg-purple-900/20"
-                      : step.color === "green"
-                        ? "bg-green-50 dark:bg-green-900/20"
-                        : "bg-orange-50 dark:bg-orange-900/20"
-                  }`}
-                >
-                  <step.icon
-                    className={`w-6 h-6 ${
-                      step.color === "purple"
-                        ? "text-purple-500"
-                        : step.color === "green"
-                          ? "text-green-500"
-                          : "text-orange-500"
-                    }`}
-                  />
-                </div>
-                <h3 className="text-lg font-bold text-foreground mb-2">{t(step.titleKey)}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{t(step.descKey)}</p>
+                <PhoneMockup label={t("landing.howItWorks.step1.title")}>
+                  <LessonMockup />
+                </PhoneMockup>
               </div>
-            ))}
+              <p className="text-sm text-muted-foreground leading-relaxed max-w-[240px]">
+                {t("landing.howItWorks.step1.desc")}
+              </p>
+            </div>
+
+            {/* Step 2: Practice */}
+            <div className="flex flex-col items-center text-center">
+              <div className="relative mb-6">
+                <div className="absolute -top-4 -left-4 w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white text-sm font-extrabold z-10 shadow-lg">
+                  2
+                </div>
+                <PhoneMockup label={t("landing.howItWorks.step2.title")}>
+                  <PracticeMockup />
+                </PhoneMockup>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed max-w-[240px]">
+                {t("landing.howItWorks.step2.desc")}
+              </p>
+            </div>
+
+            {/* Step 3: Compete */}
+            <div className="flex flex-col items-center text-center">
+              <div className="relative mb-6">
+                <div className="absolute -top-4 -left-4 w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center text-white text-sm font-extrabold z-10 shadow-lg">
+                  3
+                </div>
+                <PhoneMockup label={t("landing.howItWorks.step3.title")}>
+                  <BattleMockup />
+                </PhoneMockup>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed max-w-[240px]">
+                {t("landing.howItWorks.step3.desc")}
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ===== FEATURES (detailed) ===== */}
+      {/* ===== FEATURES (detailed cards) ===== */}
       <section className="px-6 py-16 md:py-20">
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -231,7 +337,7 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* ===== TOOLS ===== */}
+      {/* ===== TOOLS (Lucide icons instead of emojis) ===== */}
       <section className="px-6 py-16 md:py-20 bg-white dark:bg-card/50">
         <div className="max-w-4xl mx-auto">
           <h2 className="font-display text-2xl md:text-3xl font-extrabold text-foreground text-center mb-4">
@@ -247,7 +353,9 @@ export function LandingPage() {
                 key={tool.name}
                 className="flex flex-col items-center gap-3 p-5 rounded-2xl bg-background border border-border hover:shadow-lg hover:-translate-y-1 transition-all text-center"
               >
-                <div className="text-3xl">{tool.emoji}</div>
+                <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center">
+                  <tool.icon className={`w-6 h-6 ${tool.color}`} />
+                </div>
                 <div>
                   <div className="font-bold text-foreground text-sm">{tool.name}</div>
                   <div className="text-xs text-muted-foreground mt-1">{t(tool.desc)}</div>
@@ -270,21 +378,9 @@ export function LandingPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              {
-                text: t("landing.social.review1"),
-                name: t("landing.social.review1.name"),
-                stars: 5,
-              },
-              {
-                text: t("landing.social.review2"),
-                name: t("landing.social.review2.name"),
-                stars: 5,
-              },
-              {
-                text: t("landing.social.review3"),
-                name: t("landing.social.review3.name"),
-                stars: 5,
-              },
+              { text: t("landing.social.review1"), name: t("landing.social.review1.name"), stars: 5 },
+              { text: t("landing.social.review2"), name: t("landing.social.review2.name"), stars: 5 },
+              { text: t("landing.social.review3"), name: t("landing.social.review3.name"), stars: 5 },
             ].map((review, i) => (
               <div
                 key={i}
