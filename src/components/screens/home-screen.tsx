@@ -7,6 +7,7 @@ import {
   Home, Zap, PenTool, Users, Palette, Rocket,
 } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
+import { getLevelInfo } from "@/lib/levels";
 
 interface HomeScreenProps {
   userXP: number;
@@ -27,8 +28,10 @@ export function HomeScreen({
   earnedBadges,
   onNavigate,
 }: HomeScreenProps) {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const currentLeague = LEAGUES.reduce((prev, l) => (userXP >= l.xpNeeded ? l : prev), LEAGUES[0]);
+  const levelInfo = getLevelInfo(userXP);
+  const levelTitle = locale === "ru" ? levelInfo.titleRu : levelInfo.title;
   const nextLeague = LEAGUES[LEAGUES.indexOf(currentLeague) + 1];
   const leagueProgress = nextLeague
     ? (userXP - currentLeague.xpNeeded) / (nextLeague.xpNeeded - currentLeague.xpNeeded)
@@ -63,6 +66,25 @@ export function HomeScreen({
             <PartyPopper className="w-6 h-6 text-yellow-400" />
           </div>
         )}
+      </div>
+
+      {/* Level badge */}
+      <div className="flex items-center gap-3 p-4 rounded-2xl bg-card border border-border shadow-[0_2px_12px_rgba(0,0,0,0.04)] mb-4 animate-[slideIn_0.4s_ease_0.05s_both]">
+        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center shrink-0">
+          <span className="text-lg font-extrabold text-white">{levelInfo.level}</span>
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="text-[14px] font-bold text-foreground">{levelTitle}</div>
+          <div className="h-1.5 rounded-full bg-muted overflow-hidden mt-1.5">
+            <div
+              className="h-full rounded-full bg-purple-500 transition-all duration-500"
+              style={{ width: `${levelInfo.progress * 100}%` }}
+            />
+          </div>
+          <div className="text-[11px] text-muted-foreground mt-1">
+            {t("level.xpToNext", { xp: levelInfo.xpForNext - userXP, level: levelInfo.level + 1 })}
+          </div>
+        </div>
       </div>
 
       {/* League progress */}

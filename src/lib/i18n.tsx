@@ -241,6 +241,24 @@ const translations: Record<string, Record<string, string>> = {
     // Achievement
     "achievement.unlocked": "Achievement Unlocked",
 
+    // Shop (in-app purchases)
+    "shop.title": "Shop",
+    "shop.hearts": "5 Extra Hearts",
+    "shop.freeze": "Streak Freeze x3",
+    "shop.xpBoost": "XP Boost 2x (24h)",
+    "shop.buy": "Buy",
+
+    // Battle share
+    "battle.shareResult": "Share Result",
+    "battle.shareText": "I just won a VibeLingo prompt battle! Challenge: {title}. Try to beat me: t.me/vibelingo_learn_bot",
+
+    // Activity calendar
+    "profile.activity": "Activity",
+
+    // Level system
+    "level.title": "Level",
+    "level.xpToNext": "{xp} XP to level {level}",
+
     // Landing page
     "landing.hero.title": "Learn to Build Apps with AI",
     "landing.hero.subtitle": "Master vibecoding tools like Lovable, Cursor, Claude Code, Bolt.new, and v0 in just 5 minutes a day",
@@ -520,6 +538,24 @@ const translations: Record<string, Record<string, string>> = {
 
     // Achievement
     "achievement.unlocked": "Достижение разблокировано",
+
+    // Shop (in-app purchases)
+    "shop.title": "Магазин",
+    "shop.hearts": "5 доп. сердец",
+    "shop.freeze": "Заморозка серии x3",
+    "shop.xpBoost": "XP Буст 2x (24ч)",
+    "shop.buy": "Купить",
+
+    // Battle share
+    "battle.shareResult": "Поделиться результатом",
+    "battle.shareText": "Я только что выиграл промпт-батл в VibeLingo! Задание: {title}. Попробуй побить мой рекорд: t.me/vibelingo_learn_bot",
+
+    // Activity calendar
+    "profile.activity": "Активность",
+
+    // Level system
+    "level.title": "Уровень",
+    "level.xpToNext": "{xp} XP до уровня {level}",
 
     // Landing page
     "landing.hero.title": "Научись создавать приложения с AI",

@@ -47,6 +47,20 @@ export function canUseStreakFreeze(userId: string): boolean {
   return diff > 7 * 24 * 60 * 60 * 1000; // 7 days
 }
 
+export function getActivityDates(userId: string): string[] {
+  const key = `vibelingo_activity_${userId}`;
+  try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch { return []; }
+}
+
+export function recordActivity(userId: string) {
+  const dates = getActivityDates(userId);
+  const today = new Date().toISOString().split('T')[0];
+  if (!dates.includes(today)) {
+    dates.push(today);
+    localStorage.setItem(`vibelingo_activity_${userId}`, JSON.stringify(dates));
+  }
+}
+
 export function loadProgress(userId: string): UserProgress {
   try {
     const raw = localStorage.getItem(STORAGE_PREFIX + userId);

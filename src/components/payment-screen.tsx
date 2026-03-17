@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Check, Zap, Crown, Rocket, X as XIcon } from "lucide-react";
+import { Check, Zap, Crown, Rocket, X as XIcon, Heart, ShieldCheck, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useI18n } from "@/lib/i18n";
 
@@ -9,7 +9,56 @@ export function PaymentScreen({ onClose }: { onClose: () => void }) {
   const { t } = useI18n();
   const [selectedPlan, setSelectedPlan] = useState("pro_monthly");
   const [loading, setLoading] = useState(false);
+  const [buyingItem, setBuyingItem] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  const SHOP_ITEMS = [
+    {
+      id: "hearts_5",
+      name: t("shop.hearts"),
+      price: "$0.99",
+      priceId: "price_hearts_5",
+      icon: <Heart className="w-6 h-6 text-red-400" />,
+    },
+    {
+      id: "freeze_3",
+      name: t("shop.freeze"),
+      price: "$1.99",
+      priceId: "price_freeze_3",
+      icon: <ShieldCheck className="w-6 h-6 text-blue-400" />,
+    },
+    {
+      id: "xp_boost",
+      name: t("shop.xpBoost"),
+      price: "$2.99",
+      priceId: "price_xp_boost",
+      icon: <Sparkles className="w-6 h-6 text-amber-400" />,
+    },
+  ];
+
+  const handleBuyItem = async (item: typeof SHOP_ITEMS[0]) => {
+    setBuyingItem(item.id);
+    setError(null);
+    try {
+      const response = await fetch("/api/create-payment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          priceId: item.priceId,
+          successUrl: `${window.location.origin}/?payment=success`,
+          cancelUrl: `${window.location.origin}/?payment=cancelled`,
+        }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Server error");
+      if (data.url) window.location.href = data.url;
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Unknown error";
+      setError(t("payment.error", { message }));
+    } finally {
+      setBuyingItem(null);
+    }
+  };
 
   const PLANS = [
     {
@@ -205,6 +254,33 @@ export function PaymentScreen({ onClose }: { onClose: () => void }) {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Shop — one-time purchases */}
+      <div className="px-5 pb-6">
+        <h3 className="text-[15px] font-bold text-foreground mb-3">{t("shop.title")}</h3>
+        <div className="flex gap-3 overflow-x-auto pb-2">
+          {SHOP_ITEMS.map((item) => (
+            <div
+              key={item.id}
+              className="min-w-[140px] p-4 rounded-2xl bg-card border-2 border-border flex flex-col items-center gap-2 shrink-0"
+            >
+              <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center">
+                {item.icon}
+              </div>
+              <span className="text-[13px] font-semibold text-foreground text-center leading-tight">{item.name}</span>
+              <span className="text-[15px] font-extrabold text-foreground">{item.price}</span>
+              <Button
+                onClick={() => handleBuyItem(item)}
+                disabled={buyingItem === item.id}
+                className="w-full h-9 rounded-xl bg-purple-500 hover:bg-purple-600 text-white text-[13px] font-bold border-none"
+                size="sm"
+              >
+                {buyingItem === item.id ? "..." : t("shop.buy")}
+              </Button>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* CTA */}

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Loader2, Swords, Trophy, XCircle, ArrowLeft, Send } from "lucide-react";
+import { Loader2, Swords, Trophy, XCircle, ArrowLeft, Send, Share2 } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { BATTLE_CHALLENGES } from "@/data/battle-challenges";
 import { OPPONENTS, type Opponent } from "@/data/opponents";
@@ -160,6 +160,23 @@ export function BattlePlayScreen({ onClose, onXPEarned }: BattlePlayScreenProps)
       if (earned > 0) onXPEarned(earned);
     }, 2000);
   }, [userText, challenge.xpReward, onXPEarned]);
+
+  const handleShareResult = () => {
+    const title = locale === "ru" ? challenge.titleRu : challenge.title;
+    const shareText = t("battle.shareText", { title });
+    const shareUrl = "https://t.me/vibelingo_learn_bot";
+
+    const tg = window.Telegram?.WebApp;
+    if (tg && typeof (tg as any).openTelegramLink === "function") {
+      const tgShareUrl = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`;
+      (tg as any).openTelegramLink(tgShareUrl);
+      return;
+    }
+    if (navigator.share) {
+      navigator.share({ title: "VibeLingo Battle", text: shareText, url: shareUrl }).catch(() => {});
+      return;
+    }
+  };
 
   const handlePlayAgain = () => {
     setStage("searching");
@@ -364,6 +381,14 @@ export function BattlePlayScreen({ onClose, onXPEarned }: BattlePlayScreenProps)
 
         {/* Buttons */}
         <div className="w-full flex flex-col gap-3">
+          <Button
+            onClick={handleShareResult}
+            variant="outline"
+            className="w-full h-12 rounded-2xl border-2 border-purple-200 text-purple-600 hover:bg-purple-50 text-[15px] font-semibold gap-2"
+          >
+            <Share2 className="w-4 h-4" />
+            {t("battle.shareResult")}
+          </Button>
           <Button
             onClick={handlePlayAgain}
             className="w-full h-12 rounded-2xl bg-gradient-to-r from-purple-500 to-purple-600 text-[15px] font-bold shadow-[0_8px_24px_rgba(147,51,234,0.25)] border-none"

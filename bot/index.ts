@@ -145,6 +145,24 @@ bot.command("referral", (ctx) => {
   );
 });
 
+// /quiz command — daily quiz in chat
+bot.command("quiz", (ctx) => {
+  const quizzes = [
+    { q: "What tool generates React apps from prompts?", options: ["Lovable", "Photoshop", "Excel", "Word"], correct: 0 },
+    { q: "What does Cursor AI understand?", options: ["Only current file", "Entire project context", "Nothing", "Only HTML"], correct: 1 },
+    { q: "What is vibecoding?", options: ["Coding with music", "Building apps with AI", "A dance style", "A video game"], correct: 1 },
+    { q: "Best font for avoiding AI slop?", options: ["Inter", "Comic Sans", "Unique character fonts", "Arial"], correct: 2 },
+    { q: "Where should you store API keys?", options: ["In HTML", "In .env file", "In README", "In CSS"], correct: 1 },
+  ];
+  const quiz = quizzes[Math.floor(Math.random() * quizzes.length)];
+
+  ctx.sendQuiz(quiz.q, quiz.options, {
+    correct_option_id: quiz.correct,
+    is_anonymous: false,
+    explanation: "Learn more in VibeLingo!",
+  });
+});
+
 // /help command
 bot.command("help", (ctx) => {
   ctx.reply(
@@ -154,6 +172,7 @@ bot.command("help", (ctx) => {
     "/battle - Start a prompt battle\n" +
     "/streak - Check your streak\n" +
     "/pro - Upgrade to PRO\n" +
+    "/quiz - Take a quick quiz\n" +
     "/referral - Your referral link & stats\n" +
     "/remind - Enable daily reminders\n" +
     "/stopremind - Disable daily reminders\n" +

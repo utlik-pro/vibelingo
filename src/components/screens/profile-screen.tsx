@@ -11,7 +11,9 @@ import { useI18n } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth";
 import { useTheme } from "@/lib/theme";
 import { generateReferralCode, getReferralLink, getReferralCount } from "@/lib/referral";
-import { canUseStreakFreeze } from "@/lib/storage";
+import { canUseStreakFreeze, getActivityDates } from "@/lib/storage";
+import { ActivityCalendar } from "@/components/activity-calendar";
+import { getLevelInfo } from "@/lib/levels";
 
 interface ProfileScreenProps {
   userXP: number;
@@ -36,6 +38,8 @@ export function ProfileScreen({
   const { user } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const [linkCopied, setLinkCopied] = useState(false);
+  const levelInfo = getLevelInfo(userXP);
+  const levelTitle = locale === "ru" ? levelInfo.titleRu : levelInfo.title;
   const referralCode = generateReferralCode(user.id);
   const referralLink = getReferralLink(referralCode);
   const referralCount = getReferralCount(user.id);
@@ -126,6 +130,21 @@ export function ProfileScreen({
             {currentLeague.name} {t("home.league")}
           </span>
         </div>
+        {/* Level display */}
+        <div className="mt-2 flex flex-col items-center gap-1">
+          <span className="text-[13px] font-bold text-foreground">
+            {t("level.title")} {levelInfo.level} — {levelTitle}
+          </span>
+          <div className="w-32 h-1.5 rounded-full bg-muted overflow-hidden">
+            <div
+              className="h-full rounded-full bg-purple-500 transition-all duration-500"
+              style={{ width: `${levelInfo.progress * 100}%` }}
+            />
+          </div>
+          <span className="text-[10px] text-muted-foreground">
+            {t("level.xpToNext", { xp: levelInfo.xpForNext - userXP, level: levelInfo.level + 1 })}
+          </span>
+        </div>
       </div>
 
       {/* PRO button — hide if already PRO */}
@@ -163,6 +182,9 @@ export function ProfileScreen({
           </div>
         ))}
       </div>
+
+      {/* Activity Calendar */}
+      <ActivityCalendar completedDates={getActivityDates(user.id)} />
 
       {/* Streak Freeze — PRO only */}
       {user.isPro && (

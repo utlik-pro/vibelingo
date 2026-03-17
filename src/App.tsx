@@ -22,7 +22,7 @@ import { hapticNotification } from "@/lib/haptics";
 import { HomeScreenSkeleton } from "@/components/skeleton";
 import { DailyReward } from "@/components/daily-reward";
 import { AchievementPopup } from "@/components/achievement-popup";
-import { getLastRewardDate, setLastRewardDate, getRewardStreak, setRewardStreak } from "@/lib/storage";
+import { getLastRewardDate, setLastRewardDate, getRewardStreak, setRewardStreak, recordActivity } from "@/lib/storage";
 import { BADGES } from "@/data/lessons";
 
 // Lazy-loaded screens
@@ -236,6 +236,7 @@ export default function App() {
     } else {
       const xpEarned = currentLesson.xp;
       setUserXP((x) => x + xpEarned);
+      recordActivity(user.id);
       setShowXPDelta(true);
       setTimeout(() => setShowXPDelta(false), 2000);
       if (!completedLessons.includes(currentLesson.id)) {
@@ -379,6 +380,7 @@ export default function App() {
             onClose={() => setBattleActive(false)}
             onXPEarned={(xp) => {
               setUserXP((x) => x + xp);
+              recordActivity(user.id);
               setShowXPDelta(true);
               setTimeout(() => setShowXPDelta(false), 2000);
             }}
@@ -437,6 +439,7 @@ export default function App() {
             <PracticeScreen
               onXPEarned={(xp) => {
                 setUserXP((x) => x + xp);
+                recordActivity(user.id);
                 setShowXPDelta(true);
                 setTimeout(() => setShowXPDelta(false), 2000);
               }}

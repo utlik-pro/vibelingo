@@ -50,14 +50,52 @@ async function createProducts() {
   });
   console.log(`Yearly price: ${yearlyPrice.id} — $39.99 USD/year`);
 
+  // 4. Create one-time purchase products
+  const shopProduct = await stripe.products.create({
+    name: "VibeLingo Shop Items",
+    description: "One-time in-app purchases for VibeLingo",
+    metadata: { app: "vibelingo", type: "shop" },
+  });
+  console.log(`\nShop product created: ${shopProduct.id}`);
+
+  const heartsPrice = await stripe.prices.create({
+    product: shopProduct.id,
+    unit_amount: 99, // $0.99
+    currency: "usd",
+    metadata: { item: "extra_hearts_5" },
+  });
+  console.log(`Extra Hearts x5 price: ${heartsPrice.id} — $0.99`);
+
+  const freezePrice = await stripe.prices.create({
+    product: shopProduct.id,
+    unit_amount: 199, // $1.99
+    currency: "usd",
+    metadata: { item: "streak_freeze_3" },
+  });
+  console.log(`Streak Freeze x3 price: ${freezePrice.id} — $1.99`);
+
+  const xpBoostPrice = await stripe.prices.create({
+    product: shopProduct.id,
+    unit_amount: 299, // $2.99
+    currency: "usd",
+    metadata: { item: "xp_boost_2x_24h" },
+  });
+  console.log(`XP Boost 2x 24h price: ${xpBoostPrice.id} — $2.99`);
+
   console.log("\n========================================");
   console.log("Add these to your .env file:\n");
   console.log(`STRIPE_PRICE_PRO_MONTHLY=${monthlyPrice.id}`);
   console.log(`STRIPE_PRICE_PRO_YEARLY=${yearlyPrice.id}`);
+  console.log(`STRIPE_PRICE_HEARTS_5=${heartsPrice.id}`);
+  console.log(`STRIPE_PRICE_FREEZE_3=${freezePrice.id}`);
+  console.log(`STRIPE_PRICE_XP_BOOST=${xpBoostPrice.id}`);
   console.log("\n========================================");
   console.log("\nNow update src/components/payment-screen.tsx:");
   console.log(`  priceId: "${monthlyPrice.id}"  // PRO monthly`);
   console.log(`  priceId: "${yearlyPrice.id}"  // PRO yearly`);
+  console.log(`  priceId: "${heartsPrice.id}"  // Extra Hearts x5`);
+  console.log(`  priceId: "${freezePrice.id}"  // Streak Freeze x3`);
+  console.log(`  priceId: "${xpBoostPrice.id}"  // XP Boost 2x 24h`);
   console.log("\nDone!");
 }
 
