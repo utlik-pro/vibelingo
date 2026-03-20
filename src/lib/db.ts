@@ -58,10 +58,18 @@ export async function loadUserProgress(userId: string): Promise<UserProgress> {
         .single()
 
       if (!error && data) {
+        // Reset hearts to 5 each new day
+        const today = new Date().toDateString();
+        const lastOpen = localStorage.getItem(`vibelingo_last_open_${userId}`);
+        let hearts = data.hearts ?? 5;
+        if (lastOpen !== today) {
+          hearts = 5;
+          localStorage.setItem(`vibelingo_last_open_${userId}`, today);
+        }
         return {
           xp: data.xp ?? 0,
           streak: data.streak ?? 0,
-          hearts: data.hearts ?? 5,
+          hearts,
           completedLessons: data.completed_lessons ?? [],
           earnedBadges: data.earned_badges ?? [],
           dailyGoal: {
