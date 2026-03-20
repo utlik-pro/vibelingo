@@ -62,6 +62,42 @@ export function recordActivity(userId: string) {
   }
 }
 
+export function calculateStreak(userId: string): number {
+  const dates = getActivityDates(userId);
+  if (dates.length === 0) return 0;
+
+  // Sort dates descending
+  const sorted = [...dates].sort().reverse();
+
+  const d = new Date();
+  const todayStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  const yesterday = new Date(d);
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayStr = `${yesterday.getFullYear()}-${String(yesterday.getMonth() + 1).padStart(2, '0')}-${String(yesterday.getDate()).padStart(2, '0')}`;
+
+  // Streak must include today or yesterday
+  if (sorted[0] !== todayStr && sorted[0] !== yesterdayStr) return 0;
+
+  let streak = 0;
+  let checkDate = new Date(d);
+  // If most recent is yesterday, start from yesterday
+  if (sorted[0] !== todayStr) {
+    checkDate.setDate(checkDate.getDate() - 1);
+  }
+
+  const dateSet = new Set(sorted);
+  for (let i = 0; i < 365; i++) {
+    const check = `${checkDate.getFullYear()}-${String(checkDate.getMonth() + 1).padStart(2, '0')}-${String(checkDate.getDate()).padStart(2, '0')}`;
+    if (dateSet.has(check)) {
+      streak++;
+      checkDate.setDate(checkDate.getDate() - 1);
+    } else {
+      break;
+    }
+  }
+  return streak;
+}
+
 export function loadProgress(userId: string): UserProgress {
   try {
     const raw = localStorage.getItem(STORAGE_PREFIX + userId);

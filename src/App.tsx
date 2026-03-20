@@ -22,7 +22,7 @@ import { hapticNotification } from "@/lib/haptics";
 import { HomeScreenSkeleton } from "@/components/skeleton";
 import { DailyReward } from "@/components/daily-reward";
 import { AchievementPopup } from "@/components/achievement-popup";
-import { getLastRewardDate, setLastRewardDate, getRewardStreak, setRewardStreak, recordActivity } from "@/lib/storage";
+import { getLastRewardDate, setLastRewardDate, getRewardStreak, setRewardStreak, recordActivity, calculateStreak } from "@/lib/storage";
 import { BADGES } from "@/data/lessons";
 
 // Lazy-loaded screens
@@ -115,7 +115,7 @@ export default function App() {
     loadUserProgress(user.id).then((progress) => {
       if (cancelled) return;
       setUserXP(progress.xp);
-      setStreak(progress.streak);
+      setStreak(calculateStreak(user.id));
       setHearts(progress.hearts);
       setCompletedLessons(progress.completedLessons);
       setEarnedBadges(progress.earnedBadges);
@@ -238,6 +238,7 @@ export default function App() {
       const xpEarned = currentLesson.xp;
       setUserXP((x) => x + xpEarned);
       recordActivity(user.id);
+      setStreak(calculateStreak(user.id));
       setShowXPDelta(true);
       setTimeout(() => setShowXPDelta(false), 2000);
       if (!completedLessons.includes(currentLesson.id)) {
@@ -382,6 +383,7 @@ export default function App() {
             onXPEarned={(xp) => {
               setUserXP((x) => x + xp);
               recordActivity(user.id);
+              setStreak(calculateStreak(user.id));
               setShowXPDelta(true);
               setTimeout(() => setShowXPDelta(false), 2000);
             }}
@@ -441,6 +443,7 @@ export default function App() {
               onXPEarned={(xp) => {
                 setUserXP((x) => x + xp);
                 recordActivity(user.id);
+                setStreak(calculateStreak(user.id));
                 setShowXPDelta(true);
                 setTimeout(() => setShowXPDelta(false), 2000);
               }}
