@@ -54,7 +54,8 @@ export function getActivityDates(userId: string): string[] {
 
 export function recordActivity(userId: string) {
   const dates = getActivityDates(userId);
-  const today = new Date().toISOString().split('T')[0];
+  const d = new Date();
+  const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
   if (!dates.includes(today)) {
     dates.push(today);
     localStorage.setItem(`vibelingo_activity_${userId}`, JSON.stringify(dates));

@@ -1,5 +1,9 @@
 import { useI18n } from "@/lib/i18n";
 
+function toLocalDate(d: Date): string {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
 interface ActivityCalendarProps {
   completedDates: string[];
 }
@@ -7,6 +11,7 @@ interface ActivityCalendarProps {
 export function ActivityCalendar({ completedDates }: ActivityCalendarProps) {
   const { t } = useI18n();
   const today = new Date();
+  const todayStr = toLocalDate(today);
   const WEEKS = 20;
 
   // Build cells: columns = weeks, rows = days (Mon–Sun)
@@ -25,7 +30,7 @@ export function ActivityCalendar({ completedDates }: ActivityCalendarProps) {
     for (let d = 0; d < 7; d++) {
       const day = new Date(startDate);
       day.setDate(day.getDate() + w * 7 + d);
-      const dateStr = day.toISOString().split("T")[0];
+      const dateStr = toLocalDate(day);
       const count = dateSet.has(dateStr) ? completedDates.filter((cd) => cd === dateStr).length || 1 : 0;
       week.push({ date: dateStr, count });
     }
@@ -37,10 +42,11 @@ export function ActivityCalendar({ completedDates }: ActivityCalendarProps) {
   const monthLabels: { label: string; col: number }[] = [];
   let lastMonth = -1;
   for (let w = 0; w < WEEKS; w++) {
-    const m = new Date(cells[w][0].date).getMonth();
-    if (m !== lastMonth) {
-      monthLabels.push({ label: monthNames[m], col: w });
-      lastMonth = m;
+    const [, m] = cells[w][0].date.split("-");
+    const month = parseInt(m) - 1;
+    if (month !== lastMonth) {
+      monthLabels.push({ label: monthNames[month], col: w });
+      lastMonth = month;
     }
   }
 
@@ -49,12 +55,12 @@ export function ActivityCalendar({ completedDates }: ActivityCalendarProps) {
   const getColor = (count: number, isFuture: boolean): string => {
     if (isFuture) return "bg-transparent";
     if (count === 0) return "bg-muted";
-    if (count === 1) return "bg-purple-200 dark:bg-purple-900";
-    if (count === 2) return "bg-purple-400";
-    return "bg-purple-600";
+    if (count === 1) return "bg-purple-400";
+    if (count === 2) return "bg-purple-500";
+    return "bg-purple-700";
   };
 
-  const totalDays = completedDates.length;
+  const uniqueDays = new Set(completedDates).size;
 
   return (
     <div className="mb-6 p-4 rounded-2xl bg-card border border-border shadow-[0_2px_12px_rgba(147,51,234,0.06)] animate-[slideIn_0.4s_ease_0.18s_both]">
@@ -63,7 +69,7 @@ export function ActivityCalendar({ completedDates }: ActivityCalendarProps) {
           {t("profile.activity")}
         </div>
         <div className="text-[12px] font-semibold text-purple-500">
-          {totalDays} {totalDays === 1 ? "day" : "days"}
+          {uniqueDays} {uniqueDays === 1 ? "day" : "days"}
         </div>
       </div>
 
@@ -105,7 +111,7 @@ export function ActivityCalendar({ completedDates }: ActivityCalendarProps) {
             <div key={row} className="flex" style={{ gap: 3, marginBottom: row < 6 ? 3 : 0 }}>
               {cells.map((week, col) => {
                 const cell = week[row];
-                const isFuture = new Date(cell.date) > today;
+                const isFuture = cell.date > todayStr;
                 return (
                   <div
                     key={col}
@@ -123,7 +129,7 @@ export function ActivityCalendar({ completedDates }: ActivityCalendarProps) {
       {/* Legend */}
       <div className="flex items-center justify-end gap-1.5 mt-3">
         <span className="text-[9px] text-muted-foreground">Less</span>
-        {["bg-muted", "bg-purple-200", "bg-purple-400", "bg-purple-600"].map((c, i) => (
+        {["bg-muted", "bg-purple-400", "bg-purple-500", "bg-purple-700"].map((c, i) => (
           <div key={i} className={`w-[10px] h-[10px] rounded-[2px] ${c}`} />
         ))}
         <span className="text-[9px] text-muted-foreground">More</span>
