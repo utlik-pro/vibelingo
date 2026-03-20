@@ -14,16 +14,27 @@ export function ActivityCalendar({ completedDates }: ActivityCalendarProps) {
   const todayStr = toLocalDate(today);
   const WEEKS = 20;
 
+  // Find the Monday of the current week
+  const todayDow = today.getDay();
+  const currentMonday = new Date(today);
+  currentMonday.setDate(today.getDate() - (todayDow === 0 ? 6 : todayDow - 1));
+
+  // Start from WEEKS-1 weeks before the current week's Monday
+  const startDate = new Date(currentMonday);
+  startDate.setDate(startDate.getDate() - (WEEKS - 1) * 7);
+
+  // Normalize stored dates: handle both UTC ISO and local formats
+  const normalizedDates = completedDates.map((d) => {
+    const parts = d.split("-");
+    if (parts.length === 3) return d;
+    // Fallback: try parsing
+    const parsed = new Date(d);
+    return isNaN(parsed.getTime()) ? d : toLocalDate(parsed);
+  });
+  const dateSet = new Set(normalizedDates);
+
   // Build cells: columns = weeks, rows = days (Mon–Sun)
   const cells: { date: string; count: number }[][] = [];
-  const dateSet = new Set(completedDates);
-
-  // Find start: go back WEEKS*7 days, align to Monday
-  const startDate = new Date(today);
-  startDate.setDate(startDate.getDate() - WEEKS * 7 + 1);
-  const dow = startDate.getDay();
-  const offset = dow === 0 ? -6 : 1 - dow;
-  startDate.setDate(startDate.getDate() + offset);
 
   for (let w = 0; w < WEEKS; w++) {
     const week: { date: string; count: number }[] = [];
@@ -31,7 +42,7 @@ export function ActivityCalendar({ completedDates }: ActivityCalendarProps) {
       const day = new Date(startDate);
       day.setDate(day.getDate() + w * 7 + d);
       const dateStr = toLocalDate(day);
-      const count = dateSet.has(dateStr) ? completedDates.filter((cd) => cd === dateStr).length || 1 : 0;
+      const count = dateSet.has(dateStr) ? normalizedDates.filter((cd) => cd === dateStr).length || 1 : 0;
       week.push({ date: dateStr, count });
     }
     cells.push(week);
@@ -60,7 +71,7 @@ export function ActivityCalendar({ completedDates }: ActivityCalendarProps) {
     return "bg-purple-700";
   };
 
-  const uniqueDays = new Set(completedDates).size;
+  const uniqueDays = dateSet.size;
 
   return (
     <div className="mb-6 p-4 rounded-2xl bg-card border border-border shadow-[0_2px_12px_rgba(147,51,234,0.06)] animate-[slideIn_0.4s_ease_0.18s_both]">
