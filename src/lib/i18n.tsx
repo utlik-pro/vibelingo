@@ -217,6 +217,8 @@ const translations: Record<string, Record<string, string>> = {
     // Practice
     "practice.title": "Practice",
     "practice.subtitle": "Write prompts for real challenges",
+    "practice.dailyChallenge": "Challenge of the Day",
+    "practice.bonus": "bonus",
     "practice.writePrompt": "Your Prompt",
     "practice.submit": "Submit",
     "practice.showExample": "Show Example",
@@ -611,6 +613,8 @@ const translations: Record<string, Record<string, string>> = {
     // Practice
     "practice.title": "Практика",
     "practice.subtitle": "Пиши промпты для реальных задач",
+    "practice.dailyChallenge": "Челлендж дня",
+    "practice.bonus": "бонус",
     "practice.writePrompt": "Твой промпт",
     "practice.submit": "Отправить",
     "practice.showExample": "Показать пример",

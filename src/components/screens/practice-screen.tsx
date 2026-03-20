@@ -1,9 +1,15 @@
 import { useState } from "react";
-import { ChevronDown, ChevronUp, Eye, Send, CheckCircle, Lightbulb } from "lucide-react";
+import { ChevronDown, ChevronUp, Eye, Send, CheckCircle, Lightbulb, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/lib/i18n";
 import { PRACTICE_CHALLENGES, type PracticeChallenge } from "@/data/practice-challenges";
 import { TOOLS } from "@/data/lessons";
+
+function getDailyChallenge(): PracticeChallenge {
+  const today = new Date();
+  const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / 86400000);
+  return PRACTICE_CHALLENGES[dayOfYear % PRACTICE_CHALLENGES.length];
+}
 
 interface PracticeScreenProps {
   onXPEarned: (xp: number) => void;
@@ -207,6 +213,32 @@ export function PracticeScreen({ onXPEarned }: PracticeScreenProps) {
         <h1 className="text-[22px] font-extrabold text-foreground mb-1">{t("practice.title")}</h1>
         <p className="text-[13px] text-muted-foreground">{t("practice.subtitle")}</p>
       </div>
+
+      {/* Daily Challenge */}
+      {(() => {
+        const daily = getDailyChallenge();
+        const dailyTitle = locale === "ru" ? daily.titleRu : daily.title;
+        const isDailyCompleted = completedIds.includes(daily.id);
+        return (
+          <button
+            onClick={() => setSelectedChallenge(daily)}
+            className="w-full mb-4 p-4 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 text-left transition-all cursor-pointer animate-[slideIn_0.4s_ease] hover:shadow-[0_8px_24px_rgba(147,51,234,0.3)]"
+          >
+            <div className="flex items-center gap-2 mb-2">
+              <Calendar className="w-4 h-4 text-white/80" />
+              <span className="text-[11px] font-bold text-white/80 uppercase tracking-wider">
+                {t("practice.dailyChallenge")}
+              </span>
+              {isDailyCompleted && <CheckCircle className="w-4 h-4 text-green-300" />}
+            </div>
+            <h3 className="text-[15px] font-bold text-white mb-1">{dailyTitle}</h3>
+            <div className="flex items-center gap-3">
+              <span className="text-[12px] text-white/70 font-semibold">+{daily.xpReward * 2} XP</span>
+              <span className="px-2 py-0.5 rounded-full bg-white/20 text-white text-[10px] font-bold">2x {t("practice.bonus")}</span>
+            </div>
+          </button>
+        );
+      })()}
 
       {/* Challenge cards */}
       <div className="space-y-3">
