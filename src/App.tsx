@@ -65,7 +65,7 @@ export default function App() {
   const [showXPDelta, setShowXPDelta] = useState(false);
   const [earnedBadges, setEarnedBadges] = useState<string[]>([]);
   const [dailyGoal, setDailyGoal] = useState({ target: 3, done: 0 });
-  const [showOnboarding, setShowOnboarding] = useState(true);
+  const [showOnboarding, setShowOnboarding] = useState(() => !localStorage.getItem('vibelingo_onboarded'));
   const [battleActive, setBattleActive] = useState(false);
   const [showCertificates, setShowCertificates] = useState(false);
   const [showDailyReward, setShowDailyReward] = useState(false);
@@ -313,7 +313,7 @@ export default function App() {
     return (
       <>
         {fontLink}
-        <OnboardingScreen onStart={() => setShowOnboarding(false)} />
+        <OnboardingScreen onStart={() => { localStorage.setItem('vibelingo_onboarded', '1'); setShowOnboarding(false); }} />
       </>
     );
   }

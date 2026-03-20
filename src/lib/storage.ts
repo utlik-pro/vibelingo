@@ -104,11 +104,12 @@ export function loadProgress(userId: string): UserProgress {
     if (raw) {
       const parsed = JSON.parse(raw) as Partial<UserProgress>;
       const progress = { ...DEFAULT_PROGRESS, ...parsed };
-      // Reset hearts to 5 each new day
+      // Reset hearts and daily goal each new day
       const today = new Date().toDateString();
       const lastOpen = localStorage.getItem(`vibelingo_last_open_${userId}`);
       if (lastOpen !== today) {
         progress.hearts = 5;
+        progress.dailyGoal = { ...progress.dailyGoal, done: 0 };
         localStorage.setItem(`vibelingo_last_open_${userId}`, today);
       }
       return progress;
