@@ -204,7 +204,7 @@ export function BattlePlayScreen({ onClose, onXPEarned }: BattlePlayScreenProps)
     return (
       <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6 tg-safe-top">
         <div className="flex flex-col items-center gap-6">
-          <div className="w-20 h-20 rounded-full bg-purple-50 flex items-center justify-center animate-pulse">
+          <div className="w-20 h-20 rounded-full bg-purple-50 dark:bg-purple-900/30 flex items-center justify-center animate-pulse">
             <Swords className="w-10 h-10 text-purple-500" />
           </div>
           <div className="flex items-center gap-2">
@@ -232,7 +232,7 @@ export function BattlePlayScreen({ onClose, onXPEarned }: BattlePlayScreenProps)
         <div className="flex items-center gap-6 mb-10">
           {/* You */}
           <div className="flex flex-col items-center gap-2">
-            <div className="w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center text-xl font-bold text-purple-600">
+            <div className="w-16 h-16 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-xl font-bold text-purple-600">
               {t("battle.you").charAt(0).toUpperCase()}
             </div>
             <span className="text-sm font-semibold text-foreground">{t("battle.you")}</span>
@@ -274,7 +274,7 @@ export function BattlePlayScreen({ onClose, onXPEarned }: BattlePlayScreenProps)
         </div>
 
         {/* Challenge info */}
-        <div className="rounded-2xl bg-purple-50 p-4 mb-4">
+        <div className="rounded-2xl bg-purple-50 dark:bg-purple-900/30 p-4 mb-4">
           <h3 className="text-[15px] font-bold text-foreground mb-1">{challengeTitle}</h3>
           <p className="text-xs text-muted-foreground leading-relaxed">{challengeDescription}</p>
         </div>
@@ -341,7 +341,7 @@ export function BattlePlayScreen({ onClose, onXPEarned }: BattlePlayScreenProps)
       <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6 tg-safe-top">
         <div className="flex flex-col items-center gap-4 mb-8">
           <div
-            className={`w-20 h-20 rounded-full flex items-center justify-center ${isWin ? "bg-green-50" : "bg-red-50"}`}
+            className={`w-20 h-20 rounded-full flex items-center justify-center ${isWin ? "bg-green-50 dark:bg-green-900/30" : "bg-red-50 dark:bg-red-900/30"}`}
           >
             {isWin ? (
               <Trophy className="w-10 h-10 text-green-500" />
@@ -355,7 +355,7 @@ export function BattlePlayScreen({ onClose, onXPEarned }: BattlePlayScreenProps)
         </div>
 
         {/* XP earned */}
-        <div className="rounded-2xl bg-purple-50 px-8 py-5 text-center mb-6">
+        <div className="rounded-2xl bg-purple-50 dark:bg-purple-900/30 px-8 py-5 text-center mb-6">
           <span className="text-sm text-muted-foreground">{t("battle.xpEarned")}</span>
           <div className="text-3xl font-extrabold text-purple-600 mt-1">+{xpEarned} XP</div>
         </div>

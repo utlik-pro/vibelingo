@@ -29,9 +29,9 @@ export function FillStep({
               onClick={() => !answered && onAnswer(i)}
               className={cn(
                 "px-5 py-3 rounded-full border-2 text-sm font-semibold transition-all duration-200",
-                !answered && "bg-card border-purple-200 text-purple-600 hover:bg-purple-50 hover:border-purple-300 cursor-pointer",
-                answered && isCorrect && "bg-green-50 border-green-400 text-green-700",
-                answered && isSelected && !isCorrect && "bg-red-50 border-red-400 text-red-600",
+                !answered && "bg-card border-purple-200 text-purple-600 hover:bg-purple-50 dark:hover:bg-purple-900/30 hover:border-purple-300 cursor-pointer",
+                answered && isCorrect && "bg-green-50 dark:bg-green-900/30 border-green-400 text-green-700",
+                answered && isSelected && !isCorrect && "bg-red-50 dark:bg-red-900/30 border-red-400 text-red-600",
                 answered && !isCorrect && !isSelected && "bg-card border-border text-muted-foreground",
                 answered && "cursor-default"
               )}

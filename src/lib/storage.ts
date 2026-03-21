@@ -85,10 +85,18 @@ export function calculateStreak(userId: string): number {
     checkDate.setDate(checkDate.getDate() - 1);
   }
 
+  // Check streak freeze: get dates where freeze was used
+  const freezeUsed = getStreakFreezeUsed(userId);
+  const freezeDate = freezeUsed ? new Date(freezeUsed).toISOString().split('T')[0] : null;
+
   const dateSet = new Set(sorted);
   for (let i = 0; i < 365; i++) {
     const check = `${checkDate.getFullYear()}-${String(checkDate.getMonth() + 1).padStart(2, '0')}-${String(checkDate.getDate()).padStart(2, '0')}`;
     if (dateSet.has(check)) {
+      streak++;
+      checkDate.setDate(checkDate.getDate() - 1);
+    } else if (freezeDate === check) {
+      // Streak freeze covers this day — count it but don't break
       streak++;
       checkDate.setDate(checkDate.getDate() - 1);
     } else {

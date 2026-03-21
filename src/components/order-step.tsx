@@ -46,8 +46,8 @@ export function OrderStep({
               className={cn(
                 "flex items-center gap-3 px-4 py-3.5 rounded-2xl border-2 transition-all duration-200",
                 !answered && "bg-card border-border shadow-[0_2px_8px_rgba(0,0,0,0.04)]",
-                answered && isCorrectPos && "bg-green-50 border-green-300",
-                answered && !isCorrectPos && "bg-red-50 border-red-300"
+                answered && isCorrectPos && "bg-green-50 dark:bg-green-900/30 border-green-300",
+                answered && !isCorrectPos && "bg-red-50 dark:bg-red-900/30 border-red-300"
               )}
             >
               <span className="font-bold text-muted-foreground text-[13px] w-5">
@@ -63,7 +63,7 @@ export function OrderStep({
                     className={cn(
                       "p-1 rounded-lg bg-transparent border-none",
                       pos > 0
-                        ? "text-purple-500 hover:bg-purple-50 cursor-pointer"
+                        ? "text-purple-500 hover:bg-purple-50 dark:hover:bg-purple-900/30 cursor-pointer"
                         : "text-muted-foreground cursor-default"
                     )}
                   >
@@ -74,7 +74,7 @@ export function OrderStep({
                     className={cn(
                       "p-1 rounded-lg bg-transparent border-none",
                       pos < order.length - 1
-                        ? "text-purple-500 hover:bg-purple-50 cursor-pointer"
+                        ? "text-purple-500 hover:bg-purple-50 dark:hover:bg-purple-900/30 cursor-pointer"
                         : "text-muted-foreground cursor-default"
                     )}
                   >

@@ -49,7 +49,7 @@ export function BattleScreen({ onStartBattle }: BattleScreenProps) {
 
       {/* Battle card */}
       <div className="rounded-2xl overflow-hidden bg-card border border-border shadow-[0_4px_20px_rgba(0,0,0,0.06)] mb-4 animate-[slideIn_0.4s_ease]">
-        <div className="px-6 py-8 bg-gradient-to-br from-purple-50 to-purple-100 text-center">
+        <div className="px-6 py-8 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/30 dark:to-purple-900/20 text-center">
           <div className="mb-3 flex justify-center">
             <div className="w-16 h-16 rounded-full bg-white shadow-[0_4px_16px_rgba(147,51,234,0.15)] flex items-center justify-center">
               <Swords className="w-8 h-8 text-purple-500" />
@@ -79,7 +79,7 @@ export function BattleScreen({ onStartBattle }: BattleScreenProps) {
         onClick={handleCopyLink}
         className="flex items-center gap-3 p-4 rounded-2xl bg-card border border-border shadow-[0_2px_8px_rgba(0,0,0,0.04)] mb-4 cursor-pointer hover:border-purple-200 transition-colors animate-[slideIn_0.4s_ease_0.1s_both]"
       >
-        <div className="w-11 h-11 rounded-xl bg-purple-50 flex items-center justify-center">
+        <div className="w-11 h-11 rounded-xl bg-purple-50 dark:bg-purple-900/30 flex items-center justify-center">
           <Target className="w-5 h-5 text-purple-500" />
         </div>
         <div className="flex-1">
@@ -98,11 +98,11 @@ export function BattleScreen({ onStartBattle }: BattleScreenProps) {
       {/* Weekly challenge */}
       <div
         onClick={onStartBattle}
-        className="p-5 rounded-2xl bg-card border-2 border-amber-100 shadow-[0_2px_12px_rgba(245,158,11,0.08)] animate-[slideIn_0.4s_ease_0.2s_both] cursor-pointer hover:border-amber-200 transition-colors"
+        className="p-5 rounded-2xl bg-card border-2 border-amber-100 dark:border-amber-800 shadow-[0_2px_12px_rgba(245,158,11,0.08)] animate-[slideIn_0.4s_ease_0.2s_both] cursor-pointer hover:border-amber-200 transition-colors"
       >
         <div className="flex items-center gap-2 mb-2.5">
           <Trophy className="w-4 h-4 text-amber-500" />
-          <Badge variant="secondary" className="text-[10px] font-bold text-amber-600 bg-amber-50 uppercase tracking-wider border border-amber-200">
+          <Badge variant="secondary" className="text-[10px] font-bold text-amber-600 bg-amber-50 dark:bg-amber-900/30 uppercase tracking-wider border border-amber-200 dark:border-amber-700">
             {t("battle.weeklyChallenge")}
           </Badge>
         </div>

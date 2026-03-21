@@ -62,7 +62,7 @@ export function LessonScreen({
           />
         </div>
         {/* Hearts */}
-        <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-red-50">
+        <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-red-50 dark:bg-red-900/30">
           <Heart className="w-4 h-4 text-red-500 fill-red-500" />
           <span className={`text-sm font-bold ${hearts <= 1 ? "text-red-500" : "text-foreground"}`}>
             {hearts}

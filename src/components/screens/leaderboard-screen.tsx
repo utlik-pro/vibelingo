@@ -138,12 +138,12 @@ export function LeaderboardScreen({ userXP, streak }: LeaderboardScreenProps) {
       )}
 
       {/* Promotion zones */}
-      <div className="mt-5 p-4 rounded-2xl bg-green-50 border border-green-100">
+      <div className="mt-5 p-4 rounded-2xl bg-green-50 dark:bg-green-900/30 border border-green-100 dark:border-green-800">
         <div className="text-xs text-green-600 font-semibold flex items-center gap-1.5">
           <ArrowUp className="w-3.5 h-3.5" /> {t("leaderboard.promotionZone")}
         </div>
       </div>
-      <div className="mt-2 p-4 rounded-2xl bg-red-50 border border-red-100">
+      <div className="mt-2 p-4 rounded-2xl bg-red-50 dark:bg-red-900/30 border border-red-100 dark:border-red-800">
         <div className="text-xs text-red-500 font-semibold flex items-center gap-1.5">
           <ArrowDown className="w-3.5 h-3.5" /> {t("leaderboard.demotionZone")}
         </div>

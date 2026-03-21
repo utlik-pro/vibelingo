@@ -27,7 +27,7 @@ export function LearnScreen({ hearts, completedLessons, onStartLesson }: LearnSc
       <div className="sticky top-0 z-10 bg-background pb-3">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-[22px] font-extrabold text-foreground">{t("learn.title")}</h2>
-        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-50">
+        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-50 dark:bg-red-900/30">
           <Heart className="w-4 h-4 text-red-500 fill-red-500" />
           <span className={`text-sm font-bold ${hearts <= 1 ? "text-red-500" : "text-foreground"}`}>
             {hearts}/5

@@ -30,8 +30,8 @@ export function QuizStep({
               className={cn(
                 "flex items-center gap-3 px-4 py-4 rounded-2xl border-2 text-sm font-medium text-left transition-all duration-200",
                 !answered && "bg-card border-border text-foreground hover:border-purple-200 hover:shadow-[0_2px_12px_rgba(147,51,234,0.08)] cursor-pointer",
-                answered && isCorrect && "bg-green-50 border-green-300 text-green-700",
-                answered && isSelected && !isCorrect && "bg-red-50 border-red-300 text-red-700",
+                answered && isCorrect && "bg-green-50 dark:bg-green-900/30 border-green-300 text-green-700",
+                answered && isSelected && !isCorrect && "bg-red-50 dark:bg-red-900/30 border-red-300 text-red-700",
                 answered && !isCorrect && !isSelected && "bg-card border-border text-muted-foreground",
                 answered && "cursor-default"
               )}
@@ -39,7 +39,7 @@ export function QuizStep({
               <span
                 className={cn(
                   "w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0",
-                  !answered && "bg-purple-100 text-purple-600",
+                  !answered && "bg-purple-100 dark:bg-purple-900/30 text-purple-600",
                   answered && isCorrect && "bg-green-500 text-white",
                   answered && isSelected && !isCorrect && "bg-red-500 text-white",
                   answered && !isCorrect && !isSelected && "bg-muted text-muted-foreground"
@@ -59,7 +59,7 @@ export function QuizStep({
         })}
       </div>
       {answered && step.explanation && (
-        <div className="mt-4 p-4 rounded-2xl bg-purple-50 border border-purple-100 text-[13px] text-purple-700 leading-relaxed flex gap-2.5 items-start">
+        <div className="mt-4 p-4 rounded-2xl bg-purple-50 dark:bg-purple-900/30 border border-purple-100 dark:border-purple-800 text-[13px] text-purple-700 leading-relaxed flex gap-2.5 items-start">
           <Lightbulb className="w-4 h-4 shrink-0 mt-0.5 text-purple-500" />
           <span>{step.explanation}</span>
         </div>
